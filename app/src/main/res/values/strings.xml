@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VirtualDisplay</string>
+    <string name="carbon7_email">carbon7team@gmail.com</string>
+    <string name="measurements">Measurements</string>
+    <string name="status">Status</string>
+    <string name="alarms">Alarms</string>
 </resources>
