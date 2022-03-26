@@ -50,6 +50,25 @@ class ModbusConnection (ip:String, port:Int, onConnection:(ModbusConnection)->Un
         }
     }
 
+    private fun hexString2ByteArray(hex:String):ByteArray{
+        return hex.chunked(2).map{it.toInt(16).toByte()}.toByteArray()
+    }
+
+    fun sendData(req: String):ByteArray{
+        //Converts hex string in bytes
+        var msg:ByteArray = hexString2ByteArray(req)
+
+        //Send the modbus request
+        soc.outputStream.write(msg)
+
+        //Put the modbus answer in out
+        var out=ByteArray(req.length*2+5) //3B header + 2B crc
+        soc.getInputStream().read(out)
+
+        //Return only the bytes of the payload
+        return out.copyOfRange(3,out.size-2)
+    }
+
     /**
      * Request data every N seconds and execute the lambda
      *
@@ -61,7 +80,7 @@ class ModbusConnection (ip:String, port:Int, onConnection:(ModbusConnection)->Un
      * Close the connection with the modbus
      *
      */
-    public fun close(){
+    fun close(){
         soc.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
     }
 

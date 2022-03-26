@@ -6,29 +6,26 @@ import java.net.Socket
 import java.net.SocketTimeoutException
 import kotlin.concurrent.thread
 
-class ProxyUps(addr: String, p: Int, obs: MutableList<Observer> = mutableListOf()): Ups() {
-    private var soc = Socket()
-    private val ip = addr
-    private val port = p
-    private lateinit var packet: String
-    override fun requestInfo() {
-        thread {
-            try {
-                soc.connect(InetSocketAddress(ip,port),5000)
-                TODO()
-                notify("Packet updated")
-            }catch (e: SocketTimeoutException){
-                TODO()
-            }
-        }
+class ProxyUps(ip: String, port: Int, obs: MutableList<Observer> = mutableListOf()): Ups() {
+    private var packet: ByteArray? = null
+    private var mc: ModbusConnection = ModbusConnection(ip, port, onConnection = { mbc->
+            TODO()
+        },onClose = { err->
+            TODO()
+        })
+
+    override fun requestInfo(req: String) {
+        packet = mc.sendData(req)
+        notify("Packet updated")
     }
 
-    override fun getState(): String{
+    override fun getState(): ByteArray?{
         return packet
         TODO()
     }
 
     override fun close() {
+        mc.close()
         TODO("Not yet implemented")
     }
 }
