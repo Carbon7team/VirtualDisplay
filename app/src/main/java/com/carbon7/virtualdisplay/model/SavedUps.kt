@@ -6,8 +6,6 @@ import java.net.Inet4Address
 
 @Entity(tableName = "saved_ups")
 data class SavedUps (
-    @PrimaryKey(autoGenerate = true)
-    val ID: Int,
 
     @ColumnInfo(name = "ups_name")
     val name: String,
@@ -16,5 +14,7 @@ data class SavedUps (
     val address: String,
 
     @ColumnInfo(name = "ups_port")
-    val port: Int
-)
+    val port: Int)
+{
+    @PrimaryKey(autoGenerate = true)
+    var ID: Int = 0}

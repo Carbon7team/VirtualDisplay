@@ -5,10 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [SavedUps::class], version = 1)
+@Database(entities = [SavedUps::class], version = 1, exportSchema = false)
 abstract class AppDB: RoomDatabase() {
     abstract val dao: SavedUpsDao
     companion object{
+        @Volatile
         private var INSTANCE: AppDB? = null
 
         fun getInstance(con: Context): AppDB {
