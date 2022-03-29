@@ -8,11 +8,14 @@
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/activity_main.xml" value="0.1671875" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/activity_starting.xml" value="0.20520833333333333" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/app_bar_main.xml" value="0.20520833333333333" />
+        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/app_toolbar.xml" value="0.20520833333333333" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_alarms.xml" value="0.20520833333333333" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_diagram.xml" value="0.2015625" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_gallery.xml" value="0.2015625" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/nav_header_main.xml" value="0.20520833333333333" />
-        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
+        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/switch_item.xml" value="0.20520833333333333" />
+        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/menu/activity_main_drawer.xml" value="0.67" />
+        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/menu/toolbar_menu.xml" value="0.22708333333333333" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3828125" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3828125" />
       </map>
