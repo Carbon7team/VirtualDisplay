@@ -15,10 +15,12 @@ class UpsData(u: Ups? = null): Observer{
     }
 
     fun setUps(u: Ups?){
-        ups!!.removeObserver(this)
-        //ups.close()
-        ups = u
-        ups!!.addObserver(this)
+        if (ups!=null || u!=null){
+            ups!!.removeObserver(this)
+            ups!!.close()
+            ups = u
+            ups!!.addObserver(this)
+        }
     }
 
     /* private fun decodeStatus(statusBytes: ByteArray):List<Boolean>{
@@ -54,15 +56,19 @@ class UpsData(u: Ups? = null): Observer{
     private fun hexString2ByteArray(hex:String):ByteArray{
         return hex.chunked(2).map{it.toInt(16).toByte()}.toByteArray()
     }
+
     private fun ByteArray.toHexString(separator:String=""):String{
         return this.map{"%02x".format(it)}.joinToString(separator)
     }
+
     private fun ByteArray.toBinaryString(separator:String=""):String{
         return this.map{"%02x".format(it).toInt(16).toBinary(8)}.joinToString(separator)
     }
+
     private fun ByteArray.toShorts():List<Short>{
         return this.toList().chunked(2).map{(it[0].toShort()*256+it[1].toShort()).toShort()}
     }
+
     private fun Int.toBinary(len: Int): String {
         return String.format("%" + len + "s", this.toString(2)).replace(" ".toRegex(), "0")
     }

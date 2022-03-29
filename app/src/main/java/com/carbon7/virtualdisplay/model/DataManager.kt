@@ -2,9 +2,10 @@ package com.carbon7.virtualdisplay.model
 
 class DataManager: Subject(), ManagerInterface {
 
-    private val database: MutableList<SavedUps> = mutableListOf()
+    private lateinit var database: SavedUpsDao
     private var currentUps: SavedUps? = null
     private var data: UpsData = UpsData()
+
 
     override fun setActiveUPS(id: Int){
         TODO()
@@ -33,11 +34,11 @@ class DataManager: Subject(), ManagerInterface {
     }
 
     override fun getSavedUpses(): List<SavedUps>{
-        return database
+        return database.getAll()
     }
 
     override fun addSavedUps(ups: SavedUps){
-        database.add(ups)
+        database.addUps(ups)
     }
 
     override fun removeSavedUps(id: Int){ //Modificherei il parametro con uno di tipo SavedUps
