@@ -2,7 +2,7 @@ package com.carbon7.virtualdisplay.model
 
 class UpsInfoPresenter: Observer {
 
-    private val manager: DataManager = DataManager(mutableListOf())
+    private val manager: DataManager = DataManager()
 
     fun updateUI(){}
 
