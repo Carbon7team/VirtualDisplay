@@ -34,24 +34,31 @@ class ProxyUps(ip: String, port: Int, obs: MutableList<Observer> = mutableListOf
     }
 
     override fun close(){
-        soc.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
+        soc!!.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
     }
 
-    override fun requestInfo(req: ByteArray, len: Int) {
-        var msg:ByteArray = req
-
+    override fun requestInfo() {
+        val req = byteArrayOf(0x01,0x03,0x00,0x30,0x00,0x08) //Da cambiare l'ultimo byte quando si ha un XML completo
+        val msg = calculateCrc(req)
         //Send the modbus request
         soc.outputStream.write(msg)
 
         //Put the modbus answer in out
-        var out=ByteArray(len*2+5) //3B header + 2B crc
+        val size = (msg[4].toInt() + msg[5].toInt())*2 + 5
+        val out = ByteArray(size)
 
         soc.getInputStream().read(out)
 
-        TODO("CRC check su out [ultimi 2 byte] + REQ TYPE check [primi 3 byte] + cleanup bytearray")
-
-        packet = out
-        notify("Packet updated")
+        val outPayload = out.copyOfRange(0,size-2)
+        val outCRC = calculateCrc(outPayload)
+        if (outCRC contentEquals out && out[0] == (0x01).toByte() && out[1] == (0x03).toByte()) {
+            packet = out
+            notify("Packet updated")
+        }
+        else{
+            print("Response error - unexpected packet")
+        }
+        //("CRC check su out [ultimi 2 byte] + REQ TYPE check [primi 3 byte] + cleanup bytearray")
     }
 
     override fun getState(): ByteArray?{
@@ -59,12 +66,10 @@ class ProxyUps(ip: String, port: Int, obs: MutableList<Observer> = mutableListOf
         TODO()
     }
 
-    fun calculateCRC(b: ByteArray): ByteArray{
+    fun calculateCrc(b: ByteArray): ByteArray{
         val crc = ModbusCRC()
         crc.update(b)
         val checkSum = crc.crcBytes
-        println(String.format("CheckSum = 0x%02X, 0x%02X", checkSum[0], checkSum[1]))
-        val new_b = b + checkSum
-        return new_b
+        return b + checkSum
     }
 }

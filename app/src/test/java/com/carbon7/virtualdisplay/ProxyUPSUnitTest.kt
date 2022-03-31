@@ -6,20 +6,41 @@ import org.junit.Assert.*
 
 
 class ProxyUPSUnitTest {
-    @Test
-    fun CRC_correctness(){
-        var b: ByteArray = byteArrayOf(1,3,0,48,0,8)
-        val p = ProxyUps("192.168.1.13", 8888)
-        val crc_res = p.calculateCRC(b)
-        val crc_ref = ByteArray(8)
-        for (i in 0..5){
-            crc_ref[i]=b[i]
-        }
-        crc_ref[6]=0x44
-        crc_ref[7]=0x03
-        print(String.format("calc = 0x%02X, 0x%02X, 0x%02X, 0x%02X, 0x%02X, 0x%02X, 0x%02X, 0x%02X \n", crc_res[0], crc_res[1], crc_res[2], crc_res[3], crc_res[4], crc_res[5], crc_res[6], crc_res[7]))
-        print(String.format("ref = 0x%02X, 0x%02X, 0x%02X, 0x%02X, 0x%02X, 0x%02X, 0x%02X, 0x%02X \n", crc_ref[0], crc_ref[1], crc_ref[2], crc_ref[3], crc_ref[4], crc_ref[5], crc_ref[6], crc_ref[7]))
-        assertArrayEquals(crc_res, crc_ref)
+
+    private fun String.toPositiveInt(i: Int) = toInt(i) and 0xFF
+
+    private fun String.decodeHex(): ByteArray {
+        check(length % 2 == 0) { "Must have an even length" }
+        return chunked(2)
+            .map { it.toPositiveInt(16).toByte() }
+            .toByteArray()
     }
 
+    @Test
+    fun calculateCrcTest(){
+        val b: ByteArray = byteArrayOf(0x01,0x03,0x00,0x30,0x00,0x08)
+        val p = ProxyUps("127.0.0.1", 8888)
+        val test = p.calculateCrc(b)
+        val actual = b + byteArrayOf(0x44,0x03)
+        assertArrayEquals(test, actual)
+    }
+
+    @Test
+    fun getStateTest(){
+        val p = ProxyUps("127.0.0.1", 8888)
+        val res = p.getState()
+        assertEquals(res,null)
+    }
+
+    @OptIn(ExperimentalUnsignedTypes::class)
+    @Test
+    fun requestAndGetInfoTest() {
+        val p = ProxyUps("192.168.1.13", 8888)
+        p.requestInfo()
+        //val actual = byteArrayOf(0x01,0x03,0x10,0x55,0xAC.toByte(),0x55,0xAC.toByte(),55,0xAC.toByte(),55,0xAC.toByte(),55,0xAC.toByte(),55,0xAC.toByte(),55,0xAC.toByte(),55,0xAC.toByte(),0xAC.toByte(),0x6F)
+        val s = "01031055ac55ac55ac55ac55ac55ac55ac55ace76f"
+        val actual = s.decodeHex()
+        print(actual.contentToString())
+        assertArrayEquals(p.getState(),actual)
+    }
 }
