@@ -8,4 +8,9 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+  
+    
+    <string name="S000">LOAD PROTECTED BY INVERTER</string>
+    <string name="S001">LOAD SUPPLIED IN NORMAL MODE</string>
+    <string name="S002">LOAD SUPPLIED BY AUTOMATIC BYPASS</string>
 </resources>
