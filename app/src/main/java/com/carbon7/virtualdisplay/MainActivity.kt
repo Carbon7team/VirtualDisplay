@@ -2,7 +2,6 @@ package com.carbon7.virtualdisplay
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -11,15 +10,14 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.carbon7.virtualdisplay.databinding.ActivityMainBinding
-import android.widget.CompoundButton
 
 import android.widget.Switch
-
-
-
-
-
-
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
+import com.carbon7.virtualdisplay.model.DataManager
+import com.carbon7.virtualdisplay.ui.alarms.AlarmsFragment
+import com.carbon7.virtualdisplay.ui.diagram.DiagramFragment
+import com.carbon7.virtualdisplay.ui.status.StatusFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -51,10 +49,23 @@ class MainActivity : AppCompatActivity() {
 
         binding.navView.setNavigationItemSelectedListener {
             it.isChecked=true
-            drawer.closeDrawer(Gravity.START)
+            drawer.closeDrawer(Gravity.LEFT)
+            val m = DataManager()
+
+            if(it.itemId==R.id.diagram_menu_item){
+                changeFragment(DiagramFragment())
+            }else if(it.itemId==R.id.alarms_menu_item){
+                changeFragment(AlarmsFragment())
+            }else{
+                changeFragment(StatusFragment())
+            }
+
             Toast.makeText(this,it.title,Toast.LENGTH_SHORT).show()
             true
         }
+
+
+        changeFragment(DiagramFragment())
 
     }
 
@@ -90,8 +101,13 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
-       /* Log.d("MyApp", applicationContext.getString(item.getItemId()))
-        Toast.makeText(this,item.itemId,Toast.LENGTH_SHORT).show()
-        return true
-    }*/
+
+    private fun changeFragment(newFrag: Fragment){
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+
+        transaction.replace(R.id.fragment_container, newFrag);
+        transaction.addToBackStack(null);
+
+        transaction.commit()
+    }
 }
