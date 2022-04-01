@@ -5,7 +5,11 @@ abstract class Subject {
 
     var observerList: MutableList<Observer> = mutableListOf()
 
-    fun addObserver(obs: Observer){ observerList.add(obs)}
+    fun addObserver(obs: Observer){
+        if (!observerList.contains(obs)){
+            observerList.add(obs)
+        }
+    }
 
     fun removeObserver(obs: Observer){ observerList.remove(obs)}
 

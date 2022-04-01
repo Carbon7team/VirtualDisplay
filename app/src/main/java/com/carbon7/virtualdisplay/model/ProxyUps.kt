@@ -10,8 +10,8 @@ class ProxyUps(addr: String, p: Int, obs: MutableList<Observer> = mutableListOf(
     private var soc = Socket()
     private val ip = addr
     private val port = p
-    private lateinit var packet: String
-    override fun requestInfo() {
+    private lateinit var packet: ByteArray
+    override fun requestInfo(s: String) {
         thread {
             try {
                 soc.connect(InetSocketAddress(ip,port),5000)
@@ -23,7 +23,7 @@ class ProxyUps(addr: String, p: Int, obs: MutableList<Observer> = mutableListOf(
         }
     }
 
-    override fun getState(): String{
+    override fun getState(): ByteArray?{
         return packet
         TODO()
     }
