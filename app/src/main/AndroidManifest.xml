@@ -11,7 +11,8 @@
         android:theme="@style/Theme.VirtualDisplay">
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/Theme.VirtualDisplay.NoActionBar"/>
         <activity
             android:name=".StartingActivity"
             android:exported="true">

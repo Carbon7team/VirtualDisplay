@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">VirtualDisplay</string>
+    <string name="app_name">Virtual Display</string>
+    <string name="carbon7_email">carbon7team@gmail.com</string>
+    <string name="measurements">Measurements</string>
+    <string name="status">Status</string>
+    <string name="alarms">Alarms</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
