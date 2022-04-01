@@ -1,3 +1,5 @@
 package com.carbon7.virtualdisplay.model
 
-data class Status(val code:String, val name:String, var isActive:Boolean = false)
+import androidx.annotation.StringRes
+
+data class Status(val code:String, @StringRes val name:Int, var isActive:Boolean = false)
