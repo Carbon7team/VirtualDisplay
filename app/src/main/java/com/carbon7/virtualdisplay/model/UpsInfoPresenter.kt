@@ -4,10 +4,6 @@ abstract class UpsInfoPresenter: Observer {
 
     private val manager: DataManager = DataManager()
 
-    init {
-        manager.addObserver(this)
-    }
-
     fun updateUI(){}
 
     fun updateModel(){}
