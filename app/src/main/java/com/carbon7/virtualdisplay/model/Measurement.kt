@@ -1,3 +1,5 @@
 package com.carbon7.virtualdisplay.model
 
-data class Measurement(val code:String, val name:String, var value:Float, val unitMeasure:String)
+import androidx.annotation.StringRes
+
+data class Measurement(val code:String, @StringRes val name:Int, var value:Float, @StringRes val unitMeasure:Int)
