@@ -8,15 +8,87 @@
 
     <ListView
         android:id="@+id/list_status"
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/list_item_status" />
+        tools:listitem="@layout/list_item_status">
+
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_status">
+
+        <LinearLayout
+            android:id="@+id/we"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S000 active" />
+
+            <Button
+                android:id="@+id/btn_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S001 active" />
+
+            <Button
+                android:id="@+id/btn_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S002 active" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="8dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btn_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S000 inactive" />
+
+            <Button
+                android:id="@+id/btn_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S001 inactive" />
+
+            <Button
+                android:id="@+id/btn_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S002 inactive" />
+        </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

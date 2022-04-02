@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:menu="@menu/toolbar_menu"
-            app:popupTheme="@style/Theme.VirtualDisplay.PopupOverlay"/>
+            app:popupTheme="@style/Theme.VirtualDisplay.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -24,7 +25,8 @@
         android:id="@+id/fragment_container"
         android:name="com.carbon7.virtualdisplay.ui.diagram.DiagramFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
