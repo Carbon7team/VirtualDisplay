@@ -22,8 +22,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/list_status"
-            tools:visibility="gone">
+            app:layout_constraintTop_toBottomOf="@+id/list_status">
 
             <LinearLayout
                 android:id="@+id/we"
@@ -51,10 +50,6 @@
                     android:text="S002 active" />
             </LinearLayout>
 
-            <Space
-                android:layout_width="8dp"
-                android:layout_height="match_parent" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -80,24 +75,23 @@
                     android:text="S002 inactive" />
             </LinearLayout>
 
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
+
         </LinearLayout>
 
-        <ListView
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/list_status"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/list_item_status">
-
-        </ListView>
-
+            tools:listitem="@layout/list_item_status" />
 
         <include
             android:id="@+id/fab_3"

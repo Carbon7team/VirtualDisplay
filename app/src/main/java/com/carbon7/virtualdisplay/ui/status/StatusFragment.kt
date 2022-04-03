@@ -2,6 +2,7 @@ package com.carbon7.virtualdisplay.ui.status
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -46,7 +47,12 @@ class StatusFragment : Fragment() {
 
         viewModel.status.observe(viewLifecycleOwner,{
             Log.d("MyApp","UPDATE")
-            binding.listStatus.adapter = StatusAdapter(requireContext(),it)
+            Log.d("MyApp",it.toString())
+
+
+            val recyclerViewState = binding.listStatus.layoutManager?.onSaveInstanceState()
+            binding.listStatus.adapter = StatusAdapter(it)
+            binding.listStatus.layoutManager?.onRestoreInstanceState(recyclerViewState)
         })
 
 
