@@ -10,29 +10,26 @@ import com.carbon7.virtualdisplay.model.Status
 class StatusViewModel : ViewModel() {
 
     private val _status = MutableLiveData(
-        listOf(
+        mutableListOf(
             Status("S000", R.string.S000,true),
             Status("S001",R.string.S001,true),
             Status("S002",R.string.S002,false)
         )
     )
-    var status : LiveData<List<Status>> = _status
+    var status : LiveData<MutableList<Status>> = _status
 
 
     fun addS000(b:Boolean){
-        val l =_status.value!!.toMutableList()
-        l.add(Status("S000", R.string.S000,b))
-        _status.value= l
+        _status.value?.add(Status("S000", R.string.S000,b))
+        _status.value=_status.value
     }
     fun addS001(b:Boolean){
-        val l =_status.value!!.toMutableList()
-        l.add(Status("S001", R.string.S001,b))
-        _status.value= l
+        _status.value?.add(Status("S001", R.string.S001,b))
+        _status.value=_status.value
     }
     fun addS002(b:Boolean){
-        val l =_status.value!!.toMutableList()
-        l.add(Status("S002", R.string.S002,b))
-        _status.value= l
+        _status.value?.add(Status("S002", R.string.S002,b))
+        _status.value=_status.value
     }
 
 

@@ -7,7 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentStatusBinding
 import com.carbon7.virtualdisplay.model.Status
@@ -26,6 +30,13 @@ class StatusFragment : Fragment() {
     private val binding
         get() = _binding!!
 
+
+    private val rotateOpen: Animation by lazy {AnimationUtils.loadAnimation(context,R.anim.rotate_open_anim)}
+    private val rotateClose: Animation by lazy {AnimationUtils.loadAnimation(context,R.anim.rotate_close_anim)}
+    private val fromBottom: Animation by lazy {AnimationUtils.loadAnimation(context,R.anim.from_bottom_anim)}
+    private val toBottom: Animation by lazy {AnimationUtils.loadAnimation(context,R.anim.to_botton_anim)}
+    private var fabOpened : Boolean = false;
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,7 +51,6 @@ class StatusFragment : Fragment() {
 
 
 
-
         _binding = FragmentStatusBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
@@ -51,6 +61,35 @@ class StatusFragment : Fragment() {
         binding.btn5.setOnClickListener { viewModel.addS001(false)}
         binding.btn6.setOnClickListener { viewModel.addS002(false)}
 
+        binding.fab1.subFab.setOnClickListener { Toast.makeText(context,"FAB1",Toast.LENGTH_SHORT).show()}
+        binding.fab2.subFab.setOnClickListener { Toast.makeText(context,"FAB2",Toast.LENGTH_SHORT).show()}
+        binding.fab3.subFab.setOnClickListener { Toast.makeText(context,"FAB3",Toast.LENGTH_SHORT).show()}
+
+        binding.fabMain.setOnClickListener{
+            if(!fabOpened){
+                binding.fab1.all.visibility = View.VISIBLE
+                binding.fab2.all.visibility = View.VISIBLE
+                binding.fab3.all.visibility = View.VISIBLE
+
+                binding.fab1.all.startAnimation(fromBottom)
+                binding.fab2.all.startAnimation(fromBottom)
+                binding.fab3.all.startAnimation(fromBottom)
+
+                binding.fabMain.startAnimation(rotateOpen)
+            }else{
+                binding.fab1.all.visibility = View.INVISIBLE
+                binding.fab2.all.visibility = View.INVISIBLE
+                binding.fab3.all.visibility = View.INVISIBLE
+
+                binding.fab1.all.startAnimation(toBottom)
+                binding.fab2.all.startAnimation(toBottom)
+                binding.fab3.all.startAnimation(toBottom)
+
+                binding.fabMain.startAnimation(rotateClose)
+
+            }
+            fabOpened=!fabOpened
+        }
 
 
         return root

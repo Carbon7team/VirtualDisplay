@@ -8,7 +8,11 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-  
+
+
+    <string name="all_status">All status</string>
+    <string name="active_status">Active status</string>
+    <string name="inactive_status">Inactive status</string>
     
     <string name="S000">LOAD PROTECTED BY INVERTER</string>
     <string name="S001">LOAD SUPPLIED IN NORMAL MODE</string>
