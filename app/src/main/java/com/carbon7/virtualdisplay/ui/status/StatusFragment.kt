@@ -45,11 +45,7 @@ class StatusFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(StatusViewModel::class.java)
 
-        viewModel.status.observe(viewLifecycleOwner,{
-            Log.d("MyApp","UPDATE")
-            Log.d("MyApp",it.toString())
-
-
+        viewModel.currentStatus.observe(viewLifecycleOwner,{
             val recyclerViewState = binding.listStatus.layoutManager?.onSaveInstanceState()
             binding.listStatus.adapter = StatusAdapter(it)
             binding.listStatus.layoutManager?.onRestoreInstanceState(recyclerViewState)
@@ -67,29 +63,29 @@ class StatusFragment : Fragment() {
         binding.btn5.setOnClickListener { viewModel.addS001(false)}
         binding.btn6.setOnClickListener { viewModel.addS002(false)}
 
-        binding.fab1.subFab.setOnClickListener { Toast.makeText(context,"FAB1",Toast.LENGTH_SHORT).show()}
-        binding.fab2.subFab.setOnClickListener { Toast.makeText(context,"FAB2",Toast.LENGTH_SHORT).show()}
-        binding.fab3.subFab.setOnClickListener { Toast.makeText(context,"FAB3",Toast.LENGTH_SHORT).show()}
+        binding.filterAllStatus.subFab.setOnClickListener { viewModel.filterAllStatus() }
+        binding.filterActiveStatus.subFab.setOnClickListener { viewModel.filterActiveStatus() }
+        binding.filterInactiveStatus.subFab.setOnClickListener { viewModel.filterInctiveStatus() }
 
         binding.fabMain.setOnClickListener{
             if(!fabOpened){
-                binding.fab1.all.visibility = View.VISIBLE
-                binding.fab2.all.visibility = View.VISIBLE
-                binding.fab3.all.visibility = View.VISIBLE
+                binding.filterAllStatus.all.visibility = View.VISIBLE
+                binding.filterActiveStatus.all.visibility = View.VISIBLE
+                binding.filterInactiveStatus.all.visibility = View.VISIBLE
 
-                binding.fab1.all.startAnimation(fromBottom)
-                binding.fab2.all.startAnimation(fromBottom)
-                binding.fab3.all.startAnimation(fromBottom)
+                binding.filterAllStatus.all.startAnimation(fromBottom)
+                binding.filterActiveStatus.all.startAnimation(fromBottom)
+                binding.filterInactiveStatus.all.startAnimation(fromBottom)
 
                 binding.fabMain.startAnimation(rotateOpen)
             }else{
-                binding.fab1.all.visibility = View.INVISIBLE
-                binding.fab2.all.visibility = View.INVISIBLE
-                binding.fab3.all.visibility = View.INVISIBLE
+                binding.filterAllStatus.all.visibility = View.INVISIBLE
+                binding.filterActiveStatus.all.visibility = View.INVISIBLE
+                binding.filterInactiveStatus.all.visibility = View.INVISIBLE
 
-                binding.fab1.all.startAnimation(toBottom)
-                binding.fab2.all.startAnimation(toBottom)
-                binding.fab3.all.startAnimation(toBottom)
+                binding.filterAllStatus.all.startAnimation(toBottom)
+                binding.filterActiveStatus.all.startAnimation(toBottom)
+                binding.filterInactiveStatus.all.startAnimation(toBottom)
 
                 binding.fabMain.startAnimation(rotateClose)
 

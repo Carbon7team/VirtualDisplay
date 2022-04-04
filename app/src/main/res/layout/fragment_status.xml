@@ -50,6 +50,10 @@
                     android:text="S002 active" />
             </LinearLayout>
 
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="match_parent" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -75,10 +79,6 @@
                     android:text="S002 inactive" />
             </LinearLayout>
 
-            <Space
-                android:layout_width="8dp"
-                android:layout_height="match_parent" />
-
         </LinearLayout>
 
 
@@ -94,29 +94,29 @@
             tools:listitem="@layout/list_item_status" />
 
         <include
-            android:id="@+id/fab_3"
+            android:id="@+id/filter_inactive_status"
             layout="@layout/layout_sub_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
             app:desc="@{@string/inactive_status}"
             app:icon="@{@drawable/ic_launcher_foreground}"
-            app:layout_constraintBottom_toTopOf="@+id/fab_2"
-            app:layout_constraintEnd_toEndOf="@+id/fab_2" />
+            app:layout_constraintBottom_toTopOf="@+id/filter_active_status"
+            app:layout_constraintEnd_toEndOf="@+id/filter_active_status" />
 
         <include
-            android:id="@+id/fab_2"
+            android:id="@+id/filter_active_status"
             layout="@layout/layout_sub_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="invisible"
             app:desc="@{@string/active_status}"
             app:icon="@{@drawable/ic_launcher_foreground}"
-            app:layout_constraintBottom_toTopOf="@+id/fab_1"
-            app:layout_constraintEnd_toEndOf="@+id/fab_1" />
+            app:layout_constraintBottom_toTopOf="@+id/filter_all_status"
+            app:layout_constraintEnd_toEndOf="@+id/filter_all_status" />
 
         <include
-            android:id="@+id/fab_1"
+            android:id="@+id/filter_all_status"
             layout="@layout/layout_sub_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

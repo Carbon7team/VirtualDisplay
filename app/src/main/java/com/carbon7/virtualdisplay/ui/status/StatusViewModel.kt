@@ -3,6 +3,7 @@ package com.carbon7.virtualdisplay.ui.status
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.model.Status
@@ -16,8 +17,24 @@ class StatusViewModel : ViewModel() {
             Status("S002",R.string.S002,false)
         )
     )
-    var status : LiveData<MutableList<Status>> = _status
 
+    private var currentFilter : MutableLiveData<(Status)->Boolean> = MutableLiveData({true})
+
+    var currentStatus : LiveData<List<Status>> = Transformations.switchMap(_status){list ->
+        Transformations.map(currentFilter){
+            list.filter(it)
+        }
+    }
+
+    fun filterActiveStatus(){
+        currentFilter.value = {it.isActive}
+    }
+    fun filterInctiveStatus(){
+        currentFilter.value = {!it.isActive}
+    }
+    fun filterAllStatus(){
+        currentFilter.value = {true}
+    }
 
     fun addS000(b:Boolean){
         _status.value?.add(Status("S000", R.string.S000,b))
