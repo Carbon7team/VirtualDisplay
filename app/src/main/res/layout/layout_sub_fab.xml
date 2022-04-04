@@ -43,6 +43,8 @@
             android:layout_height="wrap_content"
             android:clickable="true"
             android:src="@{icon}"
-            app:fabSize="mini" />
+            app:fabSize="mini"
+            android:focusable="true"
+            android:contentDescription="@{desc}" />
     </LinearLayout>
 </layout>
