@@ -13,7 +13,7 @@ abstract class Subject {
 
     fun removeObserver(obs: Observer){ observerList.remove(obs)}
 
-    fun notify(event: String?){
+    fun notify(event: String? = null){
         for (o in observerList){o.update()}
     }
 }

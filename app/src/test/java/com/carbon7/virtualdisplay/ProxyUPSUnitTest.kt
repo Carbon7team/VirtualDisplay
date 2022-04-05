@@ -21,7 +21,7 @@ class ProxyUPSUnitTest {
         val b: ByteArray = byteArrayOf(0x01,0x03,0x00,0x30,0x00,0x08)
         val p = ProxyUps("127.0.0.1", 8888)
         val test = p.calculateCrc(b)
-        val actual = b + byteArrayOf(0x44,0x03)
+        val actual = byteArrayOf(0x44,0x03)
         assertArrayEquals(test, actual)
     }
 
