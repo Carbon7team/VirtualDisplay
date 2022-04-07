@@ -4,7 +4,7 @@ class DataManager: Subject(), ManagerInterface {
 
     private lateinit var database: SavedUpsDao
     private var currentUps: SavedUps? = null
-    private var data: UpsData = UpsData()
+    //private var data: UpsData = UpsData()
 
 
     override fun setActiveUPS(id: Int){
@@ -17,24 +17,28 @@ class DataManager: Subject(), ManagerInterface {
     }
 
     override fun exitFromUps(){
-        data.setUps(null)
+        //data.ups=(null)
         TODO()
     }
 
     override fun getStatus(): Map<String, String> {
-        return data.status
+        return mapOf()
+        //return data.status
     }
 
     override fun getAlarms(): Map<String, String> {
-        return data.alarms
+        return mapOf()
+        //return data.alarms
     }
 
     override fun getMeasurements(): Map<String, String> {
-        return data.measurements
+        return mapOf()
+        //return data.measurements
     }
 
     override fun getSavedUpses(): List<SavedUps>{
-        return database.getAll()
+        return listOf()
+        //return database.getAll()
     }
 
     override fun addSavedUps(ups: SavedUps){
