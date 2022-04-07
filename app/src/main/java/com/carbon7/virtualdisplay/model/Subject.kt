@@ -17,10 +17,7 @@ abstract class Subject {
     }
 
     protected fun notify(event: String? = null){
-        for(i in 0 until observerList.size)
-            observerList[i].update()
-        /*for (o in observerList) {
+        for (o in observerList)
             o.update()
-        }*/
     }
 }
