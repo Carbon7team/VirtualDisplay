@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable name="desc" type="String"/>
-        <variable name="icon" type="android.graphics.drawable.Drawable"/>
-    </data>
 
     <LinearLayout
         android:id="@+id/all"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:clipToPadding="false"
+        android:orientation="horizontal"
+        android:paddingRight="4dp"
+        android:paddingBottom="4dp">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -42,9 +40,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
+            android:contentDescription="@{desc}"
+            android:focusable="true"
             android:src="@{icon}"
             app:fabSize="mini"
-            android:focusable="true"
-            android:contentDescription="@{desc}" />
+            app:maxImageSize="40dp"
+            tools:src="@drawable/ic_launcher_foreground" />
     </LinearLayout>
+
+    <data>
+
+        <variable
+            name="desc"
+            type="String" />
+
+        <variable
+            name="icon"
+            type="android.graphics.drawable.Drawable" />
+    </data>
 </layout>

@@ -10,12 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.ArrayAdapter
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentStatusBinding
-import com.carbon7.virtualdisplay.model.Status
 
 class StatusFragment : Fragment() {
 
@@ -32,7 +28,7 @@ class StatusFragment : Fragment() {
         get() = _binding!!
 
 
-    private val rotateOpen: Animation by lazy {AnimationUtils.loadAnimation(context,R.anim.rotate_open_anim)}
+    private val rotateOpen: Animation by lazy {AnimationUtils.loadAnimation(context, R.anim.rotate_open_anim)}
     private val rotateClose: Animation by lazy {AnimationUtils.loadAnimation(context,R.anim.rotate_close_anim)}
     private val fromBottom: Animation by lazy {AnimationUtils.loadAnimation(context,R.anim.from_bottom_anim)}
     private val toBottom: Animation by lazy {AnimationUtils.loadAnimation(context,R.anim.to_botton_anim)}
@@ -52,49 +48,66 @@ class StatusFragment : Fragment() {
         })
 
 
-
         _binding = FragmentStatusBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        binding.btn1.setOnClickListener { viewModel.addS000(true)}
+        /*binding.btn1.setOnClickListener { viewModel.addS000(true)}
         binding.btn2.setOnClickListener { viewModel.addS001(true)}
         binding.btn3.setOnClickListener { viewModel.addS002(true)}
         binding.btn4.setOnClickListener { viewModel.addS000(false)}
         binding.btn5.setOnClickListener { viewModel.addS001(false)}
-        binding.btn6.setOnClickListener { viewModel.addS002(false)}
+        binding.btn6.setOnClickListener { viewModel.addS002(false)}*/
 
-        binding.filterAllStatus.subFab.setOnClickListener { viewModel.filterAllStatus() }
-        binding.filterActiveStatus.subFab.setOnClickListener { viewModel.filterActiveStatus() }
-        binding.filterInactiveStatus.subFab.setOnClickListener { viewModel.filterInctiveStatus() }
+        binding.filterAllStatus.subFab.setOnClickListener {
+            viewModel.filterAllStatus()
+            closeFab()
+        }
+        binding.filterActiveStatus.subFab.setOnClickListener {
+            viewModel.filterActiveStatus()
+            closeFab()
+        }
+        binding.filterInactiveStatus.subFab.setOnClickListener {
+            viewModel.filterInctiveStatus()
+            closeFab()
+        }
 
         binding.fabMain.setOnClickListener{
-            if(!fabOpened){
-                binding.filterAllStatus.all.visibility = View.VISIBLE
-                binding.filterActiveStatus.all.visibility = View.VISIBLE
-                binding.filterInactiveStatus.all.visibility = View.VISIBLE
-
-                binding.filterAllStatus.all.startAnimation(fromBottom)
-                binding.filterActiveStatus.all.startAnimation(fromBottom)
-                binding.filterInactiveStatus.all.startAnimation(fromBottom)
-
-                binding.fabMain.startAnimation(rotateOpen)
-            }else{
-                binding.filterAllStatus.all.visibility = View.INVISIBLE
-                binding.filterActiveStatus.all.visibility = View.INVISIBLE
-                binding.filterInactiveStatus.all.visibility = View.INVISIBLE
-
-                binding.filterAllStatus.all.startAnimation(toBottom)
-                binding.filterActiveStatus.all.startAnimation(toBottom)
-                binding.filterInactiveStatus.all.startAnimation(toBottom)
-
-                binding.fabMain.startAnimation(rotateClose)
-
-            }
-            fabOpened=!fabOpened
+            if(!fabOpened)
+                openFab()
+            else
+                closeFab()
         }
 
 
         return root
     }
+
+    fun openFab(){
+        binding.filterAllStatus.all.visibility = View.VISIBLE
+        binding.filterActiveStatus.all.visibility = View.VISIBLE
+        binding.filterInactiveStatus.all.visibility = View.VISIBLE
+
+        binding.filterAllStatus.all.startAnimation(fromBottom)
+        binding.filterActiveStatus.all.startAnimation(fromBottom)
+        binding.filterInactiveStatus.all.startAnimation(fromBottom)
+
+        binding.fabMain.startAnimation(rotateOpen)
+
+        fabOpened=true
+    }
+    fun closeFab(){
+        binding.filterAllStatus.all.visibility = View.INVISIBLE
+        binding.filterActiveStatus.all.visibility = View.INVISIBLE
+        binding.filterInactiveStatus.all.visibility = View.INVISIBLE
+
+        binding.filterAllStatus.all.startAnimation(toBottom)
+        binding.filterActiveStatus.all.startAnimation(toBottom)
+        binding.filterInactiveStatus.all.startAnimation(toBottom)
+
+        binding.fabMain.startAnimation(rotateClose)
+
+        fabOpened=false
+    }
+
 
 }

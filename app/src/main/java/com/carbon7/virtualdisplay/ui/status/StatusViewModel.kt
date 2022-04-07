@@ -5,16 +5,21 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.carbon7.virtualdisplay.R
+import com.carbon7.virtualdisplay.model.Observer
+import com.carbon7.virtualdisplay.model.ProxyUps
 import com.carbon7.virtualdisplay.model.Status
+import com.carbon7.virtualdisplay.model.UpsData
 
-class StatusViewModel : ViewModel() {
+class StatusViewModel : ViewModel(), Observer {
+
+    private val upsData = UpsData(ProxyUps("192.168.11.178",8888))
+    init {
+        upsData.addObserver(this)
+        upsData.start()
+    }
 
     private val _status = MutableLiveData(
-        mutableListOf(
-            Status("S000", R.string.S000,true),
-            Status("S001",R.string.S001,true),
-            Status("S002",R.string.S002,false)
-        )
+        listOf<Status>()
     )
 
     private val statusFilter : MutableLiveData<(Status)->Boolean> = MutableLiveData({true})
@@ -35,19 +40,11 @@ class StatusViewModel : ViewModel() {
         statusFilter.value = {true}
     }
 
-    fun addS000(b:Boolean){
-        _status.value?.add(Status("S000", R.string.S000,b))
-        _status.value=_status.value
-    }
-    fun addS001(b:Boolean){
-        _status.value?.add(Status("S001", R.string.S001,b))
-        _status.value=_status.value
-    }
-    fun addS002(b:Boolean){
-        _status.value?.add(Status("S002", R.string.S002,b))
-        _status.value=_status.value
+    override fun update() {
+        _status.postValue(
+            upsData.status?.values?.toList()
+        )
     }
 
 
-// TODO: Implement the ViewModel
 }
