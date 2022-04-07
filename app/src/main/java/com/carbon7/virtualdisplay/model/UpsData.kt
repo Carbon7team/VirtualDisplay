@@ -1,11 +1,6 @@
 package com.carbon7.virtualdisplay.model
 
-import android.util.Log
 import com.carbon7.virtualdisplay.R
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
-import java.util.*
 import kotlin.concurrent.thread
 
 
@@ -280,7 +275,7 @@ class UpsData(u: Ups): Observer, Subject() {
         field = value
     }*/
 
-
+    private var running = false
     var status: Map<String, Status>? = null
         private set
     var alarms: Map<String, Alarm>? = null
@@ -290,13 +285,24 @@ class UpsData(u: Ups): Observer, Subject() {
 
     init {
         ups.addObserver(this)
-        thread {
-            while(true){
-                ups.requestInfo()
-                Thread.sleep(5000)
+    }
+
+    fun start(){
+        if(!running){
+            running=true
+            thread {
+                while(running){
+                    ups.requestInfo()
+                    Thread.sleep(5000)
+                }
             }
         }
     }
+    fun stop() {
+        running=false
+        ups.removeObserver(this)
+    }
+
 
     override fun update() {
         val upsPacket = ups.getState()
@@ -307,7 +313,7 @@ class UpsData(u: Ups): Observer, Subject() {
         }
     }
 
-    fun decodeStatus(statusBytes: ByteArray):Map<String, Status>{
+    private fun decodeStatus(statusBytes: ByteArray):Map<String, Status>{
         val newStatus = allStatus.toMutableMap()
 
         val statusActive = statusBytes.toBooleanArray()
@@ -317,7 +323,7 @@ class UpsData(u: Ups): Observer, Subject() {
 
         return newStatus
     }
-    fun decodeAlarms(alarmsBytes: ByteArray): Map<String, Alarm>{
+    private fun decodeAlarms(alarmsBytes: ByteArray): Map<String, Alarm>{
         val newAlarm = mutableMapOf<String, Alarm>()
 
         val alarmActive = alarmsBytes.toBooleanArray()
@@ -329,20 +335,21 @@ class UpsData(u: Ups): Observer, Subject() {
         return newAlarm
     }
 
-
     private fun ByteArray.toBooleanArray(): BooleanArray{
         return toBinaryString().map{it=='1'}.toBooleanArray()
     }
 
 
     private fun ByteArray.toBinaryString(separator:String=""):String{
-        return this.map{"%02x".format(it).toInt(16).toBinary(8)}.joinToString(separator)
+        return this.joinToString(separator) { "%02x".format(it).toInt(16).toBinary(8) }
     }
 
 
     private fun Int.toBinary(len: Int): String {
         return String.format("%" + len + "s", this.toString(2)).replace(" ".toRegex(), "0")
     }
+
+
 
 
 }

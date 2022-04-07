@@ -11,9 +11,16 @@ abstract class Subject {
         }
     }
 
-    fun removeObserver(obs: Observer){ observerList.remove(obs)}
 
-    fun notify(event: String? = null){
-        for (o in observerList){o.update()}
+    fun removeObserver(obs: Observer){
+        observerList.remove(obs)
+    }
+
+    protected fun notify(event: String? = null){
+        for(i in 0 until observerList.size)
+            observerList[i].update()
+        /*for (o in observerList) {
+            o.update()
+        }*/
     }
 }
