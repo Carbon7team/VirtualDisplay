@@ -60,14 +60,23 @@ class StatusFragment : Fragment() {
 
         binding.filterAllStatus.subFab.setOnClickListener {
             viewModel.filterAllStatus()
+            binding.filterAllStatus.subFab.isEnabled=false
+            binding.filterActiveStatus.subFab.isEnabled=true
+            binding.filterInactiveStatus.subFab.isEnabled=true
             closeFab()
         }
         binding.filterActiveStatus.subFab.setOnClickListener {
             viewModel.filterActiveStatus()
+            binding.filterAllStatus.subFab.isEnabled=true
+            binding.filterActiveStatus.subFab.isEnabled=false
+            binding.filterInactiveStatus.subFab.isEnabled=true
             closeFab()
         }
         binding.filterInactiveStatus.subFab.setOnClickListener {
             viewModel.filterInctiveStatus()
+            binding.filterAllStatus.subFab.isEnabled=true
+            binding.filterActiveStatus.subFab.isEnabled=true
+            binding.filterInactiveStatus.subFab.isEnabled=false
             closeFab()
         }
 

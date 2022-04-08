@@ -42,6 +42,8 @@
             android:clickable="true"
             android:contentDescription="@{desc}"
             android:focusable="true"
+            android:hapticFeedbackEnabled="true"
+            android:soundEffectsEnabled="true"
             android:src="@{icon}"
             app:fabSize="mini"
             app:maxImageSize="40dp"
