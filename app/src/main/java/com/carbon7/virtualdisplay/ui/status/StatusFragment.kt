@@ -2,8 +2,6 @@ package com.carbon7.virtualdisplay.ui.status
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.os.Parcelable
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +10,8 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentStatusBinding
+import com.carbon7.virtualdisplay.model.ProxyUps
+import com.carbon7.virtualdisplay.model.UpsData
 
 class StatusFragment : Fragment() {
 
@@ -41,42 +41,40 @@ class StatusFragment : Fragment() {
 
         viewModel = ViewModelProvider(this).get(StatusViewModel::class.java)
 
-        viewModel.currentStatus.observe(viewLifecycleOwner,{
+        viewModel.filteredStatus.observe(viewLifecycleOwner){
             val recyclerViewState = binding.listStatus.layoutManager?.onSaveInstanceState()
             binding.listStatus.adapter = StatusAdapter(it)
             binding.listStatus.layoutManager?.onRestoreInstanceState(recyclerViewState)
-        })
+        }
+
+        viewModel.currentFilter.observe(viewLifecycleOwner){
+
+            binding.filterAllStatus.subFab.isEnabled=true
+            binding.filterActiveStatus.subFab.isEnabled=true
+            binding.filterInactiveStatus.subFab.isEnabled=true
+
+            when(it){
+                StatusViewModel.Filter.ALL ->       binding.filterAllStatus.subFab.isEnabled=false
+                StatusViewModel.Filter.ACTIVE ->    binding.filterActiveStatus.subFab.isEnabled=false
+                StatusViewModel.Filter.INACTIVE ->  binding.filterInactiveStatus.subFab.isEnabled=false
+            }
+        }
 
 
         _binding = FragmentStatusBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        /*binding.btn1.setOnClickListener { viewModel.addS000(true)}
-        binding.btn2.setOnClickListener { viewModel.addS001(true)}
-        binding.btn3.setOnClickListener { viewModel.addS002(true)}
-        binding.btn4.setOnClickListener { viewModel.addS000(false)}
-        binding.btn5.setOnClickListener { viewModel.addS001(false)}
-        binding.btn6.setOnClickListener { viewModel.addS002(false)}*/
 
         binding.filterAllStatus.subFab.setOnClickListener {
-            viewModel.filterAllStatus()
-            binding.filterAllStatus.subFab.isEnabled=false
-            binding.filterActiveStatus.subFab.isEnabled=true
-            binding.filterInactiveStatus.subFab.isEnabled=true
+            viewModel.setCurrentFilter(StatusViewModel.Filter.ALL)
             closeFab()
         }
         binding.filterActiveStatus.subFab.setOnClickListener {
-            viewModel.filterActiveStatus()
-            binding.filterAllStatus.subFab.isEnabled=true
-            binding.filterActiveStatus.subFab.isEnabled=false
-            binding.filterInactiveStatus.subFab.isEnabled=true
+            viewModel.setCurrentFilter(StatusViewModel.Filter.ACTIVE)
             closeFab()
         }
         binding.filterInactiveStatus.subFab.setOnClickListener {
-            viewModel.filterInctiveStatus()
-            binding.filterAllStatus.subFab.isEnabled=true
-            binding.filterActiveStatus.subFab.isEnabled=true
-            binding.filterInactiveStatus.subFab.isEnabled=false
+            viewModel.setCurrentFilter(StatusViewModel.Filter.INACTIVE)
             closeFab()
         }
 
@@ -87,6 +85,7 @@ class StatusFragment : Fragment() {
                 closeFab()
         }
 
+        viewModel.load(UpsData(ProxyUps("192.168.11.178",8888)))
 
         return root
     }

@@ -12,32 +12,37 @@ import com.carbon7.virtualdisplay.model.UpsData
 
 class StatusViewModel : ViewModel(), Observer {
 
-    private val upsData = UpsData(ProxyUps("192.168.11.178",8888))
-    init {
+    lateinit var upsData : UpsData
+
+    enum class Filter(val filterFun:(Status)->Boolean){
+        ALL({true}),
+        ACTIVE({it.isActive}),
+        INACTIVE({!it.isActive})
+    }
+
+    fun load(upsData: UpsData){
+        this.upsData = upsData
         upsData.addObserver(this)
         upsData.start()
     }
+
+
 
     private val _status = MutableLiveData(
         listOf<Status>()
     )
 
-    private val statusFilter : MutableLiveData<(Status)->Boolean> = MutableLiveData({true})
+    private val _currentFilter : MutableLiveData<Filter> = MutableLiveData(Filter.ALL)
+    val currentFilter : LiveData<Filter> = _currentFilter
 
-    var currentStatus : LiveData<List<Status>> = Transformations.switchMap(_status){list ->
-        Transformations.map(statusFilter){
-            list.filter(it)
+    val filteredStatus : LiveData<List<Status>> = Transformations.switchMap(_status){ list ->
+        Transformations.map(_currentFilter){
+            list?.filter(it.filterFun) ?: listOf()
         }
     }
 
-    fun filterActiveStatus(){
-        statusFilter.value = {it.isActive}
-    }
-    fun filterInctiveStatus(){
-        statusFilter.value = {!it.isActive}
-    }
-    fun filterAllStatus(){
-        statusFilter.value = {true}
+    fun setCurrentFilter(f:Filter){
+        _currentFilter.postValue(f)
     }
 
     override fun update() {
