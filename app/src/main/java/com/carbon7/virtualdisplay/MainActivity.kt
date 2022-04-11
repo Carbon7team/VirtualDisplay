@@ -2,6 +2,7 @@ package com.carbon7.virtualdisplay
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -27,6 +28,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawer: DrawerLayout
     private lateinit var toolbar: Toolbar
+
+    private var currentFragment = R.layout.fragment_diagram
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,37 +40,40 @@ class MainActivity : AppCompatActivity() {
         toolbar = binding.appToolbar.toolbar
         drawer = binding.drawerLayout
 
-
         setSupportActionBar(toolbar)
-        /*setTitle(R.string.app_name)*/
+
 
         toggle = ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this,
+            drawer,
+            toolbar,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
-
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
+
         binding.navView.setNavigationItemSelectedListener {
-            it.isChecked=true
+            it.isChecked = true
             drawer.closeDrawer(Gravity.LEFT)
             val m = DataManager()
 
-            if(it.itemId==R.id.diagram_menu_item){
+            if (it.itemId == R.id.diagram_menu_item) {
                 changeFragment(DiagramFragment())
-            }else if(it.itemId==R.id.alarms_menu_item){
+            } else if (it.itemId == R.id.alarms_menu_item) {
                 changeFragment(AlarmsFragment())
-            }else{
+            } else {
                 changeFragment(StatusFragment())
             }
 
-            Toast.makeText(this,it.title,Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, it.title, Toast.LENGTH_SHORT).show()
             true
         }
 
-
-        changeFragment(DiagramFragment())
-
+        if(savedInstanceState == null) {
+            changeFragment(DiagramFragment())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -100,6 +107,12 @@ class MainActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
 
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        //outState.put
+        //outState.putInt("currentFragment",)
     }
 
     private fun changeFragment(newFrag: Fragment){

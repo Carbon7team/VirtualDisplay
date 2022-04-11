@@ -10,6 +10,10 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
 
+    <string name="all_status">All status</string>
+    <string name="active_status">Active status</string>
+    <string name="inactive_status">Inactive status</string>
+    
     <string name="a000">IMMINENT STOP</string>
     <string name="a001">OVERLOAD ALARM</string>
     <string name="a002">AMBIENT TEMPERATURE ALARM</string>

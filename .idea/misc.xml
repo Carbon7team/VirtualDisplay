@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/drawable-v24/side_nav_bar.xml" value="0.22135416666666666" />
+        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/drawable/ic_filter.xml" value="0.21822916666666667" />
+        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/drawable/ic_filter_active.xml" value="0.21822916666666667" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/activity_starting.xml" value="0.20520833333333333" />
@@ -12,7 +14,9 @@
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_alarms.xml" value="0.20520833333333333" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_diagram.xml" value="0.2015625" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_gallery.xml" value="0.2015625" />
-        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_status.xml" value="0.36666666666666664" />
+        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_status.xml" value="0.2752808988764045" />
+        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/layout_sub_fab.xml" value="0.7648902821316614" />
+        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/list_item_status.xml" value="0.33" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/nav_header_main.xml" value="0.20520833333333333" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/status_fragment.xml" value="0.1328125" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/switch_item.xml" value="0.20520833333333333" />

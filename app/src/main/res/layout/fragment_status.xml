@@ -1,19 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.status.StatusFragment">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.status.StatusFragment">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Status Fragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_status"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:requiresFadingEdge="vertical"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/list_item_status" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:clickable="true"
+            android:contentDescription="Open or close filter selection"
+            android:focusable="true"
+            android:src="@drawable/ic_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <include
+            android:id="@+id/filter_active_status"
+            layout="@layout/layout_sub_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:desc="@{@string/active_status}"
+            app:icon="@{@drawable/ic_launcher_foreground}"
+            app:layout_constraintBottom_toTopOf="@+id/filter_all_status"
+            app:layout_constraintEnd_toEndOf="@+id/filter_all_status" />
+
+        <include
+            android:id="@+id/filter_all_status"
+            layout="@layout/layout_sub_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:desc="@{@string/all_status}"
+            app:icon="@{@drawable/ic_launcher_foreground}"
+            app:layout_constraintBottom_toTopOf="@id/fab_main"
+            app:layout_constraintEnd_toEndOf="@+id/fab_main" />
+
+        <include
+            android:id="@+id/filter_inactive_status"
+            layout="@layout/layout_sub_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:desc="@{@string/inactive_status}"
+            app:icon="@{@drawable/ic_launcher_foreground}"
+            app:layout_constraintBottom_toTopOf="@+id/filter_active_status"
+            app:layout_constraintEnd_toEndOf="@+id/filter_active_status" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
