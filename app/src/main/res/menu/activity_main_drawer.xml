@@ -15,6 +15,11 @@
         android:id="@+id/alarms_menu_item"
         android:checkable="true"
         android:title="@string/alarms" />
+
+    <item
+        android:checkable="true"
+        android:title="Select UPS" />
+
     <item android:title="@string/measurements">
         <menu>
             <item
