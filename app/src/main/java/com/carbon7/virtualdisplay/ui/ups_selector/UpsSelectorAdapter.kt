@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.UpsSelectorBinding
-import com.carbon7.virtualdisplay.model.Ups
+import com.carbon7.virtualdisplay.model.SavedUps
 
-class UpsSelectorAdapter(private val ups_list:List<Ups>) :
+class UpsSelectorAdapter(private val ups_list:List<SavedUps>) :
     RecyclerView.Adapter<UpsSelectorAdapter.ViewHolder>() {
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
@@ -25,6 +25,8 @@ class UpsSelectorAdapter(private val ups_list:List<Ups>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ctx=holder.upsList.context
         val s = ups_list[position]
+
+        holder.upsList.text= s.name + ": "+ ctx.getString(s.ID)
         holder.upsList.setTextColor(Color.CYAN)
     }
 

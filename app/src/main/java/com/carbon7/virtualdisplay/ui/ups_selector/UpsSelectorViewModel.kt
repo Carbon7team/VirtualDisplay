@@ -5,17 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.carbon7.virtualdisplay.model.Observer
-import com.carbon7.virtualdisplay.model.Status
-import com.carbon7.virtualdisplay.model.Ups
+import com.carbon7.virtualdisplay.model.SavedUps
 import com.carbon7.virtualdisplay.model.UpsData
 
 class UpsSelectorViewModel : ViewModel(), Observer {
     lateinit var upsData : UpsData
 
-    enum class Filter(val filterFun:(Status)->Boolean){
-        ALL({true}),
-        ACTIVE({it.isActive}),
-        INACTIVE({!it.isActive})
+    enum class Filter(val filterFun:(SavedUps)->Boolean){
+        ALL({true})
     }
 
     fun load(upsData: UpsData){
@@ -24,14 +21,14 @@ class UpsSelectorViewModel : ViewModel(), Observer {
         upsData.start()
     }
 
-    private val _status = MutableLiveData(
-        listOf<Status>()
+    private val _ups = MutableLiveData(
+        listOf<SavedUps>()
     )
 
     private val _currentFilter : MutableLiveData<Filter> = MutableLiveData(Filter.ALL)
     val currentFilter : LiveData<Filter> = _currentFilter
 
-    val filteredStatus : LiveData<List<Ups>> = Transformations.switchMap(_status){ list ->
+    val filteredStatus : LiveData<List<SavedUps>> = Transformations.switchMap(_ups){ list ->
         Transformations.map(_currentFilter){
             list?.filter(it.filterFun) ?: listOf()
         }
@@ -42,8 +39,6 @@ class UpsSelectorViewModel : ViewModel(), Observer {
     }
 
     override fun update() {
-        _status.postValue(
-            upsData.status?.values?.toList()
-        )
+
     }
 }
