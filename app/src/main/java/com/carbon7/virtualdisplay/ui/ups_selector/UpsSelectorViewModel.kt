@@ -26,16 +26,11 @@ class UpsSelectorViewModel : ViewModel(), Observer {
     )
 
     private val _currentFilter : MutableLiveData<Filter> = MutableLiveData(Filter.ALL)
-    val currentFilter : LiveData<Filter> = _currentFilter
 
     val filteredStatus : LiveData<List<SavedUps>> = Transformations.switchMap(_ups){ list ->
         Transformations.map(_currentFilter){
             list?.filter(it.filterFun) ?: listOf()
         }
-    }
-
-    fun setCurrentFilter(f:Filter){
-        _currentFilter.postValue(f)
     }
 
     override fun update() {
