@@ -1,14 +1,12 @@
 package com.carbon7.virtualdisplay.ui.status
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.model.Observer
 import com.carbon7.virtualdisplay.model.ProxyUps
 import com.carbon7.virtualdisplay.model.Status
 import com.carbon7.virtualdisplay.model.UpsData
+import kotlinx.coroutines.launch
 
 class StatusViewModel : ViewModel(), Observer {
 
@@ -23,6 +21,7 @@ class StatusViewModel : ViewModel(), Observer {
     fun load(upsData: UpsData){
         this.upsData = upsData
         upsData.addObserver(this)
+
         upsData.start()
     }
 

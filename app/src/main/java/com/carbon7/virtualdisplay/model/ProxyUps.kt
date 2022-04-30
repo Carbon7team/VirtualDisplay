@@ -1,6 +1,8 @@
 package com.carbon7.virtualdisplay.model
 
 import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.net.SocketTimeoutException
@@ -36,15 +38,9 @@ class ProxyUps(ip: String, port: Int, obs: MutableList<Observer> = mutableListOf
         soc!!.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
     }
 
-    private var lastPacket: ByteArray? = null
-
-    override fun getState(): ByteArray? {
-        return lastPacket
-    }
-
-    override fun requestInfo() {
-        thread {
-            Log.d("MyApp", "DDDD")
+    override suspend fun requestInfo(): ByteArray {
+        return withContext(Dispatchers.IO) {
+            //Log.d("MyApp", "DDDD")
             val req = byteArrayOf(0x01, 0x03, 0x00, 0x30, 0x00, 0x60) //Da cambiare l'ultimo byte quando si ha un XML completo
             val msg = req + calculateCrc(req)
             //Send the modbus request
@@ -57,25 +53,26 @@ class ProxyUps(ip: String, port: Int, obs: MutableList<Observer> = mutableListOf
             soc.getInputStream().read(out)
 
 
-            if (checkCrc(out.copyOfRange(0,size-2),out.copyOfRange(size-2,size)) && out[0] == (0x01).toByte() && out[1] == (0x03).toByte()) {
-                lastPacket = out.copyOfRange(3,size-2)
-            } else {
-                lastPacket = byteArrayOf(0x66,0x66)
-                print("Response error - unexpected packet")
-            }
-            notify()
+            if (checkCrc(out.copyOfRange(0,size-2),out.copyOfRange(size-2,size))
+                    && out[0] == (0x01).toByte()
+                    && out[1] == (0x03).toByte())
+
+                return@withContext out.copyOfRange(3,size-2)
+
+            throw Exception("Errore nella messaggio(raw) ricevuto")
+
             //("CRC check su out [ultimi 2 byte] + REQ TYPE check [primi 3 byte] + cleanup bytearray")
 
         }
     }
 
-    fun checkCrc(bytes: ByteArray, checksum:ByteArray):Boolean{
+    private fun checkCrc(bytes: ByteArray, checksum:ByteArray):Boolean{
         val crc = ModbusCRC()
         crc.update(bytes)
         return crc.crcBytes.contentEquals(checksum)
     }
 
-    fun calculateCrc(b: ByteArray): ByteArray{
+    private fun calculateCrc(b: ByteArray): ByteArray{
         val crc = ModbusCRC()
         crc.update(b)
         return crc.crcBytes

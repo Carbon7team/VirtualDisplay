@@ -1,10 +1,12 @@
 package com.carbon7.virtualdisplay.model
 
+import android.os.CountDownTimer
+import android.util.Log
 import com.carbon7.virtualdisplay.R
-import kotlin.concurrent.thread
+import kotlinx.coroutines.*
 
 
-class UpsData(u: Ups): Observer, Subject() {
+class UpsData(u: Ups): Subject() {
 
     companion object{
         val allStatus : Map<String, Status> = mapOf(
@@ -267,15 +269,170 @@ class UpsData(u: Ups): Observer, Subject() {
             "A126" to Alarm("A126", R.string.a126,Alarm.Level.NONE),
             "A127" to Alarm("A127", R.string.a127,Alarm.Level.NONE)
         )
+        val allMeasurement: Map<String, Measurement> = mapOf(
+            "M000" to Measurement("M000", null),
+            "M001" to Measurement("M001", null),
+            "M002" to Measurement("M002", null),
+            "M003" to Measurement("M003", null),
+            "M004" to Measurement("M004", null),
+            "M005" to Measurement("M005", null),
+            "M006" to Measurement("M006", null),
+            "M007" to Measurement("M007", null),
+            "M008" to Measurement("M008", null),
+            "M009" to Measurement("M009", null),
+            "M010" to Measurement("M010", null),
+            "M011" to Measurement("M011", null),
+            "M012" to Measurement("M012", null),
+            "M013" to Measurement("M013", null),
+            "M014" to Measurement("M014", null),
+            "M015" to Measurement("M015", null),
+            "M016" to Measurement("M016", null),
+            "M017" to Measurement("M017", null),
+            "M018" to Measurement("M018", null),
+            "M019" to Measurement("M019", null),
+            "M020" to Measurement("M020", null),
+            "M021" to Measurement("M021", null),
+            "M022" to Measurement("M022", null),
+            "M023" to Measurement("M023", null),
+            "M024" to Measurement("M024", null),
+            "M025" to Measurement("M025", null),
+            "M026" to Measurement("M026", null),
+            "M027" to Measurement("M027", null),
+            "M028" to Measurement("M028", null),
+            "M029" to Measurement("M029", null),
+            "M030" to Measurement("M030", null),
+            "M031" to Measurement("M031", null),
+            "M032" to Measurement("M032", null),
+            "M033" to Measurement("M033", null),
+            "M034" to Measurement("M034", null),
+            "M035" to Measurement("M035", null),
+            "M036" to Measurement("M036", null),
+            "M037" to Measurement("M037", null),
+            "M038" to Measurement("M038", null),
+            "M039" to Measurement("M039", null),
+            "M040" to Measurement("M040", null),
+            "M041" to Measurement("M041", null),
+            "M042" to Measurement("M042", null),
+            "M043" to Measurement("M043", null),
+            "M044" to Measurement("M044", null),
+            "M045" to Measurement("M045", null),
+            "M046" to Measurement("M046", null),
+            "M047" to Measurement("M047", null),
+            "M048" to Measurement("M048", null),
+            "M049" to Measurement("M049", null),
+            "M050" to Measurement("M050", null),
+            "M051" to Measurement("M051", null),
+            "M052" to Measurement("M052", null),
+            "M053" to Measurement("M053", null),
+            "M054" to Measurement("M054", null),
+            "M055" to Measurement("M055", null),
+            "M056" to Measurement("M056", null),
+            "M057" to Measurement("M057", null),
+            "M058" to Measurement("M058", null),
+            "M059" to Measurement("M059", null),
+            "M060" to Measurement("M060", null),
+            "M061" to Measurement("M061", null),
+            "M062" to Measurement("M062", null),
+            "M063" to Measurement("M063", null),
+            "M064" to Measurement("M064", null),
+            "M065" to Measurement("M065", null),
+            "M066" to Measurement("M066", null),
+            "M067" to Measurement("M067", null),
+            "M068" to Measurement("M068", null),
+            "M069" to Measurement("M069", null),
+            "M070" to Measurement("M070", null),
+            "M071" to Measurement("M071", null),
+            "M072" to Measurement("M072", null),
+            "M073" to Measurement("M073", null),
+            "M074" to Measurement("M074", null),
+            "M075" to Measurement("M075", null),
+            "M076" to Measurement("M076", null)
+        )
+        private val measurement_factor= arrayOf(
+            arrayOf(1, 1, false),     //MO00
+            arrayOf(1, 1, false),     //MO01
+            arrayOf(1, 1, false),     //MO02
+            arrayOf(1, 1, false),     //MO03
+            arrayOf(1, 10, false),    //MO04
+            arrayOf(1, 10, false),    //MO05
+            arrayOf(1, 10, false),    //MO06
+            arrayOf(1, 10, false),    //MO07
+            arrayOf(1, 10, false),    //MO08
+            arrayOf(1, 10, false),    //MO09
+            arrayOf(1, 1, false),     //MO10
+            arrayOf(1, 1, false),     //MO11
+            arrayOf(1, 1, false),     //MO12
+            arrayOf(10, 10, false),   //MO13
+            arrayOf(10, 10, false),   //MO14
+            arrayOf(10, 10, false),   //MO15
+            arrayOf(1, 10, false),    //MO16
+            arrayOf(1, 10, false),    //MO17
+            arrayOf(1, 10, false),    //MO18
+            arrayOf(1, 10, false),    //MO19
+            arrayOf(1, 1, false),     //MO20 -> NULL
+            arrayOf(1, 1, false),     //MO21
+            arrayOf(1, 1, false),     //MO22
+            arrayOf(1, 10, false),    //MO23
+            arrayOf(1, 1, false),     //MO24
+            arrayOf(1, 1, false),     //MO25
+            arrayOf(10, 10, false),   //MO26
+            arrayOf(10, 10, false),   //MO27
+            arrayOf(1, 10, false),    //MO28
+            arrayOf(10, 10, false),   //MO29
+            arrayOf(1, 1, false),     //MO30
+            arrayOf(1, 1, false),     //MO31 -> NULL
+            arrayOf(1, 1, false),     //MO32
+            arrayOf(1, 1, false),     //MO33
+            arrayOf(1, 1, false),     //MO34
+            arrayOf(10, 10, false),   //MO35
+            arrayOf(1, 1, false),     //MO36
+            arrayOf(1, 1, false),     //MO37
+            arrayOf(1, 1, false),     //MO38
+            arrayOf(1, 1, false),     //MO39
+            arrayOf(1, 1, false),     //MO40
+            arrayOf(1, 1, false),     //MO41
+            arrayOf(10, 10, false),   //MO42
+            arrayOf(1, 1, false),     //MO43
+            arrayOf(1, 1, false),     //M044
+            arrayOf(1, 1, false),     //MO45
+            arrayOf(1, 1, false),     //M046
+            arrayOf(1, 1, false),     //MO47 -> RESERVED
+            arrayOf(1, 10, false),    //MO48
+            arrayOf(1, 10, false),    //MO49
+            arrayOf(1, 10, false),    //MO50
+            arrayOf(1, 10, false),    //MO51
+            arrayOf(1, 10, false),    //MO52
+            arrayOf(1, 10, false),    //MO53
+            arrayOf(1, 1, false),     //MO54
+            arrayOf(1, 1, false),     //MO55
+            arrayOf(1, 1, false),     //MO56
+            arrayOf(100, 100, false), //MO57
+            arrayOf(100, 100, false), //MO58
+            arrayOf(100, 100, false), //MO59
+            arrayOf(10, 10, false),   //MO60
+            arrayOf(10, 10, false),   //MO61
+            arrayOf(10, 10, false),   //MO62
+            arrayOf(10, 10, false),   //MO63
+            arrayOf(1, 10, false),    //MO64
+            arrayOf(1, 10, false),    //MO65
+            arrayOf(1, 10, false),    //MO66
+            arrayOf(1, 10, true),     //MO67
+            arrayOf(1, 10, true),     //MO68
+            arrayOf(1, 10, true),     //MO69
+            arrayOf(1, 10, false),     //MO70
+            arrayOf(1, 10, false),     //MO71
+            arrayOf(1, 10, false),     //MO72
+            arrayOf(1, 10, false),     //MO73
+            arrayOf(1, 10, false),     //MO74
+            arrayOf(1, 10, false),     //MO75
+            arrayOf(1, 1, false),     //MO76
+        )//M77, M78 and M79 have custom behaviour
+
     }
 
-    var ups: Ups = u
-    /*set(value) {
-        field?.close()
-        field = value
-    }*/
+    private var ups: Ups = u
+    private val reg0x00E=1
 
-    private var running = false
     var status: Map<String, Status>? = null
         private set
     var alarms: Map<String, Alarm>? = null
@@ -283,34 +440,37 @@ class UpsData(u: Ups): Observer, Subject() {
     var measurements: Map<String, Measurement>? = null
         private set
 
-    init {
-        ups.addObserver(this)
-    }
-
-    fun start(){
-        if(!running){
-            running=true
-            thread {
-                while(running){
-                    ups.requestInfo()
-                    Thread.sleep(5000)
+    private val timer= object: CountDownTimer(Long.MAX_VALUE,5000){
+        override fun onTick(p0: Long) {
+            CoroutineScope(Dispatchers.Default).launch{
+                try {
+                    val packet = ups.requestInfo()
+                    decode(packet)
+                    notify()
+                }catch (e: Exception){
+                    Log.d("MyApp",e.toString())
                 }
             }
         }
+        override fun onFinish() {}
+    }
+
+
+    init{
+
+    }
+    fun start(){
+        timer.start()
     }
     fun stop() {
-        running=false
-        ups.removeObserver(this)
+        timer.cancel()
     }
 
 
-    override fun update() {
-        val upsPacket = ups.getState()
-        if (upsPacket != null) {
-            status = decodeStatus(upsPacket.copyOfRange(0, 16))
-            alarms = decodeAlarms(upsPacket.copyOfRange(16, 32))
-            notify()
-        }
+    private fun decode(packet :ByteArray) {
+        status = decodeStatus(packet.copyOfRange(0, 16))
+        alarms = decodeAlarms(packet.copyOfRange(16, 32))
+        measurements = decodeMeasurements(packet.copyOfRange(32,192))
     }
 
     private fun decodeStatus(statusBytes: ByteArray):Map<String, Status>{
@@ -334,22 +494,37 @@ class UpsData(u: Ups): Observer, Subject() {
 
         return newAlarm
     }
+    private fun decodeMeasurements(measurementsBytes: ByteArray): Map<String, Measurement>{
+        val measurements_raw=measurementsBytes.take(77*2).toByteArray().toShorts()//Da M000 a M076
+
+        val newMeasurements = allMeasurement.toMutableMap()
+        for (i in 0 until 76){
+            var measurement= measurements_raw[i]
+            if(measurement_factor[i][2]==true)
+                measurement= (measurements_raw[i]-32768).toShort()
+
+            newMeasurements["M%03d".format(i)]?.value= measurement.toFloat()/(measurement_factor[i][reg0x00E] as Int)
+        }
+        return newMeasurements
+
+    }
+
 
     private fun ByteArray.toBooleanArray(): BooleanArray{
         return toBinaryString().map{it=='1'}.toBooleanArray()
     }
-
-
     private fun ByteArray.toBinaryString(separator:String=""):String{
         return this.joinToString(separator) { "%02x".format(it).toInt(16).toBinary(8) }
     }
-
-
     private fun Int.toBinary(len: Int): String {
         return String.format("%" + len + "s", this.toString(2)).replace(" ".toRegex(), "0")
+    }
+    private fun ByteArray.toShorts(): List<Short> {
+        return this.toList().chunked(2).map{(it[0].toShort()*256+it[1].toShort()).toShort()}
     }
 
 
 
 
 }
+
