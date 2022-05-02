@@ -85,7 +85,7 @@ class StatusFragment : Fragment() {
                 closeFab()
         }
 
-        viewModel.load(UpsData(ProxyUps("192.168.11.178",8888)))
+        viewModel.load(UpsData(ProxyUps("192.168.1.6",8888)))
 
         return root
     }

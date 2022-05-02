@@ -19,6 +19,7 @@ import com.carbon7.virtualdisplay.model.DataManager
 import com.carbon7.virtualdisplay.ui.alarms.AlarmsFragment
 import com.carbon7.virtualdisplay.ui.diagram.DiagramFragment
 import com.carbon7.virtualdisplay.ui.status.StatusFragment
+import com.carbon7.virtualdisplay.ui.ups_selector.UpsSelectorFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -101,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         }
         R.id.settings -> {
             Toast.makeText(this,"IMPOSTAZIONI",Toast.LENGTH_SHORT).show()
+            changeFragment(UpsSelectorFragment())
             true
         }
         else -> {

@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.carbon7.virtualdisplay.databinding.FragmentUpsSelectorBinding
-import com.carbon7.virtualdisplay.model.ProxyUps
-import com.carbon7.virtualdisplay.model.UpsData
+import com.carbon7.virtualdisplay.model.AppDB
+
+// chiamare metodo in view model quando viene fatto un interazione
+// osservare live data view model e adattare la grafica
 
 class UpsSelectorFragment : Fragment() {
 
@@ -28,19 +30,28 @@ class UpsSelectorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val dao = AppDB.getInstance(requireContext()).dao
 
         viewModel = ViewModelProvider(this).get(UpsSelectorViewModel::class.java)
 
-        viewModel.filteredStatus.observe(viewLifecycleOwner){
-            val recyclerViewState = binding.upsSelector.layoutManager?.onSaveInstanceState()
-            binding.upsSelector.adapter = UpsSelectorAdapter(it)
-            binding.upsSelector.layoutManager?.onRestoreInstanceState(recyclerViewState)
+        viewModel.ups.observe(viewLifecycleOwner) {
+            val recyclerViewState = binding.upsList.layoutManager?.onSaveInstanceState()
+            binding.upsList.adapter = UpsSelectorAdapter(it)
+            binding.upsList.layoutManager?.onRestoreInstanceState(recyclerViewState)
         }
+
+        viewModel.load(dao)
 
         _binding = FragmentUpsSelectorBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        viewModel.load(UpsData(ProxyUps("192.168.137.1",8888)))
+        binding.fabAdd.setOnClickListener {
+            CreateNewUpsDialog { name: String, ip: String, port: Int ->
+                viewModel.addUps(name, ip, port)
+            }.show(parentFragmentManager, "Create UPS")
+        }
+
+        // val d2 = CreateNewUpsDialog(viewModel::addUps) // funziona uguale ma viene passato direttamente la funzione
 
         return root
     }

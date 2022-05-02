@@ -24,9 +24,12 @@
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/menu/toolbar_menu.xml" value="0.22708333333333333" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3828125" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3828125" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/dialog_create_ups.xml" value="0.25" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_status.xml" value="0.18931159420289856" />
-        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_ups_selector.xml" value="0.18931159420289856" />
-        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/ups_selector.xml" value="0.18931159420289856" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_ups_selector.xml" value="0.25" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/list_item_ups.xml" value="0.25" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/ups_selector.xml" value="0.19972826086956522" />
       </map>
     </option>
   </component>
@@ -35,5 +38,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.19972826086956522" />
+      </ProjectState>
+    </option>
   </component>
 </project>

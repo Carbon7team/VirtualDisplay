@@ -1,39 +1,50 @@
 package com.carbon7.virtualdisplay.ui.ups_selector
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import com.carbon7.virtualdisplay.model.Observer
-import com.carbon7.virtualdisplay.model.SavedUps
-import com.carbon7.virtualdisplay.model.UpsData
+import androidx.lifecycle.*
+import com.carbon7.virtualdisplay.model.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
-class UpsSelectorViewModel : ViewModel(), Observer {
-    lateinit var upsData : UpsData
+class UpsSelectorViewModel : ViewModel() {
+    lateinit var dao : SavedUpsDao
 
-    enum class Filter(val filterFun:(SavedUps)->Boolean){
-        ALL({true})
-    }
-
-    fun load(upsData: UpsData){
-        this.upsData = upsData
-        upsData.addObserver(this)
-        upsData.start()
+    fun load(d: SavedUpsDao){
+        dao = d
+        CoroutineScope(Dispatchers.Default).launch {
+            dao.getAll().collect {
+                _ups.postValue(it)
+            }
+        }
     }
 
     private val _ups = MutableLiveData(
         listOf<SavedUps>()
     )
 
-    private val _currentFilter : MutableLiveData<Filter> = MutableLiveData(Filter.ALL)
+    val ups:LiveData<List<SavedUps>> = _ups
 
-    val filteredStatus : LiveData<List<SavedUps>> = Transformations.switchMap(_ups){ list ->
-        Transformations.map(_currentFilter){
-            list?.filter(it.filterFun) ?: listOf()
+
+    fun addUps(name: String, ip: String, port: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            dao.addUps(SavedUps(name, ip, port))
         }
     }
 
-    override fun update() {
+    fun modifyUps(id: Int, name: String?, ip: String?, port: Int?) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val currentUps = dao.findById(id)
+            if (name != null) currentUps.name = name
+            if (ip != null) currentUps.address = ip
+            if (port != null) currentUps.port = port
+            dao.updateUps(currentUps)
+        }
+    }
 
+    fun deleteUps(id: Int) {
+        CoroutineScope(Dispatchers.IO).launch {
+            dao.deleteUps(id)
+        }
     }
 }

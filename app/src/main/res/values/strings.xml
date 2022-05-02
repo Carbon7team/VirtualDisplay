@@ -271,4 +271,7 @@
     <string name="s125">[14] IS AVAILABLE</string>
     <string name="s126">[15] IS AVAILABLE</string>
     <string name="s127">DATA NO LONGER UPDATED</string>
+    <string name="add">Add</string>
+    <string name="add_new_ups">Add new UPS</string>
+    <string name="cancel">Cancel</string>
 </resources>
