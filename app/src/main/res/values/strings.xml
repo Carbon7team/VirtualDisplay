@@ -274,4 +274,12 @@
     <string name="add">Add</string>
     <string name="add_new_ups">Add new UPS</string>
     <string name="cancel">Cancel</string>
+    <string name="modify_ups">Modify UPS</string>
+    <string name="delete_ups">Delete UPS</string>
+    <string name="add_new_ups">Add new UPS</string>
+    <string name="insert_ups_name">Insert UPS name</string>
+    <string name="ups_name">UPS name</string>
+    <string name="insert_ip_address">Insert IP address</string>
+    <string name="ups_ip">UPS IP</string>
+    <string name="insert_port">Insert port</string>
 </resources>

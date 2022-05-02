@@ -44,6 +44,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
     implementation 'androidx.room:room-ktx:2.4.2'
 
+    implementation 'androidx.cardview:cardview:1.0.0'
+
     testImplementation "androidx.arch.core:core-testing:2.1.0"
 
 

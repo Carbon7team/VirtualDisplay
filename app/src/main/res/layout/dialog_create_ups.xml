@@ -8,21 +8,21 @@
         android:id="@+id/textView6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Insert UPS name" />
+        android:text="@string/insert_ups_name" />
 
     <EditText
         android:id="@+id/ups_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="UPS name"
+        android:hint="@string/ups_name"
         android:inputType="text"/>
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Insert IP address" />
+        android:text="@string/insert_ip_address" />
 
     <EditText
         android:id="@+id/ups_ip"
@@ -31,13 +31,13 @@
         android:ems="10"
         android:inputType="number"
         android:digits="0123456789."
-        android:hint="UPS IP" />
+        android:hint="@string/ups_ip" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Insert port" />
+        android:text="@string/insert_port" />
 
     <EditText
         android:id="@+id/ups_port"
