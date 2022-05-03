@@ -10,17 +10,17 @@ import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.DialogCreateUpsBinding
 import java.util.regex.Pattern
 
-class CreateNewUpsDialog(private val onSuccess:(name: String, ip: String, port: Int)->Unit) :
+class ModifyUpsDialog(private val onSuccess:(id: Int, name: String, ip: String, port: Int)->Unit) :
     DialogFragment() {
 
     var zeroTo255 = ("(\\d{1,2}|(0|1)\\"
             + "d{2}|2[0-4]\\d|25[0-5])")
 
     var p: Pattern = Pattern.compile(
-            (zeroTo255 + "\\."
-            + zeroTo255 + "\\."
-            + zeroTo255 + "\\."
-            + zeroTo255)
+        (zeroTo255 + "\\."
+                + zeroTo255 + "\\."
+                + zeroTo255 + "\\."
+                + zeroTo255)
     )
 
     override fun onCreateDialog(savedInstanceState: Bundle?) : Dialog {

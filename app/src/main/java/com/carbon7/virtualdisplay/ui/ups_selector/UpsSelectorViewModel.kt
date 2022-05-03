@@ -12,6 +12,7 @@ class UpsSelectorViewModel : ViewModel() {
 
     fun load(d: SavedUpsDao){
         dao = d
+
         CoroutineScope(Dispatchers.Default).launch {
             dao.getAll().collect {
                 _ups.postValue(it)
@@ -35,9 +36,11 @@ class UpsSelectorViewModel : ViewModel() {
     fun modifyUps(id: Int, name: String?, ip: String?, port: Int?) {
         CoroutineScope(Dispatchers.IO).launch {
             val currentUps = dao.findById(id)
+
             if (name != null) currentUps.name = name
             if (ip != null) currentUps.address = ip
             if (port != null) currentUps.port = port
+
             dao.updateUps(currentUps)
         }
     }

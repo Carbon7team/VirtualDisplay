@@ -14,19 +14,21 @@ class UpsSelectorAdapter(private val ups_list:List<SavedUps>) :
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         private val binding: ListItemUpsBinding = ListItemUpsBinding.bind(view)
         val upsName = binding.upsName
-        val upsSocket = binding.upsSocket
+        val upsSocket = binding.upsInfo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_ups,parent,false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_item_ups, parent,false)
+
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val saveUps = ups_list[position]
+        val savedUps = ups_list[position]
 
-        holder.upsName.text= saveUps.name
-        holder.upsSocket.text= saveUps.address + ":" + saveUps.port
+        holder.upsName.text= savedUps.name
+        holder.upsSocket.text= "IP: " + savedUps.address + " - port: " + savedUps.port
     }
 
     override fun getItemCount() = ups_list.size
