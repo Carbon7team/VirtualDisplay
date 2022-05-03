@@ -1,16 +1,26 @@
 package com.carbon7.virtualdisplay.ui.status
 
+import android.util.Log
 import androidx.lifecycle.*
-import com.carbon7.virtualdisplay.R
+import com.carbon7.virtualdisplay.model.*
 import com.carbon7.virtualdisplay.model.Observer
-import com.carbon7.virtualdisplay.model.ProxyUps
-import com.carbon7.virtualdisplay.model.Status
-import com.carbon7.virtualdisplay.model.UpsData
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class StatusViewModel : ViewModel(), Observer {
+class StatusViewModel : ViewModel() {
 
-    lateinit var upsData : UpsData
+    private lateinit var bus : EventBus<Triple<List<Status>,List<Alarm>,List<Measurement>>>
+
+    init {
+        Log.d("MyApp","statusVM created")
+
+
+    }
+
 
     enum class Filter(val filterFun:(Status)->Boolean){
         ALL({true}),
@@ -18,18 +28,25 @@ class StatusViewModel : ViewModel(), Observer {
         INACTIVE({!it.isActive})
     }
 
-    fun load(upsData: UpsData){
-        this.upsData = upsData
-        upsData.addObserver(this)
+    lateinit var job: Job
+    fun load(bus: EventBus<Triple<List<Status>,List<Alarm>,List<Measurement>>>){
+        Log.d("MyApp","statusVM LOADED")
 
-        upsData.start()
+
+        job = viewModelScope.launch {
+            bus.events.collect{
+                Log.d("MyApp", "NEW DATA COLLECTED")
+                _status.value= it.first
+            }
+        }
+    }
+    fun unload(){
+        job.cancel()
     }
 
 
 
-    private val _status = MutableLiveData(
-        listOf<Status>()
-    )
+    private val _status = MutableLiveData(listOf<Status>())
 
     private val _currentFilter : MutableLiveData<Filter> = MutableLiveData(Filter.ALL)
     val currentFilter : LiveData<Filter> = _currentFilter
@@ -40,15 +57,22 @@ class StatusViewModel : ViewModel(), Observer {
         }
     }
 
+
+
     fun setCurrentFilter(f:Filter){
         _currentFilter.postValue(f)
+
     }
 
-    override fun update() {
+    /*override fun update() {
         _status.postValue(
-            upsData.status?.values?.toList()
+            upsData.status
         )
-    }
+    }*/
 
+
+    override fun onCleared() {
+        Log.d("MyApp","statusVM cleared")
+    }
 
 }

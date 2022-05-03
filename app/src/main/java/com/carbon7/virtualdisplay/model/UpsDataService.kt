@@ -3,20 +3,21 @@ package com.carbon7.virtualdisplay.model
 import android.app.Service
 import android.content.Intent
 import android.os.Binder
-import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.IBinder
 import android.util.Log
 import com.carbon7.virtualdisplay.R
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-
-/*
-class UpsDataService(): Service() {
+class UpsDataService: Service() {
 
 
     private val binder = LocalBinder()
     private lateinit var ups: Ups
+    val eventBus = EventBus<Triple<List<Status>,List<Alarm>,List<Measurement>>>()
+
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null && intent.extras != null) {
@@ -26,14 +27,27 @@ class UpsDataService(): Service() {
 
             ups=ProxyUps(ip,port)
         }
-
-
-
-        return super.onStartCommand(intent, flags, startId)
+        start()
+        Log.d("MyApp", "SERVICE STARTED")
+        return START_REDELIVER_INTENT
     }
 
+    override fun onDestroy() {
+        Log.d("MyApp", "SERVICE DESTROYED")
+        super.onDestroy()
+        stop()
+    }
+
+    private val boundedClients = 0
     override fun onBind(p0: Intent?): IBinder? {
+        Log.d("MyApp", "BIND")
         return binder
+    }
+
+    override fun onUnbind(intent: Intent?): Boolean {
+        Log.d("MyApp", "UNBIND")
+
+        return super.onUnbind(intent)
     }
 
 
@@ -42,11 +56,6 @@ class UpsDataService(): Service() {
     }
 
 
-
-}
-*/
-
-class UpsData(u: Ups): Subject() {
 
     companion object{
         private val startingStatus  = listOf(
@@ -471,24 +480,23 @@ class UpsData(u: Ups): Subject() {
     }
 
 
-
-    private var ups: Ups = u
     private val reg0x00E=1
 
-    var status: List<Status> = startingStatus
+    private var status: List<Status> = startingStatus
         private set
-    var alarms: List<Alarm> = startingAlarms
+    private var alarms: List<Alarm> = startingAlarms
         private set
-    var measurements: List<Measurement> = startingMeasurement
+    private var measurements: List<Measurement> = startingMeasurement
         private set
 
-    private val timer= object: CountDownTimer(Long.MAX_VALUE,5000){
+    private val timer= object: CountDownTimer(Long.MAX_VALUE,2000){
         override fun onTick(p0: Long) {
             CoroutineScope(Dispatchers.Default).launch{
                 try {
                     val packet = ups.requestInfo()
                     decode(packet)
-                    notify()
+                    Log.d("MyApp", "NEW DATA PUBLISHED")
+                    eventBus.invokeEvent(Triple(status,alarms,measurements))
                 }catch (e: Exception){
                     Log.d("MyApp",e.toString())
                 }
@@ -552,5 +560,5 @@ class UpsData(u: Ups): Subject() {
     private fun ByteArray.toShorts(): List<Short> {
         return this.toList().chunked(2).map{(it[0].toShort()*256+it[1].toShort()).toShort()}
     }
-}
 
+}

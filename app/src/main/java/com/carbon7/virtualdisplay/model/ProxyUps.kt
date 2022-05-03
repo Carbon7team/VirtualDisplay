@@ -8,8 +8,10 @@ import java.net.Socket
 import java.net.SocketTimeoutException
 import kotlin.concurrent.thread
 
-class ProxyUps(ip: String, port: Int, obs: MutableList<Observer> = mutableListOf()): Ups() {
-    private var soc: Socket
+class ProxyUps(ip: String, port: Int): Ups() {
+    private var soc = Socket()
+    private val _ip = ip
+    private val _port = port
 
     companion object{
         private val ipv4_pattern=
@@ -24,18 +26,20 @@ class ProxyUps(ip: String, port: Int, obs: MutableList<Observer> = mutableListOf
             throw IllegalArgumentException("Indirizzo ip non valido")
         if(!(port in 0..35565))//port not in 0..35565
             throw IllegalArgumentException("Porta non valida")
-        soc = Socket()
+
+    }
+
+    override fun open(){
         thread {
             try {
-                soc.connect(InetSocketAddress(ip,port),5000)
+                soc.connect(InetSocketAddress(_ip,_port),5000)
             }catch (e:SocketTimeoutException){
                 Log.d("myApp", e.toString())
             }
         }
     }
-
     override fun close(){
-        soc!!.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
+        soc.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
     }
 
     override suspend fun requestInfo(): ByteArray {
