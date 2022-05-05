@@ -1,15 +1,18 @@
 package com.carbon7.virtualdisplay.model
 
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 
 
 class EventBus<T> {
 
-    private val _events = MutableSharedFlow<T>()
-    val events = _events.asSharedFlow()
+    private val _events = MutableLiveData<T>()
+    val events: LiveData<T> = _events
 
-    suspend fun invokeEvent(event: T) = _events.emit(event)
+    suspend fun invokeEvent(event: T){
+        //Log.d("MyApp", "NEW DATA PUBLISHED")
+        _events.postValue(event!!)
+    }
 }
 
 

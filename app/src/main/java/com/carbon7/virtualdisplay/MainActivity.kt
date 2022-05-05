@@ -1,25 +1,23 @@
 package com.carbon7.virtualdisplay
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import com.carbon7.virtualdisplay.databinding.ActivityMainBinding
-
-import android.widget.Switch
-import androidx.fragment.app.*
+import com.carbon7.virtualdisplay.model.UpsDataService
 import com.carbon7.virtualdisplay.ui.alarms.AlarmsFragment
 import com.carbon7.virtualdisplay.ui.diagram.DiagramFragment
 import com.carbon7.virtualdisplay.ui.status.StatusFragment
-import com.carbon7.virtualdisplay.model.UpsDataService
 import kotlin.reflect.KClass
 
 
@@ -34,18 +32,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        Intent(this, UpsDataService::class.java).apply {
-            putExtra("ip","192.168.11.178")
-            putExtra("port",8888)
-        }.also {
-
-            Log.d("MyApp", "SERVICE START INVIATO")
-            startService(it)
-        }
-
-
 
 
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -123,19 +109,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        //outState.put
-        //outState.putInt("currentFragment",)
-    }
-
-
-    //private val boh = mutableMapOf<KClass<out Fragment>, Fragment>()
-
     private fun changeFragment(fragClass: KClass<out Fragment>){
 
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        //transaction.add(R.id.fragment_container, fragClass.java, null)
 
         val frag = supportFragmentManager.findFragmentByTag(fragClass.simpleName)
         if(frag==null)
@@ -143,16 +119,30 @@ class MainActivity : AppCompatActivity() {
         else
             transaction.replace(R.id.fragment_container, frag, fragClass.simpleName)
 
-        /*if(boh.containsKey(fragClass))
-            transaction.replace(R.id.fragment_container, boh[fragClass]!!)
-        else {
-            boh.put(fragClass,fragClass.constructors.first().call())
-            transaction.replace(R.id.fragment_container, fragClass.java, null)
-        }*/
         transaction.addToBackStack(null);
         transaction.commit()
 
 
 
     }
+
+
+
+
+    override fun onStop() {
+        super.onStop()
+        stopService(Intent(this,UpsDataService::class.java))
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Intent(this, UpsDataService::class.java).apply {
+            putExtra("ip","192.168.11.178")
+            putExtra("port",8888)
+        }.also {
+            startService(it)
+        }
+
+    }
+
 }

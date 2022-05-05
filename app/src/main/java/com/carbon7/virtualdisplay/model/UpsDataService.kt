@@ -28,28 +28,17 @@ class UpsDataService: Service() {
             ups=ProxyUps(ip,port)
         }
         start()
-        Log.d("MyApp", "SERVICE STARTED")
-        return START_REDELIVER_INTENT
+        return START_NOT_STICKY
     }
 
     override fun onDestroy() {
-        Log.d("MyApp", "SERVICE DESTROYED")
         super.onDestroy()
         stop()
     }
 
-    private val boundedClients = 0
     override fun onBind(p0: Intent?): IBinder? {
-        Log.d("MyApp", "BIND")
         return binder
     }
-
-    override fun onUnbind(intent: Intent?): Boolean {
-        Log.d("MyApp", "UNBIND")
-
-        return super.onUnbind(intent)
-    }
-
 
     inner class LocalBinder : Binder(){
         fun getService(): UpsDataService = this@UpsDataService
@@ -495,7 +484,6 @@ class UpsDataService: Service() {
                 try {
                     val packet = ups.requestInfo()
                     decode(packet)
-                    Log.d("MyApp", "NEW DATA PUBLISHED")
                     eventBus.invokeEvent(Triple(status,alarms,measurements))
                 }catch (e: Exception){
                     Log.d("MyApp",e.toString())

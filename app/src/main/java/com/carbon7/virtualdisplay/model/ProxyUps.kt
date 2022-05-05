@@ -3,13 +3,14 @@ package com.carbon7.virtualdisplay.model
 import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.net.InetAddress
 import java.net.InetSocketAddress
 import java.net.Socket
 import java.net.SocketTimeoutException
 import kotlin.concurrent.thread
 
 class ProxyUps(ip: String, port: Int): Ups() {
-    private var soc = Socket()
+    private lateinit var soc : Socket
     private val _ip = ip
     private val _port = port
 
@@ -32,7 +33,7 @@ class ProxyUps(ip: String, port: Int): Ups() {
     override fun open(){
         thread {
             try {
-                soc.connect(InetSocketAddress(_ip,_port),5000)
+                soc = Socket(InetAddress.getByName(_ip),_port)
             }catch (e:SocketTimeoutException){
                 Log.d("myApp", e.toString())
             }

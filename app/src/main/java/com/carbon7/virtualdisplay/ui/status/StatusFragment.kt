@@ -1,11 +1,8 @@
 package com.carbon7.virtualdisplay.ui.status
 
-import android.app.DatePickerDialog
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
-import android.os.Build
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
@@ -15,50 +12,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Toast
-import androidx.annotation.RequiresApi
-import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.Lifecycle
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentStatusBinding
-import com.carbon7.virtualdisplay.model.ProxyUps
-import com.carbon7.virtualdisplay.model.UpsData
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.withCreated
-import androidx.room.Room
 import com.carbon7.virtualdisplay.model.UpsDataService
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class StatusFragment : Fragment() {
-
-
-    companion object {
-        fun newInstance() = StatusFragment()
-    }
 
     private lateinit var mService: UpsDataService
     private val connection = object : ServiceConnection{
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
-            Log.d("MyApp", "SERVIZIO CONNESSO")
             mService= (service as UpsDataService.LocalBinder).getService()
-            viewModel.load(mService.eventBus)
-
+            viewModel.bind(mService.eventBus)
         }
         override fun onServiceDisconnected(arg0: ComponentName) {
-            Log.d("MyApp", "SERVIZIO DISCONNESSO")
+            requireContext().bindService(
+                Intent(requireContext(), UpsDataService::class.java), this,0
+            )
         }
     }
 
     private val viewModel: StatusViewModel by viewModels()
 
-
     private var _binding: FragmentStatusBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding
         get() = _binding!!
 
@@ -71,30 +48,21 @@ class StatusFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("MyApp","StatusFragment Created")
 
         requireContext().bindService(
             Intent(requireContext(), UpsDataService::class.java), connection,0
         )
+
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        Log.d("MyApp","StatusFragment ViewCreated")
-
-
         _binding = FragmentStatusBinding.inflate(inflater, container, false)
-
 
         setupView()
         setupVM()
-
-
-
-        //viewModel.load(UpsData(ProxyUps("192.168.11.178",8888)))
 
         return binding.root
     }
@@ -168,33 +136,8 @@ class StatusFragment : Fragment() {
         fabOpened=false
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
-        //requireContext().unbindService(connection)
-        Log.d("MyApp","StatusFragment Destroyed")
-    }
-    override fun onStop() {
-        super.onStop()
-        Log.d("MyApp","StatusFragment Stopped")
-    }
-    override fun onPause() {
-        super.onPause()
-        Log.d("MyApp","StatusFragment Paused")
         requireContext().unbindService(connection)
-        viewModel.unload()
     }
-    override fun onResume() {
-        super.onResume()
-        Log.d("MyApp","StatusFragment Resumed")
-        requireContext().bindService(
-            Intent(requireContext(), UpsDataService::class.java), connection,0
-        )
-
-    }
-    override fun onStart() {
-        super.onStart()
-        Log.d("MyApp","StatusFragment Started")
-    }
-
 }
