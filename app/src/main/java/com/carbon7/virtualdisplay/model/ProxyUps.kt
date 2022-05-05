@@ -10,7 +10,7 @@ import java.net.SocketTimeoutException
 import kotlin.concurrent.thread
 
 class ProxyUps(ip: String, port: Int): Ups() {
-    private lateinit var soc : Socket
+    private var soc : Socket? = null
     private val _ip = ip
     private val _port = port
 
@@ -40,22 +40,25 @@ class ProxyUps(ip: String, port: Int): Ups() {
         }
     }
     override fun close(){
-        soc.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
+        soc?.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
     }
 
     override suspend fun requestInfo(): ByteArray {
+        if(soc==null)
+            throw Exception("Socket non inizializzato")
+
         return withContext(Dispatchers.IO) {
             //Log.d("MyApp", "DDDD")
             val req = byteArrayOf(0x01, 0x03, 0x00, 0x30, 0x00, 0x60) //Da cambiare l'ultimo byte quando si ha un XML completo
             val msg = req + calculateCrc(req)
             //Send the modbus request
-            soc.outputStream.write(msg)
+            soc!!.outputStream.write(msg)
 
             //Put the modbus answer in out
             val size = (msg[4].toInt() + msg[5].toInt()) * 2 + 5
             val out = ByteArray(size)
 
-            soc.getInputStream().read(out)
+            soc!!.getInputStream().read(out)
 
 
             if (checkCrc(out.copyOfRange(0,size-2),out.copyOfRange(size-2,size))

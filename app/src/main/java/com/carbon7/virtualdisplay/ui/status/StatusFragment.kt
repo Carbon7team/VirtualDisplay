@@ -16,7 +16,6 @@ import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentStatusBinding
 import androidx.fragment.app.viewModels
 import com.carbon7.virtualdisplay.model.UpsDataService
-import kotlinx.coroutines.withContext
 
 class StatusFragment : Fragment() {
 
@@ -24,7 +23,7 @@ class StatusFragment : Fragment() {
     private val connection = object : ServiceConnection{
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             mService= (service as UpsDataService.LocalBinder).getService()
-            viewModel.bind(mService.eventBus)
+            viewModel.bind(mService.dataBus)
         }
         override fun onServiceDisconnected(arg0: ComponentName) {
             requireContext().bindService(

@@ -15,25 +15,31 @@ class UpsDataService: Service() {
 
 
     private val binder = LocalBinder()
-    private lateinit var ups: Ups
-    val eventBus = EventBus<Triple<List<Status>,List<Alarm>,List<Measurement>>>()
-
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null && intent.extras != null) {
             val bundle = intent.extras!!
-            val ip=bundle.getString("ip")!!
-            val port=bundle.getInt("port")
+            if (bundle.containsKey("ip") && bundle.containsKey("port")) {
+                val ip = bundle.getString("ip")!!
+                val port = bundle.getInt("port")
 
-            ups=ProxyUps(ip,port)
-        }
-        start()
+                interval = bundle.getInt("interval", 1000)
+
+                ups = ProxyUps(ip, port)
+
+                start()
+            }else
+                stopSelf()
+        }else
+            stopSelf()
+
         return START_NOT_STICKY
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        stop()
+        if(::ups.isInitialized)
+            stop()
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -47,7 +53,8 @@ class UpsDataService: Service() {
 
 
     companion object{
-        private val startingStatus  = listOf(
+        //STATICI PER RIDURRE CREAZIONE DI LISTE PER PIU' VOLTE UNITILMENTE
+        private val status  = listOf(
             Status("S000", R.string.s000),
             Status("S001", R.string.s001),
             Status("S002", R.string.s002),
@@ -177,7 +184,7 @@ class UpsDataService: Service() {
             Status("S126", R.string.s126),
             Status("S127", R.string.s127)
         )
-        private val startingAlarms = listOf(
+        private val alarms = listOf(
             Alarm("A000", R.string.a000,Alarm.Level.CRITICAL),
             Alarm("A001", R.string.a001,Alarm.Level.CRITICAL),
             Alarm("A002", R.string.a002,Alarm.Level.WARNING),
@@ -307,7 +314,7 @@ class UpsDataService: Service() {
             Alarm("A126", R.string.a126,Alarm.Level.NONE),
             Alarm("A127", R.string.a127,Alarm.Level.NONE)
         )
-        private val startingMeasurement = listOf(
+        private val measurements = listOf(
             Measurement("M000", null),
             Measurement("M001", null),
             Measurement("M002", null),
@@ -467,16 +474,18 @@ class UpsDataService: Service() {
             arrayOf(1, 1, false),     //MO76
         )//M77, M78 and M79 have custom behaviour
     }
+    enum class ConnectionState{
+        CONNECTED,
+        DISCONNECTED
+    }
 
+    private var interval: Int = 1000 //Default value
+    private lateinit var ups: Ups
+    val dataBus = EventBus<Triple<List<Status>,List<Alarm>,List<Measurement>>>()
+    val connectionStateBus = EventBus<ConnectionState>()
 
     private val reg0x00E=1
 
-    private var status: List<Status> = startingStatus
-        private set
-    private var alarms: List<Alarm> = startingAlarms
-        private set
-    private var measurements: List<Measurement> = startingMeasurement
-        private set
 
     private val timer= object: CountDownTimer(Long.MAX_VALUE,2000){
         override fun onTick(p0: Long) {
@@ -484,8 +493,10 @@ class UpsDataService: Service() {
                 try {
                     val packet = ups.requestInfo()
                     decode(packet)
-                    eventBus.invokeEvent(Triple(status,alarms,measurements))
+                    dataBus.invokeEvent(Triple(status,alarms,measurements))
+                    connectionStateBus.invokeEvent(ConnectionState.CONNECTED)
                 }catch (e: Exception){
+                    connectionStateBus.invokeEvent(ConnectionState.DISCONNECTED)
                     Log.d("MyApp",e.toString())
                 }
             }
@@ -494,11 +505,12 @@ class UpsDataService: Service() {
     }
 
 
-    fun start(){
+    private fun start(): Result<Int>{
         ups.open()
         timer.start()
+        return Result.success(1)
     }
-    fun stop() {
+    private fun stop() {
         timer.cancel()
         ups.close()
     }
@@ -512,24 +524,23 @@ class UpsDataService: Service() {
 
     private fun decodeStatus(statusBytes: ByteArray){
         val statusActive = statusBytes.toBooleanArray()
-        for (i in 0 until status.size) {//0..127
+        for (i in status.indices) {//0..127
             status[i].isActive = statusActive[i]
         }
     }
     private fun decodeAlarms(alarmsBytes: ByteArray){
         val alarmsActive = alarmsBytes.toBooleanArray()
-        for (i in 0 until alarms.size) {//0..127
+        for (i in alarms.indices) {//0..127
             alarms[i].isActive=alarmsActive[i]
         }
     }
     private fun decodeMeasurements(measurementsBytes: ByteArray){
-        val measurements_raw=measurementsBytes.take(77*2).toByteArray().toShorts()//Da M000 a M076
+        val measurementsRaw=measurementsBytes.take(77*2).toByteArray().toShorts()//Da M000 a M076
 
-        for (i in 0 until 76){
-            var measurement= measurements_raw[i]
+        for (i in measurementsRaw.indices){
+            var measurement= measurementsRaw[i]
             if(measurement_factor[i][2]==true)
-                measurement= (measurements_raw[i]-32768).toShort()
-            measurement
+                measurement= (measurementsRaw[i]-32768).toShort()
             measurements[i].value = measurement.toFloat()/(measurement_factor[i][reg0x00E] as Int)
         }
 

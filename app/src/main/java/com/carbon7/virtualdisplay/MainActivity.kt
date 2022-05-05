@@ -2,6 +2,7 @@ package com.carbon7.virtualdisplay
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
@@ -139,6 +140,7 @@ class MainActivity : AppCompatActivity() {
         Intent(this, UpsDataService::class.java).apply {
             putExtra("ip","192.168.11.178")
             putExtra("port",8888)
+            putExtra("interval",1000)
         }.also {
             startService(it)
         }
