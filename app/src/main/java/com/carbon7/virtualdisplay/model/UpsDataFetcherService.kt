@@ -5,13 +5,12 @@ import android.content.Intent
 import android.os.Binder
 import android.os.CountDownTimer
 import android.os.IBinder
-import android.util.Log
 import com.carbon7.virtualdisplay.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class UpsDataService: Service() {
+class UpsDataFetcherService: Service() {
 
 
     private val binder = LocalBinder()
@@ -63,7 +62,7 @@ class UpsDataService: Service() {
     }
 
     inner class LocalBinder : Binder(){
-        fun getService(): UpsDataService = this@UpsDataService
+        fun getService(): UpsDataFetcherService = this@UpsDataFetcherService
     }
 
 

@@ -1,29 +1,22 @@
 package com.carbon7.virtualdisplay
 
 import android.content.*
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.IBinder
-import android.util.AttributeSet
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import android.widget.Switch
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
-import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.carbon7.virtualdisplay.databinding.ActivityMainBinding
-import com.carbon7.virtualdisplay.model.UpsDataService
+import com.carbon7.virtualdisplay.model.UpsDataFetcherService
 import com.carbon7.virtualdisplay.ui.alarms.AlarmsFragment
 import com.carbon7.virtualdisplay.ui.diagram.DiagramFragment
 import com.carbon7.virtualdisplay.ui.status.StatusFragment
@@ -164,21 +157,21 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton("Attendi") { dialogInterface, i -> }
             .create()
     }
-    private lateinit var mService: UpsDataService
-    private var lastConnState = UpsDataService.ConnectionState.DISCONNECTED
+    private lateinit var mService: UpsDataFetcherService
+    private var lastConnState = UpsDataFetcherService.ConnectionState.DISCONNECTED
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
-            mService= (service as UpsDataService.LocalBinder).getService()
+            mService= (service as UpsDataFetcherService.LocalBinder).getService()
             mService.connectionStateBus.events.observe(this@MainActivity){
                 //Act only if the state change
                 if(it != lastConnState){
                     //Change the connection icon
                     toolbar.menu.findItem(R.id.ups_conn_status).icon = when(it){
-                        UpsDataService.ConnectionState.DISCONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
-                        UpsDataService.ConnectionState.CONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_connected,null)
+                        UpsDataFetcherService.ConnectionState.DISCONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
+                        UpsDataFetcherService.ConnectionState.CONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_connected,null)
                     }
                     //Change the disconnected alert
-                    if(it==UpsDataService.ConnectionState.DISCONNECTED)
+                    if(it==UpsDataFetcherService.ConnectionState.DISCONNECTED)
                         alert.show()
                     lastConnState=it
                 }
@@ -192,14 +185,14 @@ class MainActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         //When the app go in background the service is stopped
-        stopService(Intent(this,UpsDataService::class.java))
+        stopService(Intent(this,UpsDataFetcherService::class.java))
     }
 
     override fun onStart() {
         super.onStart()
 
         //When the MainActivity is created (or the app resumed) the service is (re)started and binded
-        Intent(this, UpsDataService::class.java).apply {
+        Intent(this, UpsDataFetcherService::class.java).apply {
             putExtra("ip","192.168.11.178")
             putExtra("port",8888)
             putExtra("interval",1000L)
@@ -207,7 +200,7 @@ class MainActivity : AppCompatActivity() {
             startService(it)
         }
 
-        bindService(Intent(this, UpsDataService::class.java),connection,0)
+        bindService(Intent(this, UpsDataFetcherService::class.java),connection,0)
 
 
     }

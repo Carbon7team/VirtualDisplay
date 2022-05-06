@@ -5,38 +5,21 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.widget.Adapter
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentStatusBinding
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
-import com.carbon7.virtualdisplay.model.UpsDataService
+import com.carbon7.virtualdisplay.model.UpsDataFetcherService
+import com.carbon7.virtualdisplay.ui.UpsDataVisualizerFragment
 
-import com.carbon7.virtualdisplay.model.Status
+class StatusFragment : UpsDataVisualizerFragment() {
 
-class StatusFragment : Fragment() {
-
-    private lateinit var mService: UpsDataService
-    private val connection = object : ServiceConnection{
-        override fun onServiceConnected(className: ComponentName, service: IBinder) {
-            mService= (service as UpsDataService.LocalBinder).getService()
-            viewModel.bind(mService.dataBus)
-        }
-        override fun onServiceDisconnected(arg0: ComponentName) {
-            requireContext().bindService(
-                Intent(requireContext(), UpsDataService::class.java), this,0
-            )
-        }
-    }
-
-    private val viewModel: StatusViewModel by viewModels()
+    override val viewModel: StatusViewModel by viewModels()
 
     private var _binding: FragmentStatusBinding? = null
     private val binding
@@ -49,14 +32,6 @@ class StatusFragment : Fragment() {
     private val toBottom: Animation by lazy {AnimationUtils.loadAnimation(context,R.anim.to_botton_anim)}
     private var fabOpened : Boolean = false;
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        requireContext().bindService(
-            Intent(requireContext(), UpsDataService::class.java), connection,0
-        )
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -137,10 +112,5 @@ class StatusFragment : Fragment() {
 
 
         fabOpened=false
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        requireContext().unbindService(connection)
     }
 }

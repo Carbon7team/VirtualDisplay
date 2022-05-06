@@ -27,7 +27,7 @@
 
         </activity>
 
-        <service android:name=".model.UpsDataService"/>
+        <service android:name=".model.UpsDataFetcherService"/>
     </application>
 
 </manifest>
