@@ -14,13 +14,18 @@ import com.carbon7.virtualdisplay.databinding.ListItemStatusBinding
 import com.carbon7.virtualdisplay.model.Status
 import kotlinx.coroutines.withContext
 
-class StatusAdapter(private val status:List<Status>) :
+class StatusAdapter(private var status:List<Status>) :
     RecyclerView.Adapter<StatusAdapter.ViewHolder>() {
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         private val binding: ListItemStatusBinding = ListItemStatusBinding.bind(view)
 
         val lblStatus = binding.lblStatus
+    }
+
+    fun swap(newStatus: List<Status>){
+        status=newStatus
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

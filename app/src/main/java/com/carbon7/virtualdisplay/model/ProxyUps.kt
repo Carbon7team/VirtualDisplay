@@ -6,11 +6,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.*
-import kotlin.concurrent.thread
 
+
+/**
+ *
+ *
+ * @constructor
+ * Create a ProxyUPS realted to the Ups at the given socket
+ *
+ * @param ip address of the UPS (ipv4)
+ * @param port port of the UPS where modbus server is opened
+ */
 class ProxyUps(ip: String, port: Int): Ups() {
     private var soc : Socket? = null
     private val addr = InetSocketAddress(ip,port)
+
 
     companion object{
         private val ipv4_pattern=
@@ -20,6 +30,7 @@ class ProxyUps(ip: String, port: Int): Ups() {
                     "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$").toRegex()
     }
 
+
     init {
         if(!ipv4_pattern.matches(ip))
             throw IllegalArgumentException("Indirizzo ip non valido")
@@ -28,13 +39,25 @@ class ProxyUps(ip: String, port: Int): Ups() {
 
     }
 
+    /**
+     * Establish a connection with the UPS
+     */
     override fun open(){
-        reconnect()
+        if(soc!=null && soc!!.isConnected)
+            reconnect()
     }
+
+    /**
+     * Close the connection with the UPS
+     */
     override fun close(){
         soc?.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
     }
 
+    /**
+     * Establish a connection with the UPS,
+     * if there is already another connection it will be interrupted
+     */
     private fun reconnect(){
         CoroutineScope(Dispatchers.IO).launch{
             soc?.close()
@@ -51,6 +74,13 @@ class ProxyUps(ip: String, port: Int): Ups() {
         }
     }
 
+    /**
+     * It make a request to the UPS and return the response
+     *
+     * @return The Result of the request:
+     *              -ByteArray if it success;
+     *              -an Exception if it fail
+     */
     override suspend fun requestInfo(): Result<ByteArray> {
         if(soc==null) {
             reconnect()
@@ -85,15 +115,28 @@ class ProxyUps(ip: String, port: Int): Ups() {
         }
     }
 
+    /**
+     * Control if the checksum is correct
+     *
+     * @param bytes bytes of data
+     * @param checksum crc of the data bytes
+     * @return if the checksum is correct
+     */
     private fun checkCrc(bytes: ByteArray, checksum:ByteArray):Boolean{
         val crc = ModbusCRC()
         crc.update(bytes)
         return crc.crcBytes.contentEquals(checksum)
     }
 
-    private fun calculateCrc(b: ByteArray): ByteArray{
+    /**
+     * Calculate the checksum for
+     *
+     * @param bytes bytes of data
+     * @return crc of the data bytes
+     */
+    private fun calculateCrc(bytes: ByteArray): ByteArray{
         val crc = ModbusCRC()
-        crc.update(b)
+        crc.update(bytes)
         return crc.crcBytes
     }
 }

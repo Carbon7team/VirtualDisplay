@@ -12,10 +12,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Adapter
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentStatusBinding
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import com.carbon7.virtualdisplay.model.UpsDataService
+
+import com.carbon7.virtualdisplay.model.Status
 
 class StatusFragment : Fragment() {
 
@@ -88,11 +92,11 @@ class StatusFragment : Fragment() {
         }
     }
     private fun setupVM(){
+        binding.listStatus.adapter = StatusAdapter(viewModel.filteredStatus.value ?: listOf())
         viewModel.filteredStatus.observe(viewLifecycleOwner){
-            val recyclerViewState = binding.listStatus.layoutManager?.onSaveInstanceState()
-            binding.listStatus.adapter = StatusAdapter(it)
-            binding.listStatus.layoutManager?.onRestoreInstanceState(recyclerViewState)
+            (binding.listStatus.adapter as StatusAdapter).swap(it)
         }
+
 
         viewModel.currentFilter.observe(viewLifecycleOwner){
             binding.filterAllStatus.subFab.isEnabled=true

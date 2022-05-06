@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-
+        //setup the drawer layout
         toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer.addDrawerListener(toggle)
         toggle.syncState()
@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
 
+        //Show the connection state icon
         toolbar.menu.findItem(R.id.ups_conn_status).isVisible = true
         toolbar.menu.findItem(R.id.ups_conn_status).icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
 
@@ -131,6 +132,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Switch the current fragment displayed with another
+     *
+     * @param fragClass
+     */
     private fun changeFragment(fragClass: KClass<out Fragment>){
 
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
@@ -164,11 +170,14 @@ class MainActivity : AppCompatActivity() {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             mService= (service as UpsDataService.LocalBinder).getService()
             mService.connectionStateBus.events.observe(this@MainActivity){
+                //Act only if the state change
                 if(it != lastConnState){
+                    //Change the connection icon
                     toolbar.menu.findItem(R.id.ups_conn_status).icon = when(it){
                         UpsDataService.ConnectionState.DISCONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
                         UpsDataService.ConnectionState.CONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_connected,null)
                     }
+                    //Change the disconnected alert
                     if(it==UpsDataService.ConnectionState.DISCONNECTED)
                         alert.show()
                     lastConnState=it
@@ -182,11 +191,14 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onStop() {
         super.onStop()
+        //When the app go in background the service is stopped
         stopService(Intent(this,UpsDataService::class.java))
     }
 
     override fun onStart() {
         super.onStart()
+
+        //When the MainActivity is created (or the app resumed) the service is (re)started and binded
         Intent(this, UpsDataService::class.java).apply {
             putExtra("ip","192.168.11.178")
             putExtra("port",8888)

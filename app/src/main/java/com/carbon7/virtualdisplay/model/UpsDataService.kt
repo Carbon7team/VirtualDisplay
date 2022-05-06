@@ -496,7 +496,15 @@ class UpsDataService: Service() {
     }
 
     private lateinit var ups: Ups
+
+    /**
+     *  EventBus that publish the new data from the UPS
+     */
     val dataBus = EventBus<Triple<List<Status>,List<Alarm>,List<Measurement>>>()
+
+    /**
+     * EventBus that publish the connection status with UPS
+     */
     val connectionStateBus = EventBus<ConnectionState>()
 
     private val reg0x00E=1
@@ -505,10 +513,9 @@ class UpsDataService: Service() {
     private lateinit var timer : CountDownTimer
 
 
-    private fun start(): Result<Int>{
+    private fun start(){
         ups.open()
         timer.start()
-        return Result.success(1)
     }
     private fun stop() {
         timer.cancel()

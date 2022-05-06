@@ -20,14 +20,13 @@ class StatusViewModel : ViewModel() {
     }
 
 
-    //var currentSource : LiveData<Triple<List<Status>,List<Alarm>,List<Measurement>>>? = null
+    var currentSource : LiveData<Triple<List<Status>,List<Alarm>,List<Measurement>>>? = null
     fun bind(bus: EventBus<Triple<List<Status>,List<Alarm>,List<Measurement>>>){
-        //if(currentSource!=null)
-        //    _status.removeSource(currentSource!!)
+        currentSource?.let {_status.removeSource(it)}
         _status.addSource(bus.events){
             _status.value=it.first!!
         }
-        //currentSource=bus.events
+        currentSource=bus.events
     }
 
 
