@@ -23,7 +23,23 @@ class UpsDataService: Service() {
                 val ip = bundle.getString("ip")!!
                 val port = bundle.getInt("port")
 
-                interval = bundle.getInt("interval", 1000)
+                val interval = bundle.getLong("interval", 1000)
+                timer= object: CountDownTimer(Long.MAX_VALUE,interval){
+                    override fun onTick(p0: Long) {
+                        CoroutineScope(Dispatchers.Default).launch{
+                            val result = ups.requestInfo()
+                            if(result.isSuccess) {
+                                decode(result.getOrNull()!!)
+                                dataBus.invokeEvent(Triple(status, alarms, measurements))
+                                connectionStateBus.invokeEvent(ConnectionState.CONNECTED)
+                            }else {
+                                connectionStateBus.invokeEvent(ConnectionState.DISCONNECTED)
+                                //Log.d("MyApp", result.exceptionOrNull().toString())
+                            }
+                        }
+                    }
+                    override fun onFinish() {}
+                }
 
                 ups = ProxyUps(ip, port)
 
@@ -479,7 +495,6 @@ class UpsDataService: Service() {
         DISCONNECTED
     }
 
-    private var interval: Int = 1000 //Default value
     private lateinit var ups: Ups
     val dataBus = EventBus<Triple<List<Status>,List<Alarm>,List<Measurement>>>()
     val connectionStateBus = EventBus<ConnectionState>()
@@ -487,22 +502,7 @@ class UpsDataService: Service() {
     private val reg0x00E=1
 
 
-    private val timer= object: CountDownTimer(Long.MAX_VALUE,2000){
-        override fun onTick(p0: Long) {
-            CoroutineScope(Dispatchers.Default).launch{
-                try {
-                    val packet = ups.requestInfo()
-                    decode(packet)
-                    dataBus.invokeEvent(Triple(status,alarms,measurements))
-                    connectionStateBus.invokeEvent(ConnectionState.CONNECTED)
-                }catch (e: Exception){
-                    connectionStateBus.invokeEvent(ConnectionState.DISCONNECTED)
-                    Log.d("MyApp",e.toString())
-                }
-            }
-        }
-        override fun onFinish() {}
-    }
+    private lateinit var timer : CountDownTimer
 
 
     private fun start(): Result<Int>{

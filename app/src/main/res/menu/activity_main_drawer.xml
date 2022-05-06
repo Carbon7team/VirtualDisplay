@@ -5,10 +5,11 @@
     tools:showIn="navigation_view">
     <item
         android:id="@+id/diagram_menu_item"
+        android:checked="true"
         android:checkable="true"
-        android:checked="false"
         android:title="Diagram" />
     <item
+        android:id="@+id/status_menu_item"
         android:checkable="true"
         android:title="@string/status" />
     <item
