@@ -6,6 +6,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.carbon7.virtualdisplay.model.SavedUpsDao
 import com.carbon7.virtualdisplay.model.SavedUps
 import com.carbon7.virtualdisplay.model.AppDB
+import kotlinx.coroutines.flow.count
+import kotlinx.coroutines.flow.first
 import org.junit.Assert.assertEquals
 import org.junit.After
 import org.junit.Before

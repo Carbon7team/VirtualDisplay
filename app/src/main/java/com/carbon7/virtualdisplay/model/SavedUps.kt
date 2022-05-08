@@ -8,13 +8,13 @@ import java.net.Inet4Address
 data class SavedUps (
 
     @ColumnInfo(name = "ups_name")
-    val name: String,
+    var name: String,
 
     @ColumnInfo(name = "ups_ip")
-    val address: String,
+    var address: String,
 
     @ColumnInfo(name = "ups_port")
-    val port: Int)
+    var port: Int)
 {
     @PrimaryKey(autoGenerate = true)
     var ID: Int = 0}

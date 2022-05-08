@@ -7,7 +7,7 @@
         android:id="@+id/diagram_menu_item"
         android:checkable="true"
         android:checked="false"
-        android:title="Diagram" />
+        android:title="@string/diagram" />
     <item
         android:checkable="true"
         android:title="@string/status" />
@@ -15,23 +15,24 @@
         android:id="@+id/alarms_menu_item"
         android:checkable="true"
         android:title="@string/alarms" />
+
     <item android:title="@string/measurements">
         <menu>
             <item
                 android:checkable="true"
-                android:title="Load" />
+                android:title="@string/load" />
             <item
                 android:checkable="true"
-                android:title="Battery" />
+                android:title="@string/battery" />
             <item
                 android:checkable="true"
-                android:title="Rectifier" />
+                android:title="@string/rectifier" />
             <item
                 android:checkable="true"
-                android:title="Inverter" />
+                android:title="@string/inverter" />
             <item
                 android:checkable="true"
-                android:title="Bypass" />
+                android:title="@string/bypass" />
         </menu>
     </item>
 </menu>
