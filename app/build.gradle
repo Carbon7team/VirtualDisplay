@@ -42,15 +42,19 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+
     //implementation 'androidx.activity:activity-ktx:1.4.0'
     implementation 'androidx.fragment:fragment-ktx:1.4.1'
+
+
+    implementation 'androidx.cardview:cardview:1.0.0'
 
     testImplementation "androidx.arch.core:core-testing:2.1.0"
 
 
 
 
-    def room_version = "2.4.2"
+    
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -61,9 +65,10 @@ dependencies {
     testImplementation 'org.mockito:mockito-core:4.4.0'
     androidTestImplementation 'org.mockito:mockito-android:4.4.0'
 
-
+    def room_version = "2.4.2"
 
     implementation "androidx.room:room-runtime:$room_version"
+    implementation 'androidx.room:room-ktx:2.4.2'
     kapt "androidx.room:room-compiler:$room_version"
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"

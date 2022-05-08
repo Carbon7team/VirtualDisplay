@@ -16,7 +16,7 @@ import org.mockito.junit.MockitoJUnitRunner
 
 
 @RunWith(MockitoJUnitRunner::class)
-class StatusViewModelTest {
+class UpsSelectorViewModelTest {
 
 
     @get:Rule
