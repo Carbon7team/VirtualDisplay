@@ -45,7 +45,8 @@ class UpsSelectorFragment : Fragment() {
                 }.show(parentFragmentManager, getString(R.string.modify_ups))
         },
             onSelected = {
-                // TODO FAR PARTIRE MAINACTIVITY MANDANDO IP E PORTA
+                // TODO
+                // COLLEGAMENTO UPS DOPO LA SELEZIONE
             })
 
         viewModel.ups.observe(viewLifecycleOwner) {
