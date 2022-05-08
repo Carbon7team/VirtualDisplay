@@ -68,7 +68,7 @@ class UpsDataFetcherService: Service() {
 
 
     companion object{
-        //STATICI PER RIDURRE CREAZIONE DI LISTE PER PIU' VOLTE UNITILMENTE
+        //STATICI PER RIDURRE CREAZIONE DI LISTE PER PIU' VOLTE INUTILMENTE
         private val status  = listOf(
             Status("S000", R.string.s000),
             Status("S001", R.string.s001),
@@ -506,6 +506,8 @@ class UpsDataFetcherService: Service() {
      */
     val connectionStateBus = EventBus<ConnectionState>()
 
+
+    //Da implementare
     private val reg0x00E=1
 
 
@@ -552,7 +554,7 @@ class UpsDataFetcherService: Service() {
 
     }
 
-
+    //CONVERSIONI UTILI PER LA DECODIFICA
     private fun ByteArray.toBooleanArray(): BooleanArray{
         return toBinaryString().map{it=='1'}.toBooleanArray()
     }

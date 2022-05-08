@@ -12,6 +12,12 @@ abstract class UpsDataVisualizerViewModel: ViewModel() {
 
 
     private var currentSource : LiveData<Triple<List<Status>, List<Alarm>, List<Measurement>>>? = null
+
+    /**
+     * Change the event bus used as source
+     *
+     * @param bus the new eventBus
+     */
     fun bind(bus: EventBus<Triple<List<Status>, List<Alarm>, List<Measurement>>>){
         //remove the old source (if exist)
         currentSource?.let {
