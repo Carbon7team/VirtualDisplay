@@ -1,18 +1,10 @@
 package com.carbon7.virtualdisplay.ui.status
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import com.carbon7.virtualdisplay.R
-import com.carbon7.virtualdisplay.model.Observer
-import com.carbon7.virtualdisplay.model.ProxyUps
-import com.carbon7.virtualdisplay.model.Status
-import com.carbon7.virtualdisplay.model.UpsData
+import androidx.lifecycle.*
+import com.carbon7.virtualdisplay.model.*
+import com.carbon7.virtualdisplay.ui.UpsDataVisualizerViewModel
 
-class StatusViewModel : ViewModel(), Observer {
-
-    lateinit var upsData : UpsData
+class StatusViewModel : UpsDataVisualizerViewModel() {
 
     enum class Filter(val filterFun:(Status)->Boolean){
         ALL({true}),
@@ -20,36 +12,17 @@ class StatusViewModel : ViewModel(), Observer {
         INACTIVE({!it.isActive})
     }
 
-    fun load(upsData: UpsData){
-        this.upsData = upsData
-        upsData.addObserver(this)
-        upsData.start()
-    }
-
-
-
-    private val _status = MutableLiveData(
-        listOf<Status>()
-    )
-
     private val _currentFilter : MutableLiveData<Filter> = MutableLiveData(Filter.ALL)
     val currentFilter : LiveData<Filter> = _currentFilter
 
-    val filteredStatus : LiveData<List<Status>> = Transformations.switchMap(_status){ list ->
+    val filteredStatus = Transformations.switchMap(status){ list ->
         Transformations.map(_currentFilter){
-            list?.filter(it.filterFun) ?: listOf()
+            list.filter(it.filterFun)
         }
     }
+
 
     fun setCurrentFilter(f:Filter){
         _currentFilter.postValue(f)
     }
-
-    override fun update() {
-        _status.postValue(
-            upsData.status?.values?.toList()
-        )
-    }
-
-
 }

@@ -26,6 +26,8 @@
             android:exported="true">
 
         </activity>
+
+        <service android:name=".model.UpsDataFetcherService"/>
     </application>
 
 </manifest>

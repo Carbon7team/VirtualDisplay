@@ -1,13 +1,26 @@
 package com.carbon7.virtualdisplay.model
 
 import android.util.Log
-import java.net.InetSocketAddress
-import java.net.Socket
-import java.net.SocketTimeoutException
-import kotlin.concurrent.thread
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.*
 
-class ProxyUps(ip: String, port: Int, obs: MutableList<Observer> = mutableListOf()): Ups() {
-    private var soc: Socket
+
+/**
+ *
+ *
+ * @constructor
+ * Create a ProxyUPS realted to the Ups at the given socket
+ *
+ * @param ip address of the UPS (ipv4)
+ * @param port port of the UPS where modbus server is opened
+ */
+class ProxyUps(ip: String, port: Int): Ups() {
+    private var soc : Socket? = null
+    private val addr = InetSocketAddress(ip,port)
+
 
     companion object{
         private val ipv4_pattern=
@@ -17,67 +30,113 @@ class ProxyUps(ip: String, port: Int, obs: MutableList<Observer> = mutableListOf
                     "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$").toRegex()
     }
 
+
     init {
         if(!ipv4_pattern.matches(ip))
             throw IllegalArgumentException("Indirizzo ip non valido")
         if(!(port in 0..35565))//port not in 0..35565
             throw IllegalArgumentException("Porta non valida")
-        soc = Socket()
-        thread {
+
+    }
+
+    /**
+     * Establish a connection with the UPS
+     */
+    override fun open(){
+        if(soc!=null && soc!!.isConnected)
+            reconnect()
+    }
+
+    /**
+     * Close the connection with the UPS
+     */
+    override fun close(){
+        soc?.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
+    }
+
+    /**
+     * Establish a connection with the UPS,
+     * if there is already another connection it will be interrupted
+     */
+    private fun reconnect(){
+        CoroutineScope(Dispatchers.IO).launch{
+            soc?.close()
             try {
-                soc.connect(InetSocketAddress(ip,port),5000)
-            }catch (e:SocketTimeoutException){
+                //soc = Socket(InetAddress.getByName(_ip),_port)
+                soc = Socket()
+                soc!!.connect(addr)
+
+            }catch (e: SocketException){
+                //Log.d("myApp", e.toString())
+            }catch (e:ConnectException){
                 Log.d("myApp", e.toString())
             }
         }
     }
 
-    override fun close(){
-        soc!!.close() //CRASHA SE soc NON E' INIZIALIZZATO (socket inserito non risponde)
-    }
+    /**
+     * It make a request to the UPS and return the response
+     *
+     * @return The Result of the request:
+     *              -ByteArray if it success;
+     *              -an Exception if it fail
+     */
+    override suspend fun requestInfo(): Result<ByteArray> {
+        if(soc==null) {
+            reconnect()
+            return Result.failure(Exception("Socket non inizializzato"))
+        }
+        return withContext(Dispatchers.IO) {
+            try {
+                val req = byteArrayOf(0x01, 0x03, 0x00, 0x30, 0x00, 0x60) //Da cambiare l'ultimo byte quando si ha un XML completo
+                val msg = req + calculateCrc(req)
+                //Send the modbus request
+                soc!!.outputStream.write(msg)
 
-    private var lastPacket: ByteArray? = null
+                //Put the modbus answer in out
+                val size = (msg[4].toInt() + msg[5].toInt()) * 2 + 5
+                val out = ByteArray(size)
 
-    override fun getState(): ByteArray? {
-        return lastPacket
-    }
+                soc!!.getInputStream().read(out)
+                if (checkCrc(out.copyOfRange(0,size-2),out.copyOfRange(size-2,size))
+                    && out[0] == (0x01).toByte()
+                    && out[1] == (0x03).toByte())
 
-    override fun requestInfo() {
-        thread {
-            Log.d("MyApp", "DDDD")
-            val req = byteArrayOf(0x01, 0x03, 0x00, 0x30, 0x00, 0x60) //Da cambiare l'ultimo byte quando si ha un XML completo
-            val msg = req + calculateCrc(req)
-            //Send the modbus request
-            soc.outputStream.write(msg)
+                    return@withContext  Result.success(out.copyOfRange(3,size-2))
 
-            //Put the modbus answer in out
-            val size = (msg[4].toInt() + msg[5].toInt()) * 2 + 5
-            val out = ByteArray(size)
-
-            soc.getInputStream().read(out)
-
-
-            if (checkCrc(out.copyOfRange(0,size-2),out.copyOfRange(size-2,size)) && out[0] == (0x01).toByte() && out[1] == (0x03).toByte()) {
-                lastPacket = out.copyOfRange(3,size-2)
-            } else {
-                lastPacket = byteArrayOf(0x66,0x66)
-                print("Response error - unexpected packet")
-            }
-            notify()
-            //("CRC check su out [ultimi 2 byte] + REQ TYPE check [primi 3 byte] + cleanup bytearray")
+                throw Exception("Errore nella messaggio(raw) ricevuto")
+            }catch (e: SocketException){
+                reconnect()
+                return@withContext Result.failure(e)
+            }catch (e: Exception){
+                return@withContext Result.failure(e)
+            }            //("CRC check su out [ultimi 2 byte] + REQ TYPE check [primi 3 byte] + cleanup bytearray")
 
         }
     }
 
-    fun checkCrc(bytes: ByteArray, checksum:ByteArray):Boolean{
+    /**
+     * Control if the checksum is correct
+     *
+     * @param bytes bytes of data
+     * @param checksum crc of the data bytes
+     * @return if the checksum is correct
+     */
+    private fun checkCrc(bytes: ByteArray, checksum:ByteArray):Boolean{
         val crc = ModbusCRC()
         crc.update(bytes)
         return crc.crcBytes.contentEquals(checksum)
     }
 
-    fun calculateCrc(b: ByteArray): ByteArray{
+    /**
+     * Calculate the checksum for
+     *
+     * @param bytes bytes of data
+     * @return crc of the data bytes
+     */
+    private fun calculateCrc(bytes: ByteArray): ByteArray{
         val crc = ModbusCRC()
-        crc.update(b)
+        crc.update(bytes)
         return crc.crcBytes
     }
 }
