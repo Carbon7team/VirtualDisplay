@@ -33,9 +33,12 @@ abstract class UpsDataVisualizerViewModel: ViewModel() {
         currentSource=bus.events
     }
 
-    protected val _status = MediatorLiveData<List<Status>>()
-    protected val _alarms = MediatorLiveData<List<Alarm>>()
-    protected val _measurements = MediatorLiveData<List<Measurement>>()
+    private val _status = MediatorLiveData<List<Status>>()
+    private val _alarms = MediatorLiveData<List<Alarm>>()
+    private val _measurements = MediatorLiveData<List<Measurement>>()
 
+    protected open val status: LiveData<List<Status>> = _status
+    protected open val alarms: LiveData<List<Alarm>> = _alarms
+    protected open val measurement: LiveData<List<Measurement>> = _measurements
 
 }

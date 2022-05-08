@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawer: DrawerLayout
     private lateinit var toolbar: Toolbar
-    private var backTimestamp = System.currentTimeMillis() - 1000
+    private var backTimestamp = 0L
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
