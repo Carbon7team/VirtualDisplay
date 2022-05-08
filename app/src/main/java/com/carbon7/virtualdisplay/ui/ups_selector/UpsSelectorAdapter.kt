@@ -8,7 +8,7 @@ import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.ListItemUpsBinding
 import com.carbon7.virtualdisplay.model.SavedUps
 
-class UpsSelectorAdapter(private var upsList:List<SavedUps>, private val onDelete: (SavedUps) -> Unit, private val onModify: (SavedUps) -> Unit) :
+class UpsSelectorAdapter(private var upsList:List<SavedUps>, private val onDelete: (SavedUps) -> Unit, private val onModify: (SavedUps) -> Unit, private val onSelected: (SavedUps) -> Unit) :
     RecyclerView.Adapter<UpsSelectorAdapter.ViewHolder>() {
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
@@ -17,6 +17,7 @@ class UpsSelectorAdapter(private var upsList:List<SavedUps>, private val onDelet
         val upsSocket = binding.upsInfo
         val deleteButton = binding.btnUpsDelete
         val modifyButton = binding.btnUpsModify
+        val card = binding.upsCard
     }
 
     fun swap(newUpsList: List<SavedUps>) {
@@ -43,6 +44,10 @@ class UpsSelectorAdapter(private var upsList:List<SavedUps>, private val onDelet
 
         holder.modifyButton.setOnClickListener {
             onModify(savedUps)
+        }
+
+        holder.card.setOnClickListener {
+            onSelected(savedUps)
         }
     }
 

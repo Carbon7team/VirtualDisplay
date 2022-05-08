@@ -42,7 +42,10 @@ class UpsSelectorFragment : Fragment() {
                 ModifyUpsDialog(it.name, it.address, it.port) { name: String, ip: String, port: Int ->
                     viewModel.modifyUps(it.ID, name, ip, port)
                 }.show(parentFragmentManager, "Modify UPS")
-        })
+        },
+            onSelected = {
+                // TODO FAR PARTIRE MAINACTIVITY MANDANDO IP E PORTA
+            })
 
         viewModel.ups.observe(viewLifecycleOwner) {
             (binding.upsList.adapter as UpsSelectorAdapter).swap(it)

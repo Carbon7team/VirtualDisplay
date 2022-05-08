@@ -59,6 +59,11 @@ class CreateNewUpsDialog(private val onSuccess: (name: String, ip: String, port:
             } catch (e: NumberFormatException) {
                 binding.upsPort.error = "UPS NAME CAN NOT BE EMPTY!"
             }
+
+            binding.upsName.error = null
+            binding.upsIp.error = null
+            binding.upsPort.error = null
+
         }
     }
 
@@ -70,7 +75,11 @@ class CreateNewUpsDialog(private val onSuccess: (name: String, ip: String, port:
             builder.setTitle(R.string.add_new_ups)
                 .setView(binding.root)
                 .setPositiveButton(R.string.add, null)
-                .setNegativeButton(R.string.cancel, null)
+                .setNegativeButton(R.string.cancel) { _: DialogInterface, _: Int ->
+                    binding.upsName.error = null
+                    binding.upsIp.error = null
+                    binding.upsPort.error = null
+                }
 
             builder.create()
 
