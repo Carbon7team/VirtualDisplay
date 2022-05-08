@@ -300,4 +300,10 @@
     <string name="ups_added">UPS ADDED</string>
     <string name="add_ups">Add UPS</string>
     <string name="ups_deleted">UPS DELETED</string>
+    <string name="load">Load</string>
+    <string name="battery">Battery</string>
+    <string name="rectifier">Rectifier</string>
+    <string name="diagram">Diagram</string>
+    <string name="inverter">Inverter</string>
+    <string name="bypass">Bypass</string>
 </resources>

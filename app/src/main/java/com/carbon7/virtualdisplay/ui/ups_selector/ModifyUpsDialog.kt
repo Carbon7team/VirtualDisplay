@@ -10,17 +10,17 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.carbon7.virtualdisplay.R
-import com.carbon7.virtualdisplay.databinding.DialogCreateUpsBinding
+import com.carbon7.virtualdisplay.databinding.DialogUpsBinding
 import java.util.regex.Pattern
 
 class ModifyUpsDialog(private var name: String, private val ip: String, private val port: Int, private val onSuccess: (name: String, ip: String, port: Int) -> Unit) :
     DialogFragment() {
 
-    private var _binding: DialogCreateUpsBinding? = null
+    private var _binding: DialogUpsBinding? = null
     private val binding
         get() = _binding!!
 
-    private var zeroTo255 = "(\\d{1,2}|(0|1)\\d{2}|2[0-4]\\d|25[0-5])"
+    var zeroTo255 = "(\\d{1,2}|(0|1)\\" + "d{2}|2[0-4]\\d|25[0-5])"
 
     private var p: Pattern = Pattern.compile(
         (zeroTo255 + "\\."
@@ -68,7 +68,7 @@ class ModifyUpsDialog(private var name: String, private val ip: String, private 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            _binding = DialogCreateUpsBinding.inflate(LayoutInflater.from(context))
+            _binding = DialogUpsBinding.inflate(LayoutInflater.from(context))
 
             binding.upsName.setText(name)
             binding.upsIp.setText(ip)
