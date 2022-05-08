@@ -284,4 +284,11 @@
     <string name="ip_address_format_is_not_correct">IP address format is not correct</string>
     <string name="port_number_is_not_correct">Port number is not correct</string>
     <string name="_8888">8888</string>
+    <string name="modify_this_ups">Modify this UPS</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="delete_this_ups">Delete this UPS</string>
+    <string name="confirm_delete">Confirm delete</string>
+    <string name="confirm_reminder">Are you sure you want to delete the UPS</string>
+    <string name="select_this_ups">Select this UPS</string>
 </resources>

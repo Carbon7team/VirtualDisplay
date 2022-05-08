@@ -5,9 +5,11 @@ import android.app.Dialog
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.DialogCreateUpsBinding
+import java.io.IOException
 import java.util.regex.Pattern
 
 class CreateNewUpsDialog(private val onSuccess:(name: String, ip: String, port: Int)->Unit) :
@@ -32,18 +34,27 @@ class CreateNewUpsDialog(private val onSuccess:(name: String, ip: String, port: 
                 .setView(binding.root)
                 .setPositiveButton(R.string.add,
                     DialogInterface.OnClickListener { dialog, id ->
-
                         // value format check
-                        val ip = binding.upsIp.text.toString()
-                        val port = binding.upsPort.text.toString().toInt()
+                        try {
+                            val name = binding.upsName.text.toString()
+                            val ip = binding.upsIp.text.toString()
+                            val port = binding.upsPort.text.toString().toInt()
 
-                        if (p.matcher(ip).matches()) throw IllegalStateException("Activity cannot be null")
-                        else if (port < 0 || port > 65535) throw IllegalStateException("Activity cannot be null")
-                        else onSuccess(binding.upsName.text.toString(), ip, port)
+                            if (name == "") throw IOException("UPS NAME CAN NOT BE EMTY!")
+                            if (!p.matcher(ip).matches()) throw IOException("IP ADDRESS FORMAT IS NOT CORRECT!")
+                            else if (port < 0 || port > 65535) throw IOException("PORT NUMBER VALUE IS NOT CORRECT!")
+                            else {
+                                Toast.makeText(context, "UPS ADDED", Toast.LENGTH_SHORT).show()
+                                onSuccess(name, ip, port)
+                            }
+
+                        } catch (e: IOException) {
+                            Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+                        } catch (e: Exception) {
+                            Toast.makeText(context, "WRONG FORMAT OF VALUES!", Toast.LENGTH_SHORT).show()
+                        }
                     })
-                .setNegativeButton(R.string.cancel,
-                    // default behaviour
-                    DialogInterface.OnClickListener { dialog, id -> })
+                .setNegativeButton(R.string.cancel, null)
 
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

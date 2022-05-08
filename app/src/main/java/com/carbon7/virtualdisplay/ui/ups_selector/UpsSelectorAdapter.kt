@@ -8,13 +8,20 @@ import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.ListItemUpsBinding
 import com.carbon7.virtualdisplay.model.SavedUps
 
-class UpsSelectorAdapter(private val ups_list:List<SavedUps>) :
+class UpsSelectorAdapter(private var upsList:List<SavedUps>, private val onDelete: (SavedUps) -> Unit, private val onModify: (SavedUps) -> Unit) :
     RecyclerView.Adapter<UpsSelectorAdapter.ViewHolder>() {
 
     class ViewHolder(view : View) : RecyclerView.ViewHolder(view){
         private val binding: ListItemUpsBinding = ListItemUpsBinding.bind(view)
         val upsName = binding.upsName
         val upsSocket = binding.upsInfo
+        val deleteButton = binding.btnUpsDelete
+        val modifyButton = binding.btnUpsModify
+    }
+
+    fun swap(newUpsList: List<SavedUps>) {
+        upsList = newUpsList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,11 +32,19 @@ class UpsSelectorAdapter(private val ups_list:List<SavedUps>) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val savedUps = ups_list[position]
+        val savedUps = upsList[position]
 
         holder.upsName.text= savedUps.name
         holder.upsSocket.text= "IP: " + savedUps.address + " - port: " + savedUps.port
+
+        holder.deleteButton.setOnClickListener {
+            onDelete(savedUps)
+        }
+
+        holder.modifyButton.setOnClickListener {
+            onModify(savedUps)
+        }
     }
 
-    override fun getItemCount() = ups_list.size
+    override fun getItemCount() = upsList.size
 }

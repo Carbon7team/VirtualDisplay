@@ -17,7 +17,10 @@
             android:layout_height="wrap_content"
             app:cardElevation="11dp"
             app:cardCornerRadius="11dp"
-            app:cardUseCompatPadding="true">
+            app:cardUseCompatPadding="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:tooltipText="@string/select_this_ups">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -60,7 +63,8 @@
                         android:contentDescription="@string/modify_ups"
                         app:backgroundTint="#1d992b"
                         app:icon="@drawable/ic_modify"
-                        android:text="Modify UPS"/>
+                        android:text="@string/modify_ups"
+                        android:tooltipText="@string/modify_this_ups"/>
 
                     <Button
                         android:id="@+id/btn_ups_delete"
@@ -71,7 +75,8 @@
                         app:backgroundTint="#8a1212"
                         android:contentDescription="@string/delete_ups"
                         app:icon="@drawable/ic_delete"
-                        android:text="Delete UPS"/>
+                        android:text="@string/delete_ups"
+                        android:tooltipText="@string/delete_this_ups"/>
 
                 </LinearLayout>
 
