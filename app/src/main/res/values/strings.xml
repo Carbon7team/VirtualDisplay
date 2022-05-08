@@ -291,4 +291,13 @@
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_reminder">Are you sure you want to delete the UPS</string>
     <string name="select_this_ups">Select this UPS</string>
+    <string name="port_error">Port number is too big</string>
+    <string name="ups_modified">UPS MODIFIED</string>
+    <string name="port_empty">Port number can not be empty</string>
+    <string name="dialog_null">Activity can not be null</string>
+    <string name="ip_not_correct">IP address format is not correct</string>
+    <string name="empty_ups_name">UPS name can not be empty</string>
+    <string name="ups_added">UPS ADDED</string>
+    <string name="add_ups">Add UPS</string>
+    <string name="ups_deleted">UPS DELETED</string>
 </resources>

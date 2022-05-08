@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentUpsSelectorBinding
 import com.carbon7.virtualdisplay.model.AppDB
 
@@ -36,12 +37,12 @@ class UpsSelectorFragment : Fragment() {
             onDelete = {
                 DeleteUpsDialog(it.name) {
                     viewModel.deleteUps(it.ID)
-                }.show(parentFragmentManager, "Delete UPS")
+                }.show(parentFragmentManager, getString(R.string.delete_ups))
         },
             onModify = {
                 ModifyUpsDialog(it.name, it.address, it.port) { name: String, ip: String, port: Int ->
                     viewModel.modifyUps(it.ID, name, ip, port)
-                }.show(parentFragmentManager, "Modify UPS")
+                }.show(parentFragmentManager, getString(R.string.modify_ups))
         },
             onSelected = {
                 // TODO FAR PARTIRE MAINACTIVITY MANDANDO IP E PORTA
@@ -58,7 +59,7 @@ class UpsSelectorFragment : Fragment() {
         binding.fabAdd.setOnClickListener {
             CreateNewUpsDialog { name: String, ip: String, port: Int ->
                 viewModel.addUps(name, ip, port)
-            }.show(parentFragmentManager, "Create UPS")
+            }.show(parentFragmentManager, getString(R.string.add_ups))
         }
 
         // val d2 = CreateNewUpsDialog(viewModel::addUps) // funziona uguale ma viene passato direttamente la funzione

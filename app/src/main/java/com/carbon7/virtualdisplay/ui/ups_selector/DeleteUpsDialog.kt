@@ -8,23 +8,22 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.carbon7.virtualdisplay.R
 
-class DeleteUpsDialog(private val name: String, private val onSuccess:()->Unit) :
+class DeleteUpsDialog(private val name: String, private val onSuccess: () -> Unit) :
     DialogFragment() {
 
-    override fun onCreateDialog(savedInstanceState: Bundle?) : Dialog {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
 
             builder.setTitle(R.string.confirm_delete)
-                .setMessage(R.string.confirm_reminder)
-                .setPositiveButton(R.string.delete,
-                    DialogInterface.OnClickListener { dialog, id ->
-                        Toast.makeText(context, "UPS DELETED", Toast.LENGTH_SHORT).show()
-                        onSuccess()
-                    })
+                .setMessage(getString(R.string.confirm_reminder) + " \"" + name + "\"?")
+                .setPositiveButton(R.string.delete) { _: DialogInterface, _: Int ->
+                    Toast.makeText(context, getString(R.string.ups_deleted), Toast.LENGTH_SHORT).show()
+                    onSuccess()
+                }
                 .setNegativeButton(R.string.cancel, null)
 
             builder.create()
-        } ?: throw IllegalStateException("Activity cannot be null")
+        } ?: throw IllegalStateException(getString(R.string.dialog_null))
     }
 }

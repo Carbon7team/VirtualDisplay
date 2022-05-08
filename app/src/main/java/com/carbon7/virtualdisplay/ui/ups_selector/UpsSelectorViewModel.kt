@@ -37,9 +37,9 @@ class UpsSelectorViewModel : ViewModel() {
         CoroutineScope(Dispatchers.IO).launch {
             val currentUps = dao.findById(id)
 
-            if (name != null) currentUps.name = name
-            if (ip != null) currentUps.address = ip
-            if (port != null) currentUps.port = port
+            name?.also { currentUps.name = it }
+            ip?.also { currentUps.address = it }
+            port?.also { currentUps.port = it }
 
             dao.updateUps(currentUps)
         }
