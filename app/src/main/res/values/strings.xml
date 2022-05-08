@@ -279,7 +279,7 @@
     <string name="insert_ups_name">Insert UPS name</string>
     <string name="ups_name">My favourite UPS</string>
     <string name="insert_ip_address">Insert IP address</string>
-    <string name="ups_ip">192.168.137.1</string>
+    <string name="ups_ip">xx.xx.xx.xx</string>
     <string name="insert_port">Insert port</string>
     <string name="ip_address_format_is_not_correct">IP address format is not correct</string>
     <string name="port_number_is_not_correct">Port number is not correct</string>
