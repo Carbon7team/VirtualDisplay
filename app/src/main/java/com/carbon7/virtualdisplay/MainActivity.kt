@@ -161,23 +161,18 @@ class MainActivity : AppCompatActivity() {
             .create()
     }
     private lateinit var mService: UpsDataFetcherService
-    private var lastConnState = UpsDataFetcherService.ConnectionState.CONNECTED
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             mService= (service as UpsDataFetcherService.LocalBinder).getService()
             mService.connectionStateBus.events.observe(this@MainActivity){
-                //Act only if the state change
-                if(it != lastConnState){
-                    //Change the connection icon
-                    toolbar.menu.findItem(R.id.ups_conn_status).icon = when(it){
-                        UpsDataFetcherService.ConnectionState.DISCONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
-                        UpsDataFetcherService.ConnectionState.CONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_connected,null)
-                    }
-                    //Change the disconnected alert
-                    if(it==UpsDataFetcherService.ConnectionState.DISCONNECTED)
-                        alert.show()
-                    lastConnState=it
+                //Change the connection icon
+                toolbar.menu.findItem(R.id.ups_conn_status).icon = when(it){
+                    UpsDataFetcherService.ConnectionState.DISCONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
+                    UpsDataFetcherService.ConnectionState.CONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_connected,null)
                 }
+                //Change the disconnected alert
+                if(it==UpsDataFetcherService.ConnectionState.DISCONNECTED)
+                    alert.show()
 
             }
         }
