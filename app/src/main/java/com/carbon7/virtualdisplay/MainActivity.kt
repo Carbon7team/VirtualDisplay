@@ -1,7 +1,6 @@
 package com.carbon7.virtualdisplay
 
 import android.content.*
-import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.view.Menu
@@ -13,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.GravityCompat
-import androidx.core.view.MenuCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -23,8 +21,6 @@ import com.carbon7.virtualdisplay.ui.alarms.AlarmsFragment
 import com.carbon7.virtualdisplay.ui.diagram.DiagramFragment
 import com.carbon7.virtualdisplay.ui.status.StatusFragment
 import kotlin.reflect.KClass
-import com.carbon7.virtualdisplay.ui.ups_selector.UpsSelectorFragment
-import kotlin.properties.Delegates
 
 
 class MainActivity : AppCompatActivity() {
@@ -152,7 +148,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    val alert by lazy {
+    val lostConnAlert by lazy {
         AlertDialog.Builder(this)
             .setTitle("Connessione interrotta")
             .setMessage("La connessione con l'UPS sì è interrotta come procedere?")
@@ -167,12 +163,13 @@ class MainActivity : AppCompatActivity() {
             mService.connectionStateBus.events.observe(this@MainActivity){
                 //Change the connection icon
                 toolbar.menu.findItem(R.id.ups_conn_status).icon = when(it){
-                    UpsDataFetcherService.ConnectionState.DISCONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
+                    UpsDataFetcherService.ConnectionState.DISCONNECTED -> {
+                        lostConnAlert.show()
+                        ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
+                    }
                     UpsDataFetcherService.ConnectionState.CONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_connected,null)
                 }
-                //Change the disconnected alert
-                if(it==UpsDataFetcherService.ConnectionState.DISCONNECTED)
-                    alert.show()
+
 
             }
         }

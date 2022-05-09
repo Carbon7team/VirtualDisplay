@@ -9,14 +9,13 @@ import com.carbon7.virtualdisplay.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import android.util.Log
 
 
 class UpsDataFetcherService: Service() {
 
 
     private val binder = LocalBinder()
-    private var lossPackets = 0
+    private var lostPackets = 0
     private var lastConnState: ConnectionState? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -32,7 +31,7 @@ class UpsDataFetcherService: Service() {
                         CoroutineScope(Dispatchers.Default).launch{
                             val result = ups.requestInfo()
                             if(result.isSuccess) {
-                                lossPackets=0
+                                lostPackets=0
                                 decode(result.getOrNull()!!)
                                 dataBus.invokeEvent(Triple(status, alarms, measurements))
                                 if(lastConnState==null || lastConnState!=ConnectionState.CONNECTED) {
@@ -40,8 +39,8 @@ class UpsDataFetcherService: Service() {
                                     lastConnState=ConnectionState.CONNECTED
                                 }
                             }else {
-                                lossPackets++
-                                if(lossPackets*interval>=2000 && (lastConnState==null || lastConnState!=ConnectionState.DISCONNECTED)) {//Se non ricevo pacchetti da 2 secondi
+                                lostPackets++
+                                if(lostPackets*interval>=2000 && (lastConnState==null || lastConnState!=ConnectionState.DISCONNECTED)) {//Se non ricevo pacchetti da 2 secondi
                                     connectionStateBus.invokeEvent(ConnectionState.DISCONNECTED)
                                     lastConnState=ConnectionState.DISCONNECTED
                                 }
