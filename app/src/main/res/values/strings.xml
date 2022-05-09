@@ -306,4 +306,5 @@
     <string name="diagram">Diagram</string>
     <string name="inverter">Inverter</string>
     <string name="bypass">Bypass</string>
+    <string name="disconnect_ups">Disconnect UPS</string>
 </resources>

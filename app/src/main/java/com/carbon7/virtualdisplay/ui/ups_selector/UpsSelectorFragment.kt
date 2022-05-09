@@ -1,11 +1,13 @@
 package com.carbon7.virtualdisplay.ui.ups_selector
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.carbon7.virtualdisplay.MainActivity
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentUpsSelectorBinding
 import com.carbon7.virtualdisplay.model.AppDB
@@ -45,8 +47,12 @@ class UpsSelectorFragment : Fragment() {
                 }.show(parentFragmentManager, getString(R.string.modify_ups))
         },
             onSelected = {
-                // TODO
-                // COLLEGAMENTO UPS DOPO LA SELEZIONE
+                Intent(activity, MainActivity::class.java).apply {
+                    putExtra("ip", it.address)
+                    putExtra("port", it.port)
+                }.also {
+                    startActivity(it)
+                }
             })
 
         viewModel.ups.observe(viewLifecycleOwner) {
