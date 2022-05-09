@@ -36,4 +36,10 @@
                 android:title="@string/bypass" />
         </menu>
     </item>
+    <group android:id="@+id/gr1">
+        <item
+            android:id="@+id/disconnect_ups_menu_item"
+            android:checkable="true"
+            android:title="@string/disconnect_ups" />
+    </group>
 </menu>

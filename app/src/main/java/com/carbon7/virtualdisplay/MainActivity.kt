@@ -21,7 +21,6 @@ import com.carbon7.virtualdisplay.ui.alarms.AlarmsFragment
 import com.carbon7.virtualdisplay.ui.diagram.DiagramFragment
 import com.carbon7.virtualdisplay.ui.status.StatusFragment
 import kotlin.reflect.KClass
-import com.carbon7.virtualdisplay.ui.ups_selector.UpsSelectorFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +31,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawer: DrawerLayout
     private lateinit var toolbar: Toolbar
     private var backTimestamp = 0L
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,32 +58,24 @@ class MainActivity : AppCompatActivity() {
                 R.id.diagram_menu_item -> changeFragment(DiagramFragment::class)
                 R.id.status_menu_item -> changeFragment(StatusFragment::class)
                 R.id.alarms_menu_item -> changeFragment(AlarmsFragment::class)
+
+                R.id.disconnect_ups_menu_item -> goBackToUpsSelector()
             }
 
             Toast.makeText(this, it.title, Toast.LENGTH_SHORT).show()
             true
         }
+        changeFragment(DiagramFragment::class, false)
 
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_menu, menu)
 
+
         //Show the connection state icon
         toolbar.menu.findItem(R.id.ups_conn_status).isVisible = true
         toolbar.menu.findItem(R.id.ups_conn_status).icon = ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
-
-        /*val toggleservice = menu!!.findItem(R.id.app_bar_switch)
-        val actionView = toggleservice.actionView.findViewById(R.id.switch_toolbar) as Switch
-        actionView.setOnCheckedChangeListener { compoundButton, b ->
-            if(b) {
-                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                toolbar.navigationIcon = null
-            }else{
-                drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                toggle.syncState()
-            }
-        }*/
 
         return true
     }
@@ -96,7 +86,6 @@ class MainActivity : AppCompatActivity() {
         }
         R.id.settings -> {
             Toast.makeText(this,"IMPOSTAZIONI",Toast.LENGTH_SHORT).show()
-            changeFragment(UpsSelectorFragment())
             true
         }
         else -> {
@@ -120,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             }else {
                 if(System.currentTimeMillis() - backTimestamp > 1000) {
                     backTimestamp = System.currentTimeMillis()
-                    Toast.makeText(this, "Press Again to Exit", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Press Again to Disconnect UPS", Toast.LENGTH_SHORT).show()
                 }else
                     super.onBackPressed()
             }
@@ -132,7 +121,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @param fragClass
      */
-    private fun changeFragment(fragClass: KClass<out Fragment>){
+    private fun changeFragment(fragClass: KClass<out Fragment>, backstab:Boolean=true){
 
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
 
@@ -142,41 +131,45 @@ class MainActivity : AppCompatActivity() {
         else
             transaction.replace(R.id.fragment_container, frag, fragClass.simpleName)
 
-        transaction.addToBackStack(null);
+        if(backstab)
+            transaction.addToBackStack(null);
         transaction.commit()
 
 
 
     }
+    private fun goBackToUpsSelector(){
+        Intent(this, StartingActivity::class.java).apply{
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP  or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }.also { it1: Intent ->
+            startActivity(it1)
+        }
+    }
 
 
 
-    val alert by lazy {
+    val lostConnAlert by lazy {
         AlertDialog.Builder(this)
             .setTitle("Connessione interrotta")
             .setMessage("La connessione con l'UPS sì è interrotta come procedere?")
-            .setPositiveButton("Esci") { dialogInterface, i -> TODO("Transizione a StartingActivity") }
+            .setPositiveButton("Esci") { dialogInterface, i ->  goBackToUpsSelector()}
             .setNegativeButton("Attendi") { dialogInterface, i -> }
             .create()
     }
     private lateinit var mService: UpsDataFetcherService
-    private var lastConnState = UpsDataFetcherService.ConnectionState.DISCONNECTED
     private val connection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             mService= (service as UpsDataFetcherService.LocalBinder).getService()
             mService.connectionStateBus.events.observe(this@MainActivity){
-                //Act only if the state change
-                if(it != lastConnState){
-                    //Change the connection icon
-                    toolbar.menu.findItem(R.id.ups_conn_status).icon = when(it){
-                        UpsDataFetcherService.ConnectionState.DISCONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
-                        UpsDataFetcherService.ConnectionState.CONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_connected,null)
+                //Change the connection icon
+                toolbar.menu.findItem(R.id.ups_conn_status).icon = when(it){
+                    UpsDataFetcherService.ConnectionState.DISCONNECTED -> {
+                        lostConnAlert.show()
+                        ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
                     }
-                    //Change the disconnected alert
-                    if(it==UpsDataFetcherService.ConnectionState.DISCONNECTED)
-                        alert.show()
-                    lastConnState=it
+                    UpsDataFetcherService.ConnectionState.CONNECTED -> ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_connected,null)
                 }
+
 
             }
         }
@@ -193,10 +186,11 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+
         //When the MainActivity is created (or the app resumed) the service is (re)started and binded
         Intent(this, UpsDataFetcherService::class.java).apply {
-            putExtra("ip","192.168.11.178")
-            putExtra("port",8888)
+            putExtra("ip",intent.getStringExtra("ip")!!)
+            putExtra("port",intent.getIntExtra("port",0))
             putExtra("interval",1000L)
         }.also {
             startService(it)

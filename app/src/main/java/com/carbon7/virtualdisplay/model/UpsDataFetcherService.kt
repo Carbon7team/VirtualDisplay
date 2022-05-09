@@ -10,10 +10,13 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+
 class UpsDataFetcherService: Service() {
 
 
     private val binder = LocalBinder()
+    private var lostPackets = 0
+    private var lastConnState: ConnectionState? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if (intent != null && intent.extras != null) {
@@ -28,12 +31,19 @@ class UpsDataFetcherService: Service() {
                         CoroutineScope(Dispatchers.Default).launch{
                             val result = ups.requestInfo()
                             if(result.isSuccess) {
+                                lostPackets=0
                                 decode(result.getOrNull()!!)
                                 dataBus.invokeEvent(Triple(status, alarms, measurements))
-                                connectionStateBus.invokeEvent(ConnectionState.CONNECTED)
+                                if(lastConnState==null || lastConnState!=ConnectionState.CONNECTED) {
+                                    connectionStateBus.invokeEvent(ConnectionState.CONNECTED)
+                                    lastConnState=ConnectionState.CONNECTED
+                                }
                             }else {
-                                connectionStateBus.invokeEvent(ConnectionState.DISCONNECTED)
-                                //Log.d("MyApp", result.exceptionOrNull().toString())
+                                lostPackets++
+                                if(lostPackets*interval>=2000 && (lastConnState==null || lastConnState!=ConnectionState.DISCONNECTED)) {//Se non ricevo pacchetti da 2 secondi
+                                    connectionStateBus.invokeEvent(ConnectionState.DISCONNECTED)
+                                    lastConnState=ConnectionState.DISCONNECTED
+                                }
                             }
                         }
                     }
