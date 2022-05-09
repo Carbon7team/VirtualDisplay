@@ -41,7 +41,6 @@ class UpsDataFetcherService: Service() {
                                 }
                             }else {
                                 lossPackets++
-                                Log.d("MyApp",lossPackets.toString())
                                 if(lossPackets*interval>=2000 && (lastConnState==null || lastConnState!=ConnectionState.DISCONNECTED)) {//Se non ricevo pacchetti da 2 secondi
                                     connectionStateBus.invokeEvent(ConnectionState.DISCONNECTED)
                                     lastConnState=ConnectionState.DISCONNECTED
