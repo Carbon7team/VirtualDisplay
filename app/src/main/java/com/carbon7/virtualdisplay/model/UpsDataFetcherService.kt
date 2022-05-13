@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Binder
 import android.os.CountDownTimer
 import android.os.IBinder
-import com.carbon7.virtualdisplay.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -16,15 +15,15 @@ class UpsDataFetcherService: Service() {
 
     enum class ConnectionState{
         CONNECTED,
-        DISCONNECTED
+        NOT_CONNECTED
     }
 
     private val binder = LocalBinder()
-    private var lostPackets = 0
 
     private lateinit var ups: Ups
     private val decoder = UpsDataDecoder()
     private lateinit var timer : CountDownTimer
+    private var lostPackets = 0
     private var lastConnState: ConnectionState? = null
 
     /**
@@ -58,9 +57,9 @@ class UpsDataFetcherService: Service() {
                                 }
                             }else {
                                 lostPackets++
-                                if(lostPackets*interval>=2000 && (lastConnState==null || lastConnState!=ConnectionState.DISCONNECTED)) {//Se non ricevo pacchetti da 2 secondi
-                                    connectionStateBus.invokeEvent(ConnectionState.DISCONNECTED)
-                                    lastConnState=ConnectionState.DISCONNECTED
+                                if(lostPackets*interval>=2000 && (lastConnState==null || lastConnState!=ConnectionState.NOT_CONNECTED)) {//Se non ricevo pacchetti da 2 secondi
+                                    connectionStateBus.invokeEvent(ConnectionState.NOT_CONNECTED)
+                                    lastConnState=ConnectionState.NOT_CONNECTED
                                 }
                             }
                         }
