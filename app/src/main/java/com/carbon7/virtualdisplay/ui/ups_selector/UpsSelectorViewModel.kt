@@ -7,12 +7,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class UpsSelectorViewModel : ViewModel() {
-    lateinit var dao : SavedUpsDao
+class UpsSelectorViewModel(private val dao: SavedUpsDao) : ViewModel() {
 
-    fun load(d: SavedUpsDao){
-        dao = d
-
+    init{
         CoroutineScope(Dispatchers.Default).launch {
             dao.getAll().collect {
                 _ups.postValue(it)
@@ -23,7 +20,6 @@ class UpsSelectorViewModel : ViewModel() {
     private val _ups = MutableLiveData(
         listOf<SavedUps>()
     )
-
     val ups:LiveData<List<SavedUps>> = _ups
 
 

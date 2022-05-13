@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.carbon7.virtualdisplay.MainActivity
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentUpsSelectorBinding
@@ -18,7 +18,7 @@ class UpsSelectorFragment : Fragment() {
         fun newInstance() = UpsSelectorFragment()
     }
 
-    private lateinit var viewModel: UpsSelectorViewModel
+    private val viewModel: UpsSelectorViewModel by viewModels{UpsSelectorViewModelFactory(AppDB.getInstance(requireContext()).dao)}
     private var _binding: FragmentUpsSelectorBinding? = null
 
     // This property is only valid between onCreateView and
@@ -30,9 +30,7 @@ class UpsSelectorFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val dao = AppDB.getInstance(requireContext()).dao
 
-        viewModel = ViewModelProvider(this).get(UpsSelectorViewModel::class.java)
         _binding = FragmentUpsSelectorBinding.inflate(inflater, container, false)
 
         binding.upsList.adapter = UpsSelectorAdapter(viewModel.ups.value?: listOf(),
@@ -40,12 +38,12 @@ class UpsSelectorFragment : Fragment() {
                 DeleteUpsDialog(it.name) {
                     viewModel.deleteUps(it.ID)
                 }.show(parentFragmentManager, getString(R.string.delete_ups))
-        },
+            },
             onModify = {
                 ModifyUpsDialog(it.name, it.address, it.port) { name: String, ip: String, port: Int ->
                     viewModel.modifyUps(it.ID, name, ip, port)
                 }.show(parentFragmentManager, getString(R.string.modify_ups))
-        },
+            },
             onSelected = {
                 Intent(activity, MainActivity::class.java).apply {
                     putExtra("ip", it.address)
@@ -58,8 +56,6 @@ class UpsSelectorFragment : Fragment() {
         viewModel.ups.observe(viewLifecycleOwner) {
             (binding.upsList.adapter as UpsSelectorAdapter).swap(it)
         }
-
-        viewModel.load(dao)
 
         val root: View = binding.root
 
