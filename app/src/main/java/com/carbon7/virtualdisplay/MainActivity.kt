@@ -163,7 +163,7 @@ class MainActivity : AppCompatActivity() {
             mService.connectionStateBus.events.observe(this@MainActivity){
                 //Change the connection icon
                 toolbar.menu.findItem(R.id.ups_conn_status).icon = when(it){
-                    UpsDataFetcherService.ConnectionState.DISCONNECTED -> {
+                    UpsDataFetcherService.ConnectionState.NOT_CONNECTED -> {
                         lostConnAlert.show()
                         ResourcesCompat.getDrawable(resources,R.drawable.ic_ups_disconnected,null)
                     }
