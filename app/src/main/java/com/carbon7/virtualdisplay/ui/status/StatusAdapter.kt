@@ -37,7 +37,7 @@ class StatusAdapter(private var status:List<Status>) :
         val ctx=holder.lblStatus.context
         val s = status[position]
 
-        holder.lblStatus.text= s.code+ ": "+ ctx.getString(s.name)
+        holder.lblStatus.text="%s: %s".format(s.code, ctx.getString(s.name))
         holder.lblStatus.setTextColor( if(s.isActive) Color.CYAN else Color.GRAY)
     }
 
