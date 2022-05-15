@@ -36,7 +36,7 @@
                     android:textSize="30sp"
                     android:textStyle="bold"
                     android:gravity="center_horizontal"
-                    tools:text="UPS di topo gigio" />
+                    tools:text="My favourite UPS" />
 
                 <TextView
                     android:id="@+id/ups_info"
@@ -61,7 +61,7 @@
                         android:layout_marginVertical="15dp"
                         android:layout_marginStart="15dp"
                         android:contentDescription="@string/modify_ups"
-                        app:backgroundTint="#1d992b"
+                        app:backgroundTint="@color/green"
                         app:icon="@drawable/ic_modify"
                         android:text="@string/modify_ups"
                         android:tooltipText="@string/modify_this_ups"/>
@@ -72,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginVertical="15dp"
                         android:layout_marginStart="15dp"
-                        app:backgroundTint="#8a1212"
+                        app:backgroundTint="@color/red"
                         android:contentDescription="@string/delete_ups"
                         app:icon="@drawable/ic_delete"
                         android:text="@string/delete_ups"
