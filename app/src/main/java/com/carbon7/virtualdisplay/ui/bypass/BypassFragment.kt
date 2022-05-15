@@ -4,17 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentBypassBinding
-import com.carbon7.virtualdisplay.databinding.FragmentBypassMeasurementsBinding
-import com.carbon7.virtualdisplay.databinding.FragmentDiagramBinding
-import com.carbon7.virtualdisplay.ui.UpsDataVisualizerFragment
-import com.carbon7.virtualdisplay.ui.diagram.DiagramFragment
-import com.carbon7.virtualdisplay.ui.diagram.DiagramViewModel
 
 class BypassFragment : Fragment() {
 
