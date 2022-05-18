@@ -146,83 +146,6 @@
                 android:gravity="center_horizontal"/>
 
         </TableRow>
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:elevation="11dp"
-            android:progress="80"
-            android:progressBackgroundTint="@color/grey"
-            android:progressTint="@color/yellow"
-            android:layout_marginBottom="50dp"
-            android:layout_marginRight="5dp"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:id="@+id/l1_scroll_bar"/>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:padding="10sp"
-                android:textSize="14sp"
-                android:background="@color/grey"
-                android:layout_marginRight="5dp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="@string/voltage"
-                android:padding="10sp"
-                android:background="@color/grey"
-                android:layout_marginRight="5dp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="@string/ampere"
-                android:padding="10sp"
-                android:background="@color/grey"
-                android:layout_marginRight="5dp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="@string/power"
-                android:padding="10sp"
-                android:background="@color/grey"
-                android:layout_marginRight="5dp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:background="@color/grey"
-                android:layout_marginRight="5dp"
-                android:text="@string/intensity"
-                android:padding="10sp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
-
-        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -284,83 +207,6 @@
                 android:textStyle="bold"
                 android:padding="10sp"
                 android:layout_marginRight="5dp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
-
-        </TableRow>
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:elevation="11dp"
-            android:progressBackgroundTint="@color/grey"
-            android:progressTint="@color/light_blue"
-            android:layout_marginBottom="50dp"
-            android:layout_marginRight="5dp"
-            android:progress="80"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:id="@+id/l2_scroll_bar"/>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:padding="10sp"
-                android:textSize="14sp"
-                android:background="@color/grey"
-                android:layout_marginRight="5dp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="@string/voltage"
-                android:padding="10sp"
-                android:background="@color/grey"
-                android:layout_marginRight="5dp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="@string/ampere"
-                android:padding="10sp"
-                android:background="@color/grey"
-                android:layout_marginRight="5dp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:text="@string/power"
-                android:padding="10sp"
-                android:background="@color/grey"
-                android:layout_marginRight="5dp"
-                android:textSize="14sp"
-                android:layout_weight="4"
-                android:gravity="center_horizontal"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:background="@color/grey"
-                android:layout_marginRight="5dp"
-                android:text="@string/intensity"
-                android:padding="10sp"
                 android:textSize="14sp"
                 android:layout_weight="4"
                 android:gravity="center_horizontal"/>
@@ -432,19 +278,6 @@
                 android:gravity="center_horizontal"/>
 
         </TableRow>
-        <ProgressBar
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:elevation="11dp"
-            android:progressBackgroundTint="@color/grey"
-            android:progressTint="@color/purple"
-            android:layout_marginBottom="50dp"
-            android:progress="80"
-            android:layout_marginRight="5dp"
-            style="@android:style/Widget.ProgressBar.Horizontal"
-            android:id="@+id/l3_scroll_bar"/>
-
-
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
