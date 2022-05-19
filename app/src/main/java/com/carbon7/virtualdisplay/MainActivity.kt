@@ -18,7 +18,11 @@ import androidx.fragment.app.FragmentTransaction
 import com.carbon7.virtualdisplay.databinding.ActivityMainBinding
 import com.carbon7.virtualdisplay.model.UpsDataFetcherService
 import com.carbon7.virtualdisplay.ui.alarms.AlarmsFragment
+import com.carbon7.virtualdisplay.ui.bypass.BypassFragment
 import com.carbon7.virtualdisplay.ui.diagram.DiagramFragment
+import com.carbon7.virtualdisplay.ui.inverter.InverterFragment
+import com.carbon7.virtualdisplay.ui.load.LoadFragment
+import com.carbon7.virtualdisplay.ui.rectifier.RectifierFragment
 import com.carbon7.virtualdisplay.ui.status.StatusFragment
 import kotlin.reflect.KClass
 
@@ -58,6 +62,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.diagram_menu_item -> changeFragment(DiagramFragment::class)
                 R.id.status_menu_item -> changeFragment(StatusFragment::class)
                 R.id.alarms_menu_item -> changeFragment(AlarmsFragment::class)
+
+                R.id.load_menu_item -> changeFragment(LoadFragment::class)
+                //R.id.battery_menu_item -> changeFragment(batteryFragment::class)
+                R.id.rectifier_menu_item -> changeFragment(RectifierFragment::class)
+                R.id.inverter_menu_item -> changeFragment(InverterFragment::class)
+                R.id.bypass_menu_item -> changeFragment(BypassFragment::class)
 
                 R.id.disconnect_ups_menu_item -> goBackToUpsSelector()
             }

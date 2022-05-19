@@ -1,11 +1,11 @@
-package com.carbon7.virtualdisplay.ui.bypass
+package com.carbon7.virtualdisplay.ui.rectifier
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.carbon7.virtualdisplay.model.Measurement
 import com.carbon7.virtualdisplay.ui.UpsDataVisualizerViewModel
 
-class InputViewModel : UpsDataVisualizerViewModel() {
+class RectifierViewModel : UpsDataVisualizerViewModel() {
 
     enum class Filter(val filterFun:(Measurement)->Boolean){
         ALL({true})

@@ -1,20 +1,19 @@
-package com.carbon7.virtualdisplay.ui.bypass
+package com.carbon7.virtualdisplay.ui.load
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.carbon7.virtualdisplay.R
-import com.carbon7.virtualdisplay.databinding.FragmentBypassBinding
+import com.carbon7.virtualdisplay.databinding.FragmentLoadBinding
 import com.carbon7.virtualdisplay.model.Measurement
 import com.carbon7.virtualdisplay.ui.UpsDataVisualizerFragment
 
-class BypassFragment : UpsDataVisualizerFragment() {
-    override val viewModel: BypassViewModel by viewModels()
+class LoadFragment : UpsDataVisualizerFragment() {
+    override val viewModel: LoadViewModel by viewModels()
 
-    private var _binding: FragmentBypassBinding? = null
+    private var _binding: FragmentLoadBinding? = null
     private val binding
         get() = _binding!!
 
@@ -22,7 +21,7 @@ class BypassFragment : UpsDataVisualizerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentBypassBinding.inflate(inflater, container, false)
+        _binding = FragmentLoadBinding.inflate(inflater, container, false)
 
         setupView()
 
@@ -38,27 +37,42 @@ class BypassFragment : UpsDataVisualizerFragment() {
         return null
     }
 
+    private fun progressBarCalculator(_value: Float?) : Int {
+        var value = _value
+        if (value != null) {
+            value /= 120
+            value *= 100
+            return value.toInt()
+        }
+        return 0
+    }
+
     private fun setupView(){
         val measurements = viewModel.filteredMeasurements.value
-
-        if (measurements != null) {
-            Log.d("==>", measurements.size.toString())
-        } else {
-            Log.d("==>", "measurements è nullo")
-        }
 
         binding.l11.text = searchMeasurementValue(measurements, "M039").toString()
         binding.l12.text = searchMeasurementValue(measurements, "M040").toString()
         binding.l13.text = searchMeasurementValue(measurements, "M041").toString()
         binding.l14.text = searchMeasurementValue(measurements, "M043").toString()
+        binding.l1Load.text = searchMeasurementValue(measurements, "M043").toString() + " " + getString(R.string.perc)
+        binding.l1ProgressBar.progress = progressBarCalculator(searchMeasurementValue(measurements, "M043"))
+
         binding.l21.text = searchMeasurementValue(measurements, "M044").toString()
         binding.l22.text = searchMeasurementValue(measurements, "M045").toString()
         binding.l23.text = searchMeasurementValue(measurements, "M073").toString()
         binding.l24.text = searchMeasurementValue(measurements, "M074").toString()
+        binding.l2Load.text = searchMeasurementValue(measurements, "M043").toString() + " " + getString(R.string.perc)
+        binding.l2ProgressBar.progress = progressBarCalculator(searchMeasurementValue(measurements, "M043"))
+
         binding.l31.text = searchMeasurementValue(measurements, "M075").toString()
         binding.l32.text = searchMeasurementValue(measurements, "M070").toString()
         binding.l33.text = searchMeasurementValue(measurements, "M071").toString()
         binding.l34.text = searchMeasurementValue(measurements, "M072").toString()
-        binding.frequency.text =  searchMeasurementValue(measurements, "M042").toString() + " " + getString(R.string.herz)
+        binding.l3Load.text = searchMeasurementValue(measurements, "M043").toString() + " " + getString(R.string.perc)
+        binding.l3ProgressBar.progress = progressBarCalculator(searchMeasurementValue(measurements, "M043"))
+
+        binding.lfr1.text = searchMeasurementValue(measurements, "M043").toString()
+        binding.lfr2.text = searchMeasurementValue(measurements, "M043").toString()
+        binding.lfr4.text = searchMeasurementValue(measurements, "M043").toString()
     }
 }

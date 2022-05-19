@@ -5,7 +5,7 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.bypass.BypassFragment">
+    tools:context=".ui.inverter.InverterFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,18 +38,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="@string/voltage"
-                    android:padding="10sp"
-                    android:background="@color/grey"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:text="@string/volt"
                     android:padding="10sp"
                     android:background="@color/grey"
@@ -62,22 +50,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="@string/power"
+                    android:text="@string/voltage"
                     android:padding="10sp"
                     android:background="@color/grey"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:background="@color/grey"
-                    android:layout_marginRight="5dp"
-                    android:text="@string/current"
-                    android:padding="10sp"
                     android:textSize="14sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -124,36 +100,12 @@
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
-                <TextView
-                    android:id="@+id/l13"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/yellow"
-                    android:padding="10sp"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"/>
-
-                <TextView
-                    android:id="@+id/l14"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/yellow"
-                    android:padding="10sp"
-                    android:layout_marginRight="5dp"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"/>
-
             </TableRow>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height= "2dp"
-                android:background="@color/white"/>
+                android:layout_height="2dp"
+                android:background="@color/white" />
 
             <TableRow
                 android:layout_width="match_parent"
@@ -196,37 +148,7 @@
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
-                <TextView
-                    android:id="@+id/l23"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_blue"
-                    android:textStyle="bold"
-                    android:padding="10sp"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"/>
-
-                <TextView
-                    android:id="@+id/l24"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_blue"
-                    android:textStyle="bold"
-                    android:padding="10sp"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"/>
-
             </TableRow>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height= "2dp"
-                android:background="@color/white"/>
-
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -268,41 +190,17 @@
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
-                <TextView
-                    android:id="@+id/l33"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/purple"
-                    android:padding="10sp"
-                    android:layout_marginRight="5dp"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"/>
-
-                <TextView
-                    android:id="@+id/l34"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/purple"
-                    android:textStyle="bold"
-                    android:padding="10sp"
-                    android:layout_marginRight="5dp"
-                    android:textSize="14sp"
-                    android:layout_weight="4"
-                    android:gravity="center_horizontal"/>
-
             </TableRow>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height= "2dp"
-                android:background="@color/grey"/>
+                android:layout_height="2dp"
+                android:background="@color/grey" />
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="50dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -313,7 +211,7 @@
                     android:textStyle="bold"
                     android:textSize="14sp"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="4"
+                    android:layout_weight="18"
                     android:gravity="center_horizontal"/>
 
                 <TextView
@@ -325,8 +223,35 @@
                     android:textStyle="bold"
                     android:layout_marginRight="5dp"
                     android:textSize="14sp"
-                    android:layout_weight="50"
+                    android:layout_weight="42"
                     android:gravity="center_horizontal"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:padding="10sp"
+                    android:textSize="14sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="10"
+                    android:gravity="center_horizontal"/>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:progressBackgroundTint="@color/grey"
+                    android:progressTint="@color/orange"
+                    android:layout_marginRight="5dp"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:id="@+id/temperature_scroll_bar"
+                    android:layout_weight="50"/>
 
             </TableRow>
 
