@@ -1,14 +1,12 @@
 package com.carbon7.virtualdisplay.ui.bypass
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentBypassBinding
-import com.carbon7.virtualdisplay.model.Measurement
 import com.carbon7.virtualdisplay.ui.UpsDataVisualizerFragment
 
 class BypassFragment : UpsDataVisualizerFragment() {
@@ -29,36 +27,21 @@ class BypassFragment : UpsDataVisualizerFragment() {
         return binding.root
     }
 
-    private fun searchMeasurementValue(list: List<Measurement>?, code: String) : Float? {
-        if (list != null) {
-            for (measurement in list) {
-                if (measurement.code == code) return measurement.value
-            }
-        }
-        return null
-    }
-
     private fun setupView(){
-        val measurements = viewModel.filteredMeasurements.value
-
-        if (measurements != null) {
-            Log.d("==>", measurements.size.toString())
-        } else {
-            Log.d("==>", "measurements è nullo")
+        viewModel.measurements.observe(viewLifecycleOwner) {
+            binding.l11.text = it[39].value!!.toInt().toString()
+            binding.l12.text = it[43].value!!.toInt().toString()
+            binding.l13.text = it[73].value!!.toInt().toString()
+            binding.l14.text = it[70].value!!.toInt().toString()
+            binding.l21.text = it[40].value!!.toInt().toString()
+            binding.l22.text = it[44].value!!.toInt().toString()
+            binding.l23.text = it[74].value!!.toInt().toString()
+            binding.l24.text = it[71].value!!.toInt().toString()
+            binding.l31.text = it[41].value!!.toInt().toString()
+            binding.l32.text = it[45].value!!.toInt().toString()
+            binding.l33.text = it[75].value!!.toInt().toString()
+            binding.l34.text = it[72].value!!.toInt().toString()
+            binding.frequency.text = it[42].value.toString() + " " + getString(R.string.herz)
         }
-
-        binding.l11.text = searchMeasurementValue(measurements, "M039").toString()
-        binding.l12.text = searchMeasurementValue(measurements, "M040").toString()
-        binding.l13.text = searchMeasurementValue(measurements, "M041").toString()
-        binding.l14.text = searchMeasurementValue(measurements, "M043").toString()
-        binding.l21.text = searchMeasurementValue(measurements, "M044").toString()
-        binding.l22.text = searchMeasurementValue(measurements, "M045").toString()
-        binding.l23.text = searchMeasurementValue(measurements, "M073").toString()
-        binding.l24.text = searchMeasurementValue(measurements, "M074").toString()
-        binding.l31.text = searchMeasurementValue(measurements, "M075").toString()
-        binding.l32.text = searchMeasurementValue(measurements, "M070").toString()
-        binding.l33.text = searchMeasurementValue(measurements, "M071").toString()
-        binding.l34.text = searchMeasurementValue(measurements, "M072").toString()
-        binding.frequency.text =  searchMeasurementValue(measurements, "M042").toString() + " " + getString(R.string.herz)
     }
 }
