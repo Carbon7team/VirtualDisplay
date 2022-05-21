@@ -23,6 +23,7 @@ import com.carbon7.virtualdisplay.ui.diagram.DiagramFragment
 import com.carbon7.virtualdisplay.ui.inverter.InverterFragment
 import com.carbon7.virtualdisplay.ui.load.LoadFragment
 import com.carbon7.virtualdisplay.ui.rectifier.RectifierFragment
+import com.carbon7.virtualdisplay.ui.battery.BatteryFragment
 import com.carbon7.virtualdisplay.ui.status.StatusFragment
 import kotlin.reflect.KClass
 
@@ -64,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.alarms_menu_item -> changeFragment(AlarmsFragment::class)
 
                 R.id.load_menu_item -> changeFragment(LoadFragment::class)
-                //R.id.battery_menu_item -> changeFragment(batteryFragment::class)
+                R.id.battery_menu_item -> changeFragment(BatteryFragment::class)
                 R.id.rectifier_menu_item -> changeFragment(RectifierFragment::class)
                 R.id.inverter_menu_item -> changeFragment(InverterFragment::class)
                 R.id.bypass_menu_item -> changeFragment(BypassFragment::class)

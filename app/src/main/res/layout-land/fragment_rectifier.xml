@@ -100,7 +100,7 @@
                     android:id="@+id/l11"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
@@ -112,7 +112,7 @@
                 <TextView
                     android:id="@+id/l12"
                     android:layout_width="match_parent"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
@@ -129,7 +129,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textColor="@color/yellow"
                     android:textSize="16sp"
@@ -140,7 +140,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/yellow"
@@ -151,8 +151,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/white" />
+                android:layout_height= "2dp"
+                android:background="@color/light_grey"
+                android:layout_marginBottom="10dp"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -181,7 +182,7 @@
                     android:padding="10sp"
                     android:textColor="@color/light_blue"
                     android:textSize="16sp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:textStyle="bold" />
 
                 <TextView
@@ -191,7 +192,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textColor="@color/light_blue"
                     android:textSize="16sp"
@@ -202,7 +203,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
@@ -216,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textColor="@color/light_blue"
                     android:textSize="16sp"
@@ -226,8 +227,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/white" />
+                android:layout_height= "2dp"
+                android:background="@color/light_grey"
+                android:layout_marginBottom="10dp"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -251,7 +253,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
@@ -267,7 +269,7 @@
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:textColor="@color/purple"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -279,7 +281,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textColor="@color/purple"
                     android:textSize="16sp"
@@ -290,7 +292,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/purple"
@@ -328,7 +330,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="45"
                     android:gravity="center_horizontal"
-                    android:text="@string/measurements_starter_herz_value"
+                    android:text="@string/measurements_starter_null_herz_value"
                     android:padding="10sp"
                     android:textSize="16sp"
                     android:textStyle="bold"

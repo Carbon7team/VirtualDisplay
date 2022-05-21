@@ -78,7 +78,7 @@
                     android:textStyle="bold"
                     android:textColor="@color/yellow"
                     android:padding="10sp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_marginRight="5dp"
                     android:textSize="16sp"
                     android:layout_weight="4"
@@ -90,7 +90,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/yellow"
                     android:textStyle="bold"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textSize="16sp"
                     android:layout_weight="4"
@@ -100,8 +100,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/white" />
+                android:layout_height= "2dp"
+                android:background="@color/light_grey"
+                android:layout_marginBottom="10dp"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -126,7 +127,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/light_blue"
                     android:padding="10sp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_marginRight="5dp"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -138,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/light_blue"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -146,6 +147,13 @@
                     android:gravity="center_horizontal"/>
 
             </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height= "2dp"
+                android:background="@color/light_grey"
+                android:layout_marginBottom="10dp"/>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,7 +177,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/purple"
                     android:padding="10sp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_marginRight="5dp"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -180,7 +188,7 @@
                     android:id="@+id/l32"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:textColor="@color/purple"
                     android:padding="10sp"
                     android:textStyle="bold"
@@ -220,12 +228,13 @@
                     android:textColor="@color/black"
                     android:padding="10sp"
                     android:textStyle="bold"
-                    android:text="@string/measurements_starter_herz_value"
+                    android:text="@string/measurements_starter_null_herz_value"
                     android:textSize="16sp"
                     android:layout_weight="42"
                     android:gravity="center_horizontal"/>
 
             </TableRow>
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -237,7 +246,7 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:padding="10sp"
-                    android:text="@string/measurements_starter_t_amb_value"
+                    android:text="@string/measurements_starter_null_t_amb_value"
                     android:textSize="16sp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="10"
@@ -247,7 +256,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:progressBackgroundTint="@color/grey"
-                    android:progressTint="@color/orange"
                     android:layout_marginRight="5dp"
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:id="@+id/temperature_scroll_bar"
