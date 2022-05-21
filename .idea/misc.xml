@@ -35,9 +35,10 @@
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26614583333333336" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable/ic_modify.xml" value="0.26614583333333336" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable/ic_ups_disconnected.xml" value="0.26614583333333336" />
-        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_bypass.xml" value="0.18958333333333333" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_battery.xml" value="0.178125" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_bypass.xml" value="0.264" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_inverter.xml" value="0.21164021164021163" />
-        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_load.xml" value="0.21164021164021163" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_load.xml" value="0.1" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_rectifier.xml" value="0.18958333333333333" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-v26/list_item_ups.xml" value="0.14583333333333334" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/activity_main.xml" value="0.4" />
@@ -46,7 +47,8 @@
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/dialog_create_ups.xml" value="0.25" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/dialog_ups.xml" value="0.14990942028985507" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_alarms.xml" value="0.15217391304347827" />
-        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_bypass.xml" value="0.21467391304347827" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_battery.xml" value="0.264" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_bypass.xml" value="0.264" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_bypass_measurements.xml" value="0.264" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_diagram.xml" value="0.16485507246376813" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_input.xml" value="0.14266304347826086" />

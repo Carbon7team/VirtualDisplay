@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.battery.BatteryFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:scrollbars="none">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/v1"
+                    android:textColor="@color/purple"
+                    android:text="@string/measurements_starter_null_positive_battery_v"
+                    android:padding="10sp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/b1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:text="@string/measurements_starter_null_backup_time"
+                    android:padding="10sp"
+                    android:layout_marginRight="5dp"
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/b2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:padding="10sp"
+                    android:text="@string/measurements_starter_null_battery_time"
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/v2"
+                    android:textColor="@color/light_blue"
+                    android:text="@string/measurements_starter_null_negative_battery_v"
+                    android:textStyle="bold"
+                    android:padding="10sp"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/b3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:padding="10sp"
+                    android:layout_marginRight="5dp"
+                    android:text="@string/measurements_starter_null_capacity_perc"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/b4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/measurements_starter_null_capacity_ah"
+                    android:padding="10sp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:gravity="center_horizontal"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:rowCount="2"
+                    android:columnCount="1"
+                    android:layout_weight="17">
+
+                    <TextView
+                        android:id="@+id/a1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/green"
+                        android:textStyle="bold"
+                        android:text="@string/measurements_starter_null_positive_battery_a"
+                        android:padding="10sp"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="16sp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center_horizontal"/>
+
+                    <TextView
+                        android:id="@+id/a2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/teal_200"
+                        android:textStyle="bold"
+                        android:text="@string/measurements_starter_null_negative_battery_a"
+                        android:padding="10sp"
+                        android:textSize="16sp"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center_horizontal"/>
+
+                </GridLayout>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:progressBackgroundTint="@color/grey"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:id="@+id/battery"
+                    android:padding="20sp"
+                    android:layout_weight="50"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp">
+
+                <TextView
+                    android:id="@+id/t1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/measurements_starter_null_t_inst_value"
+                    android:padding="10sp"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="10"
+                    android:gravity="center_horizontal"/>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:progressBackgroundTint="@color/grey"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:id="@+id/t1_progress_bar"
+                    android:paddingVertical="7sp"
+                    android:layout_weight="30"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/t2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:text="@string/measurements_starter_null_t_avg_value"
+                    android:padding="10sp"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="10"
+                    android:gravity="center_horizontal"/>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:progressBackgroundTint="@color/grey"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:id="@+id/t2_progress_bar"
+                    android:paddingVertical="7sp"
+                    android:layout_weight="30"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

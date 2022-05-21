@@ -43,7 +43,7 @@ class RectifierFragment : UpsDataVisualizerFragment() {
             binding.l32.text = it[38].value!!.toInt().toString()
             binding.l33.text = it[69].value!!.toInt().toString()
             binding.l34.text = it[66].value!!.toInt().toString()
-            binding.frequency.text = it[35].value.toString() + " " + getString(R.string.herz)
+            binding.frequency.text = it[35].value!!.toString() + " " + getString(R.string.herz)
         }
     }
 }

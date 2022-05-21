@@ -103,7 +103,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textColor="@color/yellow"
                     android:textSize="16sp"
@@ -116,7 +116,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textColor="@color/yellow"
                     android:textSize="16sp"
@@ -128,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/yellow"
@@ -142,7 +142,7 @@
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:textColor="@color/yellow"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -151,8 +151,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/white" />
+                android:layout_height= "2dp"
+                android:background="@color/light_grey"
+                android:layout_marginBottom="10dp"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -167,7 +168,7 @@
                     android:layout_weight="8"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
-                    android:text="@string/measurements_starter_load_rate_perc_value"
+                    android:text="@string/measurements_starter_null_load_rate_perc_value"
                     android:textColor="@color/yellow"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -177,6 +178,7 @@
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:backgroundTint="@color/yellow"
                     android:layout_weight="51"
                     android:progressBackgroundTint="@color/grey"
                     android:progressTint="@color/yellow" />
@@ -267,7 +269,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
@@ -282,7 +284,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textColor="@color/light_blue"
                     android:textSize="16sp"
@@ -295,7 +297,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textColor="@color/light_blue"
                     android:textSize="16sp"
@@ -308,7 +310,7 @@
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:textColor="@color/light_blue"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -317,8 +319,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/white" />
+                android:layout_height= "2dp"
+                android:background="@color/light_grey"
+                android:layout_marginBottom="10dp"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -333,7 +336,7 @@
                     android:layout_weight="8"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
-                    android:text="@string/measurements_starter_load_rate_perc_value"
+                    android:text="@string/measurements_starter_null_load_rate_perc_value"
                     android:textColor="@color/light_blue"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -342,6 +345,7 @@
                     android:id="@+id/l2_progress_bar"
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
+                    android:backgroundTint="@color/light_blue"
                     android:layout_height="match_parent"
                     android:layout_weight="51"
                     android:progressBackgroundTint="@color/grey"
@@ -434,7 +438,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/purple"
@@ -445,7 +449,7 @@
                     android:id="@+id/l32"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
@@ -460,7 +464,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/purple"
@@ -471,7 +475,7 @@
                     android:id="@+id/l34"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
@@ -483,8 +487,9 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/white" />
+                android:layout_height= "2dp"
+                android:background="@color/light_grey"
+                android:layout_marginBottom="10dp"/>
 
             <TableRow
                 android:layout_width="match_parent"
@@ -499,7 +504,7 @@
                     android:layout_weight="8"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
-                    android:text="@string/measurements_starter_load_rate_perc_value"
+                    android:text="@string/measurements_starter_null_load_rate_perc_value"
                     android:textColor="@color/purple"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -509,6 +514,7 @@
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:backgroundTint="@color/purple"
                     android:layout_weight="51"
                     android:progressBackgroundTint="@color/grey"
                     android:progressTint="@color/purple" />
@@ -544,7 +550,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:padding="10sp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
@@ -555,7 +561,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
@@ -576,7 +582,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:text="@string/measurements_starter_value"
+                    android:text="@string/measurements_starter_null_value"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/black"

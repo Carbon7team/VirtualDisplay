@@ -44,7 +44,7 @@ class BypassFragment : UpsDataVisualizerFragment() {
             binding.l32.text = it[45].value!!.toInt().toString()
             binding.l33.text = it[75].value!!.toInt().toString()
             binding.l34.text = it[72].value!!.toInt().toString()
-            binding.frequency.text = it[42].value.toString() + " " + getString(R.string.herz)
+            binding.frequency.text = it[42].value!!.toString() + " " + getString(R.string.herz)
         }
     }
 }
