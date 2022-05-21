@@ -312,11 +312,22 @@
     <string name="bypass">Bypass</string>
     <string name="disconnect_ups">Disconnect UPS</string>
     <string name="voltage"><i>V (V)</i></string>
-    <string name="ampere"><i>△ (V)</i></string>
+    <string name="volt"><i>△ (V)</i></string>
     <string name="power"><i>P (kW)</i></string>
-    <string name="intensity"><i>I (A)</i></string>
+    <string name="current"><i>I (A)</i></string>
+    <string name="frequency">Fr</string>
     <string name="l1">L1</string>
     <string name="l2">L2</string>
     <string name="l3">L3</string>
-    <string name="frequency">Fr</string>
+    <string name="load_rate">Lr(%)</string>
+    <string name="apparent_power">S(kVA)</string>
+    <string name="summation">∑</string>
+    <string name="t_amb">T. Amb</string>
+    <string name="celsius">°C</string>
+    <string name="herz">Hz</string>
+    <string name="perc">%</string>
+    <string name="measurements_starter_herz_value">null Hz</string>
+    <string name="measurements_starter_value">null</string>
+    <string name="measurements_starter_t_amb_value">T. Amb\nnull °C</string>
+    <string name="measurements_starter_load_rate_perc_value">null %</string>
 </resources>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.inverter.InverterFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:scrollbars="none">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/volt"
+                    android:padding="10sp"
+                    android:background="@color/grey"
+                    android:layout_marginRight="5dp"
+                    android:textSize="16sp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/voltage"
+                    android:padding="10sp"
+                    android:background="@color/grey"
+                    android:textSize="16sp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/yellow"
+                    android:text="@string/l1"
+                    android:padding="10sp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/l11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/yellow"
+                    android:padding="10sp"
+                    android:text="@string/measurements_starter_value"
+                    android:layout_marginRight="5dp"
+                    android:textSize="16sp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/l12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/yellow"
+                    android:textStyle="bold"
+                    android:text="@string/measurements_starter_value"
+                    android:padding="10sp"
+                    android:textSize="16sp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/white" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:text="@string/l2"
+                    android:textStyle="bold"
+                    android:padding="10sp"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/l21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:padding="10sp"
+                    android:text="@string/measurements_starter_value"
+                    android:layout_marginRight="5dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/l22"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/light_blue"
+                    android:text="@string/measurements_starter_value"
+                    android:padding="10sp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple"
+                    android:text="@string/l3"
+                    android:textStyle="bold"
+                    android:padding="10sp"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/l31"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/purple"
+                    android:padding="10sp"
+                    android:text="@string/measurements_starter_value"
+                    android:layout_marginRight="5dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/l32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/measurements_starter_value"
+                    android:textColor="@color/purple"
+                    android:padding="10sp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_weight="4"
+                    android:gravity="center_horizontal"/>
+
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/grey"
+                android:layout_marginBottom="10dp"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/frequency"
+                    android:padding="10sp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="18"
+                    android:gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/frequency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:padding="10sp"
+                    android:textStyle="bold"
+                    android:text="@string/measurements_starter_herz_value"
+                    android:textSize="16sp"
+                    android:layout_weight="42"
+                    android:gravity="center_horizontal"/>
+
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/temperature"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:padding="10sp"
+                    android:text="@string/measurements_starter_t_amb_value"
+                    android:textSize="16sp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="10"
+                    android:gravity="center_horizontal"/>
+
+                <ProgressBar
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:progressBackgroundTint="@color/grey"
+                    android:progressTint="@color/orange"
+                    android:layout_marginRight="5dp"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:id="@+id/temperature_scroll_bar"
+                    android:paddingVertical="7sp"
+                    android:layout_weight="50"/>
+
+            </TableRow>
+
+        </TableLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

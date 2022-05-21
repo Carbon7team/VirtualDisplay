@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:layout_marginHorizontal="15dp"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:gravity="center_horizontal"
                     tools:text="IP: 192.168.137.1 - port: 8888" />
 
