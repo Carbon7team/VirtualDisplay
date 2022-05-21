@@ -10,7 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_margin="15dp"
         android:scrollbars="none">
 
         <TableLayout
@@ -20,7 +20,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
                     android:padding="10sp"
                     android:background="@color/grey"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -52,7 +52,7 @@
                     android:padding="10sp"
                     android:background="@color/grey"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -64,7 +64,7 @@
                     android:padding="10sp"
                     android:background="@color/grey"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -76,7 +76,7 @@
                     android:layout_marginRight="5dp"
                     android:text="@string/current"
                     android:padding="10sp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -93,7 +93,7 @@
                     android:text="@string/l1"
                     android:padding="10sp"
                     android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -104,9 +104,10 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:textColor="@color/yellow"
+                    android:text="@string/measurements_starter_value"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -115,10 +116,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/yellow"
+                    android:text="@string/measurements_starter_value"
                     android:textStyle="bold"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -127,9 +129,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/yellow"
+                    android:text="@string/measurements_starter_value"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -138,11 +141,12 @@
                     android:id="@+id/l14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/measurements_starter_value"
                     android:textColor="@color/yellow"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
                     android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -165,7 +169,7 @@
                     android:text="@string/l2"
                     android:textStyle="bold"
                     android:padding="10sp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -177,8 +181,9 @@
                     android:textColor="@color/light_blue"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
+                    android:text="@string/measurements_starter_value"
                     android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -188,21 +193,23 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/light_blue"
                     android:padding="10sp"
+                    android:text="@string/measurements_starter_value"
                     android:layout_marginRight="5dp"
                     android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
                 <TextView
                     android:id="@+id/l23"
                     android:layout_width="match_parent"
+                    android:text="@string/measurements_starter_value"
                     android:layout_height="wrap_content"
                     android:textColor="@color/light_blue"
                     android:textStyle="bold"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -212,9 +219,10 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/light_blue"
                     android:textStyle="bold"
+                    android:text="@string/measurements_starter_value"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -237,7 +245,7 @@
                     android:text="@string/l3"
                     android:textStyle="bold"
                     android:padding="10sp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -249,8 +257,9 @@
                     android:textColor="@color/purple"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
+                    android:text="@string/measurements_starter_value"
                     android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -262,7 +271,8 @@
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
                     android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:text="@string/measurements_starter_value"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -273,8 +283,9 @@
                     android:textColor="@color/purple"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
+                    android:text="@string/measurements_starter_value"
                     android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -286,7 +297,8 @@
                     android:textStyle="bold"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
+                    android:text="@string/measurements_starter_value"
+                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -309,7 +321,7 @@
                     android:text="@string/frequency"
                     android:padding="10sp"
                     android:textStyle="bold"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -320,9 +332,10 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
                     android:padding="10sp"
+                    android:text="@string/measurements_starter_herz_value"
                     android:textStyle="bold"
                     android:layout_marginRight="5dp"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:layout_weight="50"
                     android:gravity="center_horizontal"/>
 

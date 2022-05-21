@@ -326,4 +326,8 @@
     <string name="celsius">°C</string>
     <string name="herz">Hz</string>
     <string name="perc">%</string>
+    <string name="measurements_starter_herz_value">null Hz</string>
+    <string name="measurements_starter_value">null</string>
+    <string name="measurements_starter_t_amb_value">T. Amb\nnull °C</string>
+    <string name="measurements_starter_load_rate_perc_value">null %</string>
 </resources>

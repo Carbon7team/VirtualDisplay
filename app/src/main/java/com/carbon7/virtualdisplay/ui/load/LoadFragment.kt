@@ -1,5 +1,6 @@
 package com.carbon7.virtualdisplay.ui.load
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,16 +28,7 @@ class LoadFragment : UpsDataVisualizerFragment() {
         return binding.root
     }
 
-    private fun progressBarCalculator(_value: Float?) : Int {
-        var value = _value
-        if (value != null) {
-            value /= 120
-            value *= 100
-            return value.toInt()
-        }
-        return 0
-    }
-
+    @SuppressLint("SetTextI18n")
     private fun setupView(){
         viewModel.measurements.observe(viewLifecycleOwner){
             binding.l11.text = it[48].value.toString()
@@ -57,9 +49,9 @@ class LoadFragment : UpsDataVisualizerFragment() {
             binding.lfr1.text = it[4].value.toString()
             binding.lfr2.text = it[5].value.toString()
             binding.lfr4.text = it[0].value!!.toInt().toString()
-            binding.l1ProgressBar.progress = progressBarCalculator(it[1].value)
-            binding.l2ProgressBar.progress = progressBarCalculator(it[2].value)
-            binding.l3ProgressBar.progress = progressBarCalculator(it[3].value)
+            binding.l1ProgressBar.progress = ((it[1].value!! / 120) * 100).toInt()
+            binding.l2ProgressBar.progress = ((it[2].value!! / 120) * 100).toInt()
+            binding.l3ProgressBar.progress = ((it[3].value!! / 120) * 100).toInt()
         }
     }
 }

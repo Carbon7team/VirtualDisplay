@@ -33,8 +33,7 @@
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -46,7 +45,7 @@
                     android:padding="10sp"
                     android:text="@string/voltage"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -58,7 +57,7 @@
                     android:padding="10sp"
                     android:text="@string/volt"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -70,7 +69,7 @@
                     android:padding="10sp"
                     android:text="@string/power"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -82,7 +81,7 @@
                     android:padding="10sp"
                     android:text="@string/current"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="16sp" />
 
             </TableRow>
 
@@ -100,7 +99,7 @@
                     android:padding="10sp"
                     android:text="@string/l1"
                     android:textColor="@color/yellow"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -108,11 +107,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:text="@string/measurements_starter_value"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/yellow"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -121,22 +121,24 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
+                    android:text="@string/measurements_starter_value"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/yellow"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/l13"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@string/measurements_starter_value"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/yellow"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -147,8 +149,9 @@
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
+                    android:text="@string/measurements_starter_value"
                     android:textColor="@color/yellow"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </TableRow>
@@ -172,7 +175,7 @@
                     android:padding="10sp"
                     android:text="@string/l2"
                     android:textColor="@color/light_blue"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -180,11 +183,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:text="@string/measurements_starter_value"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/light_blue"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -192,11 +196,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
+                    android:text="@string/measurements_starter_value"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/light_blue"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -206,9 +211,10 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
+                    android:text="@string/measurements_starter_value"
                     android:padding="10sp"
                     android:textColor="@color/light_blue"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -218,9 +224,10 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
+                    android:text="@string/measurements_starter_value"
                     android:padding="10sp"
                     android:textColor="@color/light_blue"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </TableRow>
@@ -244,7 +251,7 @@
                     android:padding="10sp"
                     android:text="@string/l3"
                     android:textColor="@color/purple"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -254,9 +261,10 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
+                    android:text="@string/measurements_starter_value"
                     android:padding="10sp"
                     android:textColor="@color/purple"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -266,9 +274,10 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
+                    android:text="@string/measurements_starter_value"
                     android:padding="10sp"
                     android:textColor="@color/purple"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -279,8 +288,9 @@
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
+                    android:text="@string/measurements_starter_value"
                     android:textColor="@color/purple"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -289,10 +299,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
+                    android:text="@string/measurements_starter_value"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
                     android:textColor="@color/purple"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </TableRow>
@@ -316,7 +327,7 @@
                     android:padding="10sp"
                     android:text="@string/frequency"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -326,9 +337,10 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="55"
                     android:gravity="center_horizontal"
+                    android:text="@string/measurements_starter_herz_value"
                     android:padding="10sp"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
                     android:textStyle="bold" />
 
             </TableRow>

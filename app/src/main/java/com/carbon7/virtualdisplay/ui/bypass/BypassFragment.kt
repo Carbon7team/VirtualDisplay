@@ -1,5 +1,6 @@
 package com.carbon7.virtualdisplay.ui.bypass
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.FragmentBypassBinding
+import com.carbon7.virtualdisplay.model.Measurement
 import com.carbon7.virtualdisplay.ui.UpsDataVisualizerFragment
 
 class BypassFragment : UpsDataVisualizerFragment() {
@@ -27,6 +29,7 @@ class BypassFragment : UpsDataVisualizerFragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupView(){
         viewModel.measurements.observe(viewLifecycleOwner) {
             binding.l11.text = it[39].value!!.toInt().toString()

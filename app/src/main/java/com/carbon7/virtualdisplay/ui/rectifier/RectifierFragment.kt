@@ -1,5 +1,6 @@
 package com.carbon7.virtualdisplay.ui.rectifier
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class RectifierFragment : UpsDataVisualizerFragment() {
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setupView(){
         viewModel.measurements.observe(viewLifecycleOwner) {
             binding.l11.text = it[32].value!!.toInt().toString()
