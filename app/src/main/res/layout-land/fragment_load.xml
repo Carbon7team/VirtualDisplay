@@ -10,21 +10,17 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
-        android:scrollbars="none"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="77dp">
+        android:layout_margin="15dp"
+        android:scrollbars="none">
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:paddingLeft="5dp">
+            android:layout_height="wrap_content">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -32,9 +28,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:padding="10sp"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -75,7 +69,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:background="@color/grey"
                     android:gravity="center_horizontal"
@@ -89,7 +82,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -146,7 +139,6 @@
                     android:id="@+id/l14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
@@ -185,7 +177,6 @@
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="51"
                     android:progressBackgroundTint="@color/grey"
                     android:progressTint="@color/yellow" />
@@ -195,7 +186,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -203,9 +194,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:padding="10sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -246,7 +235,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:background="@color/grey"
                     android:gravity="center_horizontal"
@@ -260,7 +248,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -317,7 +305,6 @@
                     android:id="@+id/l24"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
@@ -356,7 +343,6 @@
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="51"
                     android:progressBackgroundTint="@color/grey"
                     android:progressTint="@color/light_blue" />
@@ -366,7 +352,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -374,9 +360,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:padding="10sp" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -417,7 +401,6 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:background="@color/grey"
                     android:gravity="center_horizontal"
@@ -431,7 +414,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -489,7 +472,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/measurements_starter_value"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
                     android:padding="10sp"
@@ -527,7 +509,6 @@
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="51"
                     android:progressBackgroundTint="@color/grey"
                     android:progressTint="@color/purple" />
@@ -537,12 +518,12 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/grey" />
+                android:background="@color/grey"
+                android:layout_marginBottom="10dp"/>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -588,15 +569,12 @@
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"
-                    android:padding="10sp"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:padding="10sp" />
 
                 <TextView
                     android:id="@+id/lfr4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:text="@string/measurements_starter_value"
                     android:gravity="center_horizontal"

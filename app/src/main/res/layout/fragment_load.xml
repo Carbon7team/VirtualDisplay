@@ -10,26 +10,22 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
+        android:layout_margin="15dp"
         android:scrollbars="none">
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:paddingLeft="5dp">
+            android:layout_height="wrap_content">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:padding="10sp"
-                    android:textSize="16sp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -76,7 +72,6 @@
                     android:textColor="@color/black"
                     android:text="@string/load_rate"
                     android:background="@color/grey"
-                    android:layout_marginRight="5dp"
                     android:padding="10sp"
                     android:textSize="16sp"
                     android:layout_weight="4"
@@ -86,7 +81,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -146,7 +141,6 @@
                     android:textColor="@color/yellow"
                     android:padding="10sp"
                     android:text="@string/measurements_starter_value"
-                    android:layout_marginRight="5dp"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_weight="4"
@@ -174,7 +168,7 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:gravity="center_horizontal"/>
 
                 <ProgressBar
@@ -182,23 +176,20 @@
                     android:layout_height="match_parent"
                     android:progressBackgroundTint="@color/grey"
                     android:progressTint="@color/yellow"
-                    android:layout_marginRight="5dp"
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:id="@+id/l1_progress_bar"
-                    android:layout_weight="50"/>
+                    android:layout_weight="59"/>
 
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:padding="10sp"
-                    android:textSize="16sp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -245,7 +236,6 @@
                     android:textColor="@color/black"
                     android:text="@string/load_rate"
                     android:background="@color/grey"
-                    android:layout_marginRight="5dp"
                     android:padding="10sp"
                     android:textSize="16sp"
                     android:layout_weight="4"
@@ -255,7 +245,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -316,7 +306,6 @@
                     android:textStyle="bold"
                     android:text="@string/measurements_starter_value"
                     android:padding="10sp"
-                    android:layout_marginRight="5dp"
                     android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -343,7 +332,7 @@
                     android:text="@string/measurements_starter_load_rate_perc_value"
                     android:textSize="16sp"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:gravity="center_horizontal"/>
 
                 <ProgressBar
@@ -351,23 +340,20 @@
                     android:layout_height="match_parent"
                     android:progressBackgroundTint="@color/grey"
                     android:progressTint="@color/light_blue"
-                    android:layout_marginRight="5dp"
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:id="@+id/l2_progress_bar"
-                    android:layout_weight="50"/>
+                    android:layout_weight="59"/>
 
             </TableRow>
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:padding="10sp"
-                    android:textSize="16sp"
                     android:layout_marginRight="5dp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -414,7 +400,6 @@
                     android:textColor="@color/black"
                     android:text="@string/load_rate"
                     android:background="@color/grey"
-                    android:layout_marginRight="5dp"
                     android:padding="10sp"
                     android:textSize="16sp"
                     android:layout_weight="4"
@@ -424,7 +409,7 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_marginBottom="10dp">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -485,7 +470,6 @@
                     android:textStyle="bold"
                     android:padding="10sp"
                     android:text="@string/measurements_starter_value"
-                    android:layout_marginRight="5dp"
                     android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
@@ -512,7 +496,7 @@
                     android:text="@string/measurements_starter_load_rate_perc_value"
                     android:textSize="16sp"
                     android:layout_marginRight="5dp"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:gravity="center_horizontal"/>
 
                 <ProgressBar
@@ -520,22 +504,21 @@
                     android:layout_height="match_parent"
                     android:progressBackgroundTint="@color/grey"
                     android:progressTint="@color/purple"
-                    android:layout_marginRight="5dp"
                     style="@android:style/Widget.ProgressBar.Horizontal"
                     android:id="@+id/l3_progress_bar"
-                    android:layout_weight="50"/>
+                    android:layout_weight="59"/>
 
             </TableRow>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:background="@color/grey" />
+                android:background="@color/grey"
+                android:layout_marginBottom="10dp"/>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -580,8 +563,6 @@
                     android:layout_height="wrap_content"
                     android:padding="10sp"
                     android:layout_marginRight="5dp"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
 
@@ -593,7 +574,6 @@
                     android:textStyle="bold"
                     android:text="@string/measurements_starter_value"
                     android:padding="10sp"
-                    android:layout_marginRight="5dp"
                     android:textSize="16sp"
                     android:layout_weight="4"
                     android:gravity="center_horizontal"/>
