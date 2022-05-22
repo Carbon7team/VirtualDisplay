@@ -3,6 +3,10 @@
     package="com.carbon7.virtualdisplay">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <uses-sdk android:minSdkVersion="23" />
 
     <application
         android:allowBackup="true"
@@ -28,6 +32,9 @@
         </activity>
 
         <service android:name=".model.UpsDataFetcherService"/>
+        <service android:name=".FloatingCallService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

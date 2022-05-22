@@ -1,11 +1,18 @@
 package com.carbon7.virtualdisplay
 
+import android.app.Activity
 import android.content.*
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
+import android.provider.Settings
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +26,7 @@ import com.carbon7.virtualdisplay.databinding.ActivityMainBinding
 import com.carbon7.virtualdisplay.model.UpsDataFetcherService
 import com.carbon7.virtualdisplay.ui.alarms.AlarmsFragment
 import com.carbon7.virtualdisplay.ui.diagram.DiagramFragment
+import com.carbon7.virtualdisplay.ui.login.LoginFragment
 import com.carbon7.virtualdisplay.ui.status.StatusFragment
 import kotlin.reflect.KClass
 
@@ -82,6 +90,13 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId){
         R.id.support -> {
             Toast.makeText(this,"ASSISTENZA",Toast.LENGTH_SHORT).show()
+            /*if(checkHasDrawOverlayPermissions()) {
+                startService(Intent(this, FloatingCallService::class.java))
+            }else{
+                navigateDrawPermissionSetting()
+            }
+            startFloatingCallService()*/
+            changeFragment(LoginFragment::class)
             true
         }
         R.id.settings -> {
@@ -177,12 +192,12 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
     override fun onStop() {
         super.onStop()
         //When the app go in background the service is stopped
         stopService(Intent(this,UpsDataFetcherService::class.java))
     }
-
     override fun onStart() {
         super.onStart()
 
@@ -200,5 +215,49 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+/*
 
+    private val resultLauncher = registerForActivityResult(StartActivityForResult()) { result ->
+        Log.d("MyApp", "MainActiviy.resultLauncher -- $result")
+
+
+        if (result.resultCode == Activity.RESULT_OK) {
+            // There are no request codes
+            val data: Intent? = result.data
+            Log.d("MyApp","MainActiviy.resultLauncher -- "+data.toString())
+
+            /*if(requestCode == REQUEST_CODE_DRAW_PREMISSION){
+                checkAndStartService()
+            }*/
+        }
+    }
+
+    private fun checkHasDrawOverlayPermissions(): Boolean = Settings.canDrawOverlays(this)
+    private fun navigateDrawPermissionSetting() {
+        val intent_s = Intent(
+            Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+            Uri.parse("package:$packageName"))
+        intent_s.putExtra(Intent.EXTRA_RETURN_RESULT,true)
+        resultLauncher.launch(intent_s)
+
+    }
+
+    companion object{
+        const val  ACTION_STOP_FOREGROUND = "${BuildConfig.APPLICATION_ID}.stopfloating.service"
+
+    }
+    fun Context.startFloatingCallService(command: String = "") {
+
+        val intent = Intent(this, FloatingCallService::class.java)
+        if (command.isNotBlank()) {
+            intent.putExtra(FloatingCallService.INTENT_COMMAND, command)
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            this.startForegroundService(intent)
+        else
+            this.startService(intent)
+
+
+    }*/
 }
