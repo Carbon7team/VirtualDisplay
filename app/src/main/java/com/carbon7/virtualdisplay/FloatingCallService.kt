@@ -104,17 +104,28 @@ class FloatingCallService: Service() {
     @SuppressLint("ClickableViewAccessibility")
     private fun addOnTouchListener(params: WindowManager.LayoutParams) {
         //Add touch listerner to floating controls view to move/close/expand the controls
-        binding.button.setOnTouchListener ( object : View.OnTouchListener {
+
+        binding.button.setOnClickListener {
+            Log.d("TOUCH","Button - CLICKED")
+        }
+       /*binding.button.setOnTouchListener ( object : View.OnTouchListener {
             private var touchPressed :Long = System.currentTimeMillis()
-            override fun onTouch(view: View?, motionevent: MotionEvent): Boolean {
-                when(motionevent.action){
+            private var moved=false
+            override fun onTouch(view: View?, me: MotionEvent): Boolean {
+                when(me.action){
                     MotionEvent.ACTION_DOWN -> {
-                        return true
+                        Log.d("TOUCH","Button - ACTION_DOWN")
+                        moved=false
+                        Log.d("TOUCH", "Button - dt? ${me.downTime}")
+                        return false
                     }
                     MotionEvent.ACTION_UP -> {
+                        Log.d("TOUCH","Button - ACTION_UP")
                         return true
                     }
                     MotionEvent.ACTION_MOVE -> {
+                        Log.d("TOUCH","Button - ACTION_MOVE")
+                        moved=true
                         return false
                     }
                     else ->{
@@ -123,12 +134,14 @@ class FloatingCallService: Service() {
                 }
             }
         })
+
         binding.root.setOnTouchListener(object : View.OnTouchListener {
             private var initialTouchX = 0f
             private var initialTouchY = 0f
             override fun onTouch(view: View?, motionevent: MotionEvent): Boolean {
                 when (motionevent.action) {
                     MotionEvent.ACTION_DOWN -> {
+                        Log.d("TOUCH","Root - ACTION_DOWN")
                         params.alpha = 1.0f
                         initialTouchX = motionevent.rawX
                         initialTouchY = motionevent.rawY
@@ -141,6 +154,7 @@ class FloatingCallService: Service() {
                         return true
                     }
                     MotionEvent.ACTION_UP -> {
+                        Log.d("TOUCH","Root - ACTION_UP")
                         /*return when {
                             abs(initialTouchX - motionevent.rawX) >= 25f -> {
                                 true
@@ -155,6 +169,7 @@ class FloatingCallService: Service() {
                         return true
                     }
                     MotionEvent.ACTION_MOVE -> {
+                        Log.d("TOUCH","Root - ACTION_MOVE")
                         params.x = (motionevent.rawX - (iconWidth / 2).toFloat()).toInt()
                         params.y = (motionevent.rawY - iconHeight.toFloat()).toInt()
                         try {
@@ -169,7 +184,7 @@ class FloatingCallService: Service() {
                     }
                 }
             }
-        })
+        })*/
 
 
     }
