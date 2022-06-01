@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
 
         return true
     }
-    override fun onOptionsItemSelected(item: MenuItem) = when(item.itemId){
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
         R.id.support -> {
             Toast.makeText(this,"ASSISTENZA",Toast.LENGTH_SHORT).show()
             /*if(checkHasDrawOverlayPermissions()) {
@@ -163,7 +163,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-    val lostConnAlert by lazy {
+    private val lostConnAlert by lazy {
         AlertDialog.Builder(this)
             .setTitle("Connessione interrotta")
             .setMessage("La connessione con l'UPS sì è interrotta come procedere?")

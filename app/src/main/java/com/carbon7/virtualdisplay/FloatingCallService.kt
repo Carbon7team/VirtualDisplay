@@ -2,8 +2,8 @@ package com.carbon7.virtualdisplay
 
 import android.annotation.SuppressLint
 import android.app.*
-import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.PixelFormat
@@ -13,9 +13,24 @@ import android.os.IBinder
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
+import com.android.volley.Request
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.Volley
 import com.carbon7.virtualdisplay.databinding.OverlayCallBinding
 import com.carbon7.virtualdisplay.ui.login.LoginFragment.Companion.ACTION_STOP_FOREGROUND
+import io.socket.client.IO
+import io.socket.client.Socket
+import kotlinx.coroutines.*
+import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 
 class FloatingCallService: Service() {
@@ -33,10 +48,16 @@ class FloatingCallService: Service() {
     private var hideHandler: Handler? = null
     private var hideRunnable: Runnable? = null
 
+    val ip = "192.168.11.156"
+
+    lateinit var initSoc: Socket
+    lateinit var userId : String
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
+
+
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if(windowManager == null) {
@@ -44,7 +65,7 @@ class FloatingCallService: Service() {
         }
         if(_binding == null ){
             val li = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            _binding = OverlayCallBinding.inflate(li,/*null, false*/)
+            _binding = OverlayCallBinding.inflate(li/*null, false*/)
             //floatingControlView = li.inflate(R.layout.overlay_call, null) as ViewGroup?
         }
 
@@ -56,12 +77,182 @@ class FloatingCallService: Service() {
             generateForegroundNotification()
             addFloatingMenu()
         }
+
+
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val pair = login("damiano","password")
+            val token = pair.first
+            userId  =pair.second
+            initSoc = IO.socket("http://$ip:4000")
+            initSoc.connect()
+            register(initSoc, userId)
+
+
+            Log.d("MyApp","Precall-1")
+            binding.wvCall.post {
+                Log.d("MyApp","Precall-2")
+
+                setupWebView(binding.wvCall)
+                binding.wvCall.loadUrl("file:///android_asset/res/call.html")
+
+
+                //binding.wvCall.evaluateJavascript("javascript:call(\"$ip\", \"$userId\")", null)
+
+                call(initSoc)
+
+
+
+            }
+        }
+
+
         return START_STICKY
 
         //Normal Service To test sample service comment the above    generateForegroundNotification() && return START_STICKY
         // Uncomment below return statement And run the app.
 //        return START_NOT_STICKY
     }
+
+    fun call(){
+
+    }
+
+    @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
+    private fun setupWebView(webView: WebView) {
+
+        webView.settings.javaScriptEnabled = true
+        webView.settings.mediaPlaybackRequiresUserGesture = false
+
+        //Create functions that can be called by the javascript code
+        webView.addJavascriptInterface(object {
+            @JavascriptInterface
+            fun connectionEstablished() {
+                Log.d("MyApp", "connectionEstablished")
+                //initSoc.close()
+                //connStatus=ConnectionStatus.CONNECTED
+                //onConnectionEstablished!!.invoke()
+            }
+
+            @JavascriptInterface
+            fun connectionClosed() {
+                Log.d("MyApp", "connectionClosed")
+                //connStatus=ConnectionStatus.NOT_CONNECTED
+                //onConnectionClosed!!.invoke()
+                //onConnectionEstablished = null
+                //onConnectionClosed = null
+            }
+        }, "App")
+
+        //When the webpage (not blank) is loaded it start the script
+        webView.webViewClient = object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+
+                Log.d("MyApp","Page loaded")
+                if(url != "about:blank")
+                    webView.post { webView.evaluateJavascript("javascript:call(\"$ip\", \"$userId\")", null) }
+            }
+        }
+    }
+
+    private suspend fun login(username: String, password: String) = suspendCoroutine<Pair<String,String>> { cont ->
+        val queue = Volley.newRequestQueue(this)
+        val loginReq = JsonObjectRequest(Request.Method.POST, "http://$ip:4000/loginUser",
+            JSONObject().put("username", username).put("password", password),
+            {
+                Log.d("MyApp", it.toString(4))
+                cont.resume(Pair(it.getString("token"),it.getString("user")))
+            },{
+                Log.d("MyApp", it.toString())
+
+                cont.resumeWithException(it.cause ?: Exception("Errore durante login"))
+            }
+        )
+        queue.add(loginReq)
+    }
+
+    private fun register(soc:Socket,userId:String){
+
+        soc.emit("message",
+            JSONObject()
+                .put("type","registration")
+                .put("idUser", userId)
+        )
+    }
+
+    private fun call(soc:Socket){
+        soc.emit("message",
+            JSONObject()
+                .put("type","call")
+        )
+    }
+
+
+    /*fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>?, grantResults: IntArray
+    ) {
+        when (requestCode) {
+            MY_PERMISSIONS_REQUEST_RECORD_AUDIO -> {
+                Log.d("WebView", "PERMISSION FOR AUDIO")
+                if (grantResults.size > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                ) {
+
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    myRequest.grant(myRequest.getResources())
+                    mBinding.webView.loadUrl("<your url>")
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+            }
+        }
+    }
+
+    fun askForPermission(origin: String, permission: String, requestCode: Int) {
+        Log.d("WebView", "inside askForPermission for" + origin + "with" + permission)
+        if (ContextCompat.checkSelfPermission(
+                applicationContext,
+                permission
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    this,
+                    permission
+                )
+            ) {
+
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(
+                    this@MainActivity, arrayOf(permission),
+                    requestCode
+                )
+            }
+        } else {
+            myRequest.grant(myRequest.getResources())
+        }
+    }*/
+
+
+
+
+
+
+
+
 
     private fun removeFloatingControl() {
         if(_binding?.root?.parent !=null) {
@@ -204,7 +395,7 @@ class FloatingCallService: Service() {
                 PendingIntent.getActivity(this, 0, intentMainLanding, 0)
             iconNotification = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
             if (mNotificationManager == null) {
-                mNotificationManager = this.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                mNotificationManager = this.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 assert(mNotificationManager != null)
