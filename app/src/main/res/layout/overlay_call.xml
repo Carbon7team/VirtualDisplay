@@ -1,23 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout"
-android:layout_width="56dp"
-android:layout_height="112dp"
-android:clickable="true"
-android:orientation="vertical"
-android:visibility="visible">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="0dp"
+    android:clickable="true"
+    android:visibility="visible"
+    tools:layout_editor_absoluteX="-20dp"
+    tools:layout_editor_absoluteY="0dp">
 
-    <Button
-        android:id="@+id/button"
+    <ImageButton
+        android:id="@+id/btn_call"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:background="@drawable/round_button"
-        android:clickable="false"
-        android:text="Button" />
+        android:padding="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_baseline_support_agent_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btn_call_badge"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginEnd="-4dp"
+        android:layout_marginBottom="-4dp"
+        android:background="@drawable/round_button_badge"
+        android:padding="2dp"
+        android:src="@drawable/ic_baseline_waiting_phone_24"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_call"
+        app:layout_constraintEnd_toEndOf="@+id/btn_call" />
 
     <WebView
         android:id="@+id/wv_call"
         android:layout_width="56dp"
-        android:layout_height="56dp" />
-</RelativeLayout>
+        android:layout_height="56dp"
+        android:layout_marginStart="84dp"
+        android:layout_toEndOf="@+id/btn_call"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_call"
+        app:layout_constraintStart_toEndOf="@+id/btn_call"
+        app:layout_constraintTop_toTopOf="@+id/btn_call" >
+
+    </WebView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dettagli"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:cardCornerRadius="11dp"
+        app:cardElevation="11dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="@+id/btn_call"
+        app:layout_constraintStart_toStartOf="@+id/btn_call"
+        app:layout_constraintTop_toBottomOf="@+id/btn_call">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/speakerphone"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:padding="6dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="32dp">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/ic_delete" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="Vivavoce" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey" />
+
+            <LinearLayout
+                android:id="@+id/toggle_micrphone"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:padding="6dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="32dp">
+
+                <ImageView
+                    android:id="@+id/img_toggle_microphone"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/ic_baseline_mic_off_24" />
+
+                <TextView
+                    android:id="@+id/txt_toggle_microphone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Disattiva" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey" />
+
+            <LinearLayout
+                android:id="@+id/end_call"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:padding="6dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="32dp">
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="32dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:src="@drawable/ic_baseline_call_end_24" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="End Call" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

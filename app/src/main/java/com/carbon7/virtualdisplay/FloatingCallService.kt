@@ -3,7 +3,6 @@ package com.carbon7.virtualdisplay
 import android.annotation.SuppressLint
 import android.app.*
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.PixelFormat
@@ -13,24 +12,16 @@ import android.os.IBinder
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.*
-import android.webkit.JavascriptInterface
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import androidx.core.app.ActivityCompat
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.webkit.*
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationCompat
-import androidx.core.content.ContextCompat
-import com.android.volley.Request
-import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.Volley
 import com.carbon7.virtualdisplay.databinding.OverlayCallBinding
 import com.carbon7.virtualdisplay.ui.login.LoginFragment.Companion.ACTION_STOP_FOREGROUND
-import io.socket.client.IO
-import io.socket.client.Socket
+import com.google.android.material.badge.BadgeDrawable
 import kotlinx.coroutines.*
-import org.json.JSONObject
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 
 class FloatingCallService: Service() {
@@ -48,10 +39,13 @@ class FloatingCallService: Service() {
     private var hideHandler: Handler? = null
     private var hideRunnable: Runnable? = null
 
+    private val overlayShowDetail: Animation by lazy { AnimationUtils.loadAnimation(this,R.anim.overlay_show_details)}
+    private val overlayHideDetail: Animation by lazy { AnimationUtils.loadAnimation(this,R.anim.overlay_hide_details)}
+
+    private var callAnswered=false
+
     val ip = "192.168.11.156"
 
-    lateinit var initSoc: Socket
-    lateinit var userId : String
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -79,31 +73,14 @@ class FloatingCallService: Service() {
         }
 
 
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val pair = login("damiano","password")
-            val token = pair.first
-            userId  =pair.second
-            initSoc = IO.socket("http://$ip:4000")
-            initSoc.connect()
-            register(initSoc, userId)
-
-
-            Log.d("MyApp","Precall-1")
-            binding.wvCall.post {
-                Log.d("MyApp","Precall-2")
-
-                setupWebView(binding.wvCall)
-                binding.wvCall.loadUrl("file:///android_asset/res/call.html")
-
-
-                //binding.wvCall.evaluateJavascript("javascript:call(\"$ip\", \"$userId\")", null)
-
-                call(initSoc)
-
-
-
-            }
+        val userId = intent?.getStringExtra("userId")
+        if(userId==null){
+            removeFloatingControl()
+            stopForeground(true)
+            stopSelf()
+        }else{
+            setupWebView(binding.wvCall, userId)
+            binding.wvCall.loadUrl("file:///android_asset/res/call.html")
         }
 
 
@@ -114,12 +91,9 @@ class FloatingCallService: Service() {
 //        return START_NOT_STICKY
     }
 
-    fun call(){
-
-    }
 
     @SuppressLint("SetJavaScriptEnabled", "JavascriptInterface")
-    private fun setupWebView(webView: WebView) {
+    private fun setupWebView(webView: WebView, userId: String) {
 
         webView.settings.javaScriptEnabled = true
         webView.settings.mediaPlaybackRequiresUserGesture = false
@@ -129,18 +103,30 @@ class FloatingCallService: Service() {
             @JavascriptInterface
             fun connectionEstablished() {
                 Log.d("MyApp", "connectionEstablished")
-                //initSoc.close()
-                //connStatus=ConnectionStatus.CONNECTED
-                //onConnectionEstablished!!.invoke()
             }
 
             @JavascriptInterface
             fun connectionClosed() {
                 Log.d("MyApp", "connectionClosed")
-                //connStatus=ConnectionStatus.NOT_CONNECTED
-                //onConnectionClosed!!.invoke()
-                //onConnectionEstablished = null
-                //onConnectionClosed = null
+                removeFloatingControl()
+                stopForeground(true)
+                stopSelf()
+            }
+
+            @JavascriptInterface
+            fun callStarted() {
+                Log.d("MyApp", "callStarted")
+                callAnswered=true
+                binding.btnCallBadge.setImageDrawable(AppCompatResources.getDrawable(this@FloatingCallService, R.drawable.ic_baseline_phone_in_talk_24))
+                binding.dettagli.post {
+                    toggleDetails(true)
+                }
+            }
+
+            @JavascriptInterface
+            fun callEnded() {
+                Log.d("MyApp", "callEnded")
+                //NON FUNZIONA
             }
         }, "App")
 
@@ -148,107 +134,17 @@ class FloatingCallService: Service() {
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
-
                 Log.d("MyApp","Page loaded")
                 if(url != "about:blank")
                     webView.post { webView.evaluateJavascript("javascript:call(\"$ip\", \"$userId\")", null) }
             }
         }
-    }
-
-    private suspend fun login(username: String, password: String) = suspendCoroutine<Pair<String,String>> { cont ->
-        val queue = Volley.newRequestQueue(this)
-        val loginReq = JsonObjectRequest(Request.Method.POST, "http://$ip:4000/loginUser",
-            JSONObject().put("username", username).put("password", password),
-            {
-                Log.d("MyApp", it.toString(4))
-                cont.resume(Pair(it.getString("token"),it.getString("user")))
-            },{
-                Log.d("MyApp", it.toString())
-
-                cont.resumeWithException(it.cause ?: Exception("Errore durante login"))
-            }
-        )
-        queue.add(loginReq)
-    }
-
-    private fun register(soc:Socket,userId:String){
-
-        soc.emit("message",
-            JSONObject()
-                .put("type","registration")
-                .put("idUser", userId)
-        )
-    }
-
-    private fun call(soc:Socket){
-        soc.emit("message",
-            JSONObject()
-                .put("type","call")
-        )
-    }
-
-
-    /*fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String?>?, grantResults: IntArray
-    ) {
-        when (requestCode) {
-            MY_PERMISSIONS_REQUEST_RECORD_AUDIO -> {
-                Log.d("WebView", "PERMISSION FOR AUDIO")
-                if (grantResults.size > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                ) {
-
-
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    myRequest.grant(myRequest.getResources())
-                    mBinding.webView.loadUrl("<your url>")
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
+        webView.webChromeClient = object : WebChromeClient(){
+            override fun onPermissionRequest(request: PermissionRequest) {
+                request.grant(request.resources)
             }
         }
     }
-
-    fun askForPermission(origin: String, permission: String, requestCode: Int) {
-        Log.d("WebView", "inside askForPermission for" + origin + "with" + permission)
-        if (ContextCompat.checkSelfPermission(
-                applicationContext,
-                permission
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(
-                    this,
-                    permission
-                )
-            ) {
-
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-            } else {
-
-                // No explanation needed, we can request the permission.
-                ActivityCompat.requestPermissions(
-                    this@MainActivity, arrayOf(permission),
-                    requestCode
-                )
-            }
-        } else {
-            myRequest.grant(myRequest.getResources())
-        }
-    }*/
-
-
-
-
 
 
 
@@ -270,15 +166,16 @@ class FloatingCallService: Service() {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT
             )
-            params.height = dpToPx(50)
-            params.width = dpToPx(50)
+            //params.height = dpToPx(256)
+            //params.width = dpToPx(256)
+
             iconWidth = params.width
             iconHeight = params.height
             screenHeight = windowManager?.defaultDisplay?.height ?: 0
             screenWidth = windowManager?.defaultDisplay?.width ?: 0
             //Initial position of the floating controls
             params.gravity = Gravity.TOP or Gravity.START
-            params.x = 0
+            params.x = 10
             params.y = 100
 
             //Add the view to window manager
@@ -296,8 +193,42 @@ class FloatingCallService: Service() {
     private fun addOnTouchListener(params: WindowManager.LayoutParams) {
         //Add touch listerner to floating controls view to move/close/expand the controls
 
-        binding.button.setOnClickListener {
-            Log.d("TOUCH","Button - CLICKED")
+        binding.btnCall.setOnTouchListener{view, motionEvent ->
+            if(!callAnswered)
+                return@setOnTouchListener false
+            Log.d("TOUCH", "Button - CLICKED")
+            if(motionEvent.action == MotionEvent.ACTION_DOWN) {
+                toggleDetails(binding.dettagli.visibility == View.GONE)
+            }
+            return@setOnTouchListener true
+
+        }
+        binding.speakerphone.setOnClickListener{
+            Log.d("MyApp","SPEAKERPHONE")
+        }
+        var muted=false
+        binding.toggleMicrphone.setOnClickListener{
+            if(muted) {
+                binding.wvCall.evaluateJavascript("javascript:unmute()", null)
+                binding.imgToggleMicrophone.setImageDrawable(
+                    AppCompatResources.getDrawable(this, R.drawable.ic_baseline_mic_off_24)
+                )
+                binding.txtToggleMicrophone.text = "Mute"
+            }else {
+                binding.wvCall.evaluateJavascript("javascript:mute()", null)
+                binding.imgToggleMicrophone.setImageDrawable(
+                    AppCompatResources.getDrawable(this, R.drawable.ic_baseline_mic_24)
+                )
+                binding.txtToggleMicrophone.text = "Unmute"
+            }
+            muted=!muted
+        }
+        binding.endCall.setOnClickListener{
+            Log.d("MyApp","END_CALL")
+            binding.wvCall.evaluateJavascript("javascript:endCall()", null)
+        }
+        binding.layout.setOnTouchListener { view, motionEvent ->
+            false
         }
        /*binding.button.setOnTouchListener ( object : View.OnTouchListener {
             private var touchPressed :Long = System.currentTimeMillis()
@@ -380,6 +311,25 @@ class FloatingCallService: Service() {
 
     }
 
+    private fun toggleDetails(show: Boolean){
+        if(show){
+            binding.btnCall.layoutParams =
+                (binding.btnCall.layoutParams as ConstraintLayout.LayoutParams).apply {
+                    marginStart = dpToPx(64)
+                }
+            binding.btnCall.startAnimation(overlayShowDetail)
+            binding.btnCallBadge.startAnimation(overlayShowDetail)
+            binding.dettagli.visibility = View.VISIBLE
+        } else {
+            binding.btnCall.layoutParams =
+                (binding.btnCall.layoutParams as ConstraintLayout.LayoutParams).apply {
+                    marginStart = dpToPx(0)
+                }
+            binding.btnCall.startAnimation(overlayHideDetail)
+            binding.btnCallBadge.startAnimation(overlayHideDetail)
+            binding.dettagli.visibility = View.GONE
+        }
+    }
 
 
     //Notififcation for ON-going

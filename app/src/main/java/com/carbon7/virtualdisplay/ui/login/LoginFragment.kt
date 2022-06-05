@@ -1,5 +1,6 @@
 package com.carbon7.virtualdisplay.ui.login
 
+import android.Manifest
 import android.R.attr
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -21,14 +22,26 @@ import android.widget.Toast
 import com.carbon7.virtualdisplay.MainActivity
 
 import android.R.attr.button
+import android.content.pm.PackageManager
+import android.util.Log
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import com.carbon7.virtualdisplay.BuildConfig
 import com.carbon7.virtualdisplay.FloatingCallService
 import com.carbon7.virtualdisplay.databinding.FragmentLoginBinding
+import kotlinx.coroutines.channels.consume
+import kotlinx.coroutines.launch
+import org.json.JSONObject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 
 class LoginFragment : Fragment() {
 
     private val DRAW_OVER_OTHER_APP_PERMISSION = 123
+    private val REQUEST_MICROPHONE = 124
     private val viewModel: LoginViewModel by viewModels()
 
     private var _binding: FragmentLoginBinding? = null
@@ -45,19 +58,49 @@ class LoginFragment : Fragment() {
 
         initListeners()
 
-        binding
         binding.btnStartCall.setOnClickListener(View.OnClickListener {
-            if (Settings.canDrawOverlays(context)) {
-                requireContext().startService(Intent(context, FloatingCallService::class.java))
-            } else {
-                errorToast()
+            if(reqMic()) {
+                viewModel.loginAndReqCall("damiano", "password") {
+                    if (Settings.canDrawOverlays(context)) {
+                        requireContext().startService(
+                            Intent(
+                                context,
+                                FloatingCallService::class.java
+                            )
+                                .putExtra("userId", it)
+                        )
+                    } else {
+                        errorToast()
+                    }
+                }
             }
+            /**/
         })
+        viewModel.loginError.observe(viewLifecycleOwner){
 
+        }
 
         return binding.root
 
     }
+    private fun reqMic(): Boolean{
+        if (ContextCompat.checkSelfPermission(requireActivity(),Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(Manifest.permission.RECORD_AUDIO),
+                REQUEST_MICROPHONE
+            )
+        }
+        return ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+    }
+
+
+
+
+
+
+
+
 
     private fun initListeners(){
         binding.btnStartCall.setOnClickListener {

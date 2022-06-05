@@ -8,7 +8,6 @@
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/drawable/ic_filter_active.xml" value="0.21822916666666667" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3828125" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/drawable/ic_ups_disconnected.xml" value="0.3109375" />
-        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/drawable/round_button.xml" value="0.15572916666666667" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/activity_starting.xml" value="0.20520833333333333" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/app_bar_main.xml" value="0.20520833333333333" />
@@ -16,13 +15,11 @@
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_alarms.xml" value="0.20520833333333333" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_diagram.xml" value="0.2015625" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_gallery.xml" value="0.2015625" />
-        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_login.xml" value="0.1" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/fragment_status.xml" value="0.2752808988764045" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/layout_sub_fab.xml" value="0.7648902821316614" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/list_item_alarm.xml" value="0.228125" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/list_item_status.xml" value="0.33" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/nav_header_main.xml" value="0.20520833333333333" />
-        <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/overlay_call.xml" value="0.18" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/status_fragment.xml" value="0.1328125" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/layout/switch_item.xml" value="0.20520833333333333" />
         <entry key="..\:/Documents/AndroidProjects/VirtualDisplay/app/src/main/res/menu/activity_main_drawer.xml" value="0.33" />
@@ -32,25 +29,59 @@
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26614583333333336" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable-v24/side_nav_bar.xml" value="0.26614583333333336" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable/ic_add.xml" value="0.26614583333333336" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable/ic_baseline_horizontal_rule_24.xml" value="0.26614583333333336" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable/ic_delete.xml" value="0.26614583333333336" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable/ic_filter.xml" value="0.26614583333333336" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable/ic_launcher_background.xml" value="0.26614583333333336" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable/ic_modify.xml" value="0.26614583333333336" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/drawable/ic_ups_disconnected.xml" value="0.26614583333333336" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_battery.xml" value="0.178125" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_bypass.xml" value="0.264" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_inverter.xml" value="0.21164021164021163" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_load.xml" value="0.1" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-land/fragment_rectifier.xml" value="0.18958333333333333" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout-v26/list_item_ups.xml" value="0.14583333333333334" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/activity_starting.xml" value="0.16666666666666666" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/app_toolbar.xml" value="0.16666666666666666" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/dialog_create_ups.xml" value="0.25" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/dialog_ups.xml" value="0.14990942028985507" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_alarms.xml" value="0.15217391304347827" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_battery.xml" value="0.264" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_bypass.xml" value="0.264" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_bypass_measurements.xml" value="0.264" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_diagram.xml" value="0.16485507246376813" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_input.xml" value="0.14266304347826086" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_inverter.xml" value="0.264" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_load.xml" value="0.264" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_rectifier.xml" value="0.264" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_status.xml" value="0.18931159420289856" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/fragment_ups_selector.xml" value="0.25" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/layout_sub_fab.xml" value="0.1480978260869565" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/list_item_alarm.xml" value="0.14266304347826086" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/list_item_bypass_lines.xml" value="0.16304347826086957" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/list_item_bypass_table.xml" value="0.16304347826086957" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/list_item_status.xml" value="0.23550724637681159" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/list_item_ups.xml" value="0.2105978260869565" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/list_item_ups_selector.xml" value="0.14583333333333334" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/nav_header_main.xml" value="0.16666666666666666" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/switch_item.xml" value="0.17255434782608695" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/termometre.xml" value="0.16485507246376813" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/layout/ups_selector.xml" value="0.19972826086956522" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/menu/activity_main_drawer.xml" value="0.25" />
-        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/layout/overlay_call.xml" value="0.11354166666666667" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_bar.xml" value="0.26614583333333336" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_bar_round.xml" value="0.26614583333333336" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.26614583333333336" />
+        <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/ic_baseline_call_end_24.xml" value="0.1085" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/ic_baseline_mic_24.xml" value="0.1085" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/ic_baseline_mic_off_24.xml" value="0.1085" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/ic_baseline_support_agent_24.xml" value="0.1" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/round_button.xml" value="0.1225" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/round_button_badge.xml" value="0.1465" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/layout/fragment_ups_selector.xml" value="0.1" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/layout/list_item_ups.xml" value="0.1" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/layout/overlay_call.xml" value="0.6514084507042254" />
       </map>
     </option>
   </component>
