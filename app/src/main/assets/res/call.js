@@ -33,6 +33,10 @@ function call(ip, id){
         });
         conn.on('close', function() { //The connection with the other peer is closed
             console.log("CONN ON CLOSE")
+            call.close()
+            conn.close()
+            peer.destroy()
+
             App.connectionClosed()
         });
     });
@@ -81,7 +85,6 @@ function getLocalStream() {
 function endCall(){
     call.close()
     conn.close()
-    peer.destroy()
 }
 function mute(){
     console.log("MUTE")
@@ -101,7 +104,6 @@ function unmute(){
 
 function sendData(msg){
     conn.send(msg)
-    document.getElementById("invioDati").innerHTML = "Dati inviati: String("+msg.length+")"
 }
 
 function closeP2PConnection(){
