@@ -65,7 +65,7 @@ class LoginFragment : Fragment() {
                                 .putExtra("userId", userId)
                                 .putExtra("token", token)
                         )
-                        binding.btnStartCall.isEnabled=false
+                        requireFragmentManager().popBackStack()
                     } else {
                         errorToast()
                     }
