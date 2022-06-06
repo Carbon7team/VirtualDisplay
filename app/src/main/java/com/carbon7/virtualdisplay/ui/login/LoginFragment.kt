@@ -1,41 +1,26 @@
 package com.carbon7.virtualdisplay.ui.login
 
 import android.Manifest
-import android.R.attr
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.carbon7.virtualdisplay.R
-import com.carbon7.virtualdisplay.databinding.FragmentAlarmsBinding
-import androidx.core.app.ActivityCompat.startActivityForResult
 import android.provider.Settings;
 
 import android.content.Intent
 import android.net.Uri
 
-import android.os.Build
 import android.widget.Toast
-import com.carbon7.virtualdisplay.MainActivity
 
-import android.R.attr.button
 import android.content.pm.PackageManager
-import android.util.Log
+import android.graphics.Color
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.lifecycleScope
 import com.carbon7.virtualdisplay.BuildConfig
 import com.carbon7.virtualdisplay.FloatingCallService
 import com.carbon7.virtualdisplay.databinding.FragmentLoginBinding
-import kotlinx.coroutines.channels.consume
-import kotlinx.coroutines.launch
-import org.json.JSONObject
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 
 class LoginFragment : Fragment() {
@@ -48,42 +33,58 @@ class LoginFragment : Fragment() {
     private val binding
         get() = _binding!!
 
+    var userId: String? = null
+    var token :String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        //TODO effettuare logout se si esce dalla vistaenza aver effettuato la chiamata
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         initListeners()
 
-        binding.btnStartCall.setOnClickListener(View.OnClickListener {
-            if(reqMic()) {
-                viewModel.loginAndReqCall("damiano", "password") {
+        binding.btnLogin.setOnClickListener{
+                viewModel.loginAndReqCall(binding.txtUsername.text.toString(), binding.txtPassword.text.toString()) {uid, tok ->
+                    userId = uid
+                    token = tok
+                    binding.btnStartCall.isEnabled=true
+                    binding.btnLogin.isEnabled=false
+                    reqMic()
+            }
+            /**/
+        }
+        binding.btnStartCall.setOnClickListener{
+            if(checkMic()) {
+                if (userId != null && token != null) {
                     if (Settings.canDrawOverlays(context)) {
                         requireContext().startService(
-                            Intent(
-                                context,
-                                FloatingCallService::class.java
-                            )
-                                .putExtra("userId", it)
+                            Intent(context, FloatingCallService::class.java)
+                                .putExtra("userId", userId)
+                                .putExtra("token", token)
                         )
+                        binding.btnStartCall.isEnabled=false
                     } else {
                         errorToast()
                     }
                 }
-            }
-            /**/
-        })
-        viewModel.loginError.observe(viewLifecycleOwner){
+            }else
+                reqMic()
 
+        }
+
+        viewModel.loginMsg.observe(viewLifecycleOwner){
+            val (msg, type) = it
+            binding.lblResponse.text= msg
+            binding.lblResponse.setTextColor(if(type) Color.RED else Color.GREEN)
         }
 
         return binding.root
 
     }
-    private fun reqMic(): Boolean{
+    private fun reqMic(){
         if (ContextCompat.checkSelfPermission(requireActivity(),Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(
                 requireActivity(),
@@ -91,6 +92,8 @@ class LoginFragment : Fragment() {
                 REQUEST_MICROPHONE
             )
         }
+    }
+    private fun checkMic(): Boolean{
         return ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
     }
 

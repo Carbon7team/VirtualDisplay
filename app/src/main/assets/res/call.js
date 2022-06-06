@@ -1,5 +1,5 @@
-var conn;
-var peer;
+var conn
+var peer
 var call
 var myStream
 
@@ -72,28 +72,24 @@ function call(ip, id){
 
 }
 
-function getLocalStream() {
-    navigator.mediaDevices.getUserMedia({video: false, audio: true}).then( stream => {
-        window.localStream = stream;
-        //window.localAudio.srcObject = stream;
-        //window.localAudio.autoplay = true;
-
-    }).catch( err => {
-        console.log("u got an error:" + err)
-    });
-}
 function endCall(){
-    call.close()
-    conn.close()
+    if(conn===undefined){
+        App.connectionClosed()
+        peer.destroy()
+    }else{
+        call.close()
+        conn.close()
+    }
 }
+
 function mute(){
     console.log("MUTE")
-   myStream.getAudioTracks()
+    myStream.getAudioTracks()
                  .forEach((track) => (track.enabled = false));
 }
 function unmute(){
     console.log("UNMUTE")
-   myStream.getAudioTracks()
+    myStream.getAudioTracks()
                  .forEach((track) => (track.enabled = true));
 }
 
@@ -106,10 +102,4 @@ function sendData(msg){
     conn.send(msg)
 }
 
-function closeP2PConnection(){
-    dataConn.close()
-}
-function closePeer(){
-     peerConn.destroy()
- }
 

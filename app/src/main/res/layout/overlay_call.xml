@@ -65,36 +65,6 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/speakerphone"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:orientation="horizontal"
-                android:padding="6dp"
-                android:paddingStart="16dp"
-                android:paddingEnd="32dp">
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="32dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:src="@drawable/ic_delete" />
-
-                <TextView
-                    android:id="@+id/textView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="Vivavoce" />
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey" />
-
-            <LinearLayout
                 android:id="@+id/toggle_micrphone"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

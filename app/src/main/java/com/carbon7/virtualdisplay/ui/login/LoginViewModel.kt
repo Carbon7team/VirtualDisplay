@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.carbon7.virtualdisplay.model.HttpException
 import io.socket.client.IO
 import io.socket.client.Socket
 import kotlinx.coroutines.channels.Channel
@@ -16,40 +17,42 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
-class HttpException(val code: Int, msg: String) : IOException("code: $code - $msg")
 
 
 class LoginViewModel : ViewModel() {
     private val ip = "192.168.11.156"
 
-    private val _loginError = MutableLiveData<String?>(null)
-    val loginError: LiveData<String?> = _loginError
+    //Pair msg, isError
+    private val _loginMsg = MutableLiveData<Pair<String, Boolean>>()
+    val loginMsg: LiveData<Pair<String, Boolean>> = _loginMsg
+
+
 
 
     private var userId : String? = null
     private var token : String? = null
 
-    fun loginAndReqCall(username: String, password: String, onSuccess: (String)->Unit) = viewModelScope.launch{
+    fun loginAndReqCall(username: String, password: String, onSuccess: (uid: String,tok: String)->Unit) = viewModelScope.launch{
         try {
             val (u, t) = login(username, password)
             userId = u
             token = t
 
 
-            val initSoc = IO.socket("http://$ip:4000")
-            initSoc.connect()
-            register(initSoc, userId!!)
-            requestCall(initSoc)
-
-            onSuccess(userId!!)
+            //val initSoc = IO.socket("http://$ip:4000")
+            //initSoc.connect()
+            //register(initSoc, userId!!)
+            //requestCall(initSoc)
+            _loginMsg.postValue(Pair("Logged in", false))
+            onSuccess(userId!!, token!!)
 
         }catch (e: HttpException){
             Log.d("MyApp",e.toString())
-            _loginError.postValue(when(e.code){
+            _loginMsg.postValue(Pair(when(e.code){
                 401 -> "Bad credentials"
                 404 -> "Error in the connection with server"
                 else -> "Unknown error"
-            })
+            }, true))
         }catch (e: Exception){
             Log.d("MyApp",e.toString())
         }
@@ -85,18 +88,5 @@ class LoginViewModel : ViewModel() {
     }
 
 
-    private fun register(soc: Socket, userId:String){
-        soc.emit("message",
-            JSONObject()
-                .put("type","registration")
-                .put("idUser", userId)
-        )
-    }
 
-    private fun requestCall(soc: Socket){
-        soc.emit("message",
-            JSONObject()
-                .put("type","call")
-        )
-    }
 }
