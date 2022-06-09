@@ -19,7 +19,11 @@ android {
     }
 
     buildTypes {
+        debug{
+            buildConfigField("String", "SERVER_ADDRESS", "\"192.168.11.156\"")
+        }
         release {
+            buildConfigField("String", "SERVER_ADDRESS", "\"192.168.11.156\"")
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }

@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import android.provider.Settings;
+import android.provider.Settings
 
 import android.content.Intent
 import android.net.Uri
@@ -39,7 +39,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         //TODO effettuare logout se si esce dalla vistaenza aver effettuato la chiamata
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
@@ -47,14 +47,13 @@ class LoginFragment : Fragment() {
         initListeners()
 
         binding.btnLogin.setOnClickListener{
-                viewModel.loginAndReqCall(binding.txtUsername.text.toString(), binding.txtPassword.text.toString()) {uid, tok ->
+                viewModel.login(binding.txtUsername.text.toString(), binding.txtPassword.text.toString()) {uid, tok ->
                     userId = uid
                     token = tok
                     binding.btnStartCall.isEnabled=true
                     binding.btnLogin.isEnabled=false
                     reqMic()
             }
-            /**/
         }
         binding.btnStartCall.setOnClickListener{
             if(checkMic()) {
@@ -84,6 +83,11 @@ class LoginFragment : Fragment() {
         return binding.root
 
     }
+
+
+    /**
+     * If not granted request to the user the microphone permission
+     */
     private fun reqMic(){
         if (ContextCompat.checkSelfPermission(requireActivity(),Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(
@@ -93,6 +97,10 @@ class LoginFragment : Fragment() {
             )
         }
     }
+
+    /**
+     * Check if microphone permission is granted
+     */
     private fun checkMic(): Boolean{
         return ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
     }

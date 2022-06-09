@@ -52,19 +52,13 @@ class FloatingCallService: Service() {
     var iconWidth = 0
     private var screenHeight = 0
     private var screenWidth = 0
-    private var hideHandler: Handler? = null
-    private var hideRunnable: Runnable? = null
+
     private var userId: String? =null
     private var token: String? =null
     private lateinit var cView: CallView
 
 
-    val ip = "192.168.11.156"
-
-
     override fun onBind(intent: Intent?): IBinder? {return null}
-
-
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         if(windowManager == null) {
@@ -83,7 +77,7 @@ class FloatingCallService: Service() {
             generateForegroundNotification()
             addFloatingMenu()
 
-            val initSoc = IO.socket("http://$ip:4000")
+            val initSoc = IO.socket("http://${BuildConfig.SERVER_ADDRESS}:4000")
             initSoc.connect()
             register(initSoc, userId!!)
             requestCall(initSoc)
@@ -109,16 +103,17 @@ class FloatingCallService: Service() {
     }
 
     private lateinit var fetcherService: UpsDataFetcherService
-    val serviceConnection = object : ServiceConnection {
+    private val serviceConnection = object : ServiceConnection {
         override fun onServiceConnected(className: ComponentName, service: IBinder) {
             fetcherService= (service as UpsDataFetcherService.LocalBinder).getService()
-            timer.start()
         }
         override fun onServiceDisconnected(arg0: ComponentName) {
             //if the service stop it rebind to it
             bindService(Intent(this@FloatingCallService, UpsDataFetcherService::class.java), this,0)
         }
     }
+    //Convert object a json (needed to decoding strings from R.string)
+    //TODO: Change language to english just for decoding strings
     private val gson = GsonBuilder()
             .registerTypeAdapter(Status::class.java,object: JsonSerializer<Status>{
                 override fun serialize(src: Status, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
@@ -156,7 +151,7 @@ class FloatingCallService: Service() {
             }).create()
 
 
-
+    //timer that send data to remote support at every interval
     private val timer= object: CountDownTimer(Long.MAX_VALUE,2000) {
         override fun onTick(p0: Long) {
             val upsData = fetcherService.dataBus.events.value
@@ -169,7 +164,9 @@ class FloatingCallService: Service() {
                 measurements = JSONArray(gson.toJson(upsData.third))
             }
             val upsConnState =
-                if (fetcherService.connectionStateBus.events.value == UpsDataFetcherService.ConnectionState.CONNECTED) "Connected" else "Waiting Connection"
+                if (!::fetcherService.isInitialized) "Not connected"
+                else if (fetcherService.connectionStateBus.events.value == UpsDataFetcherService.ConnectionState.CONNECTED) "Connected"
+                else "Waiting Connection"
 
             val data = JSONObject(mapOf(
                 "status" to status,
@@ -184,6 +181,12 @@ class FloatingCallService: Service() {
 
     }
 
+    /**
+     * Register the user as current online user on the server
+     *
+     * @param soc Socket da utilizzare per l'invio del messaggio
+     * @param userId user-id used for the peer-js peer
+     */
     private fun register(soc: Socket, userId:String){
         soc.emit("message",
             JSONObject()
@@ -192,6 +195,11 @@ class FloatingCallService: Service() {
         )
     }
 
+    /**
+     * Send to the server a request for a support call
+     *
+     * @param soc Socket da utilizzare per l'invio del messaggio
+     */
     private fun requestCall(soc: Socket){
         soc.emit("message",
             JSONObject()
@@ -199,9 +207,17 @@ class FloatingCallService: Service() {
         )
     }
 
+    /**
+     * Logout from the server
+     *
+     * @param token the authentication token
+     * @return true if the logout is successful
+     * @throws HttpException threw if the request give result other than 2xx
+     * @throws IOException  threw if the request doesn't give response
+     */
     private suspend fun logout(token: String) = suspendCoroutine<Boolean> { cont ->
             val req = Request.Builder()
-                .url("http://$ip:4000/logout")
+                .url("http://${BuildConfig.SERVER_ADDRESS}:4000/logout")
                 .header("Authorization", "Bearer $token")
                 .delete()
                 .build()
@@ -242,16 +258,22 @@ class FloatingCallService: Service() {
 
     }
 
-
+    /**
+     * Remove the floating view
+     */
     private fun removeFloatingControl() {
         if(_binding?.root?.parent !=null) {
             windowManager?.removeView(binding.root)
         }
     }
 
+    /**
+     * Add the floating view
+     */
     private fun addFloatingMenu() {
         cView= CallView(this, binding, userId!!, {
             bindService(Intent(this@FloatingCallService, UpsDataFetcherService::class.java), serviceConnection,0)
+            timer.start()
         },{
             stopSelf()
         })
@@ -280,7 +302,7 @@ class FloatingCallService: Service() {
             //Add the view to window manager
             windowManager?.addView(binding.root, params)
             try {
-                addOnTouchListener(params)
+                //addOnTouchListener(params)
             } catch (e: Exception) {
                 // TODO: handle exception
             }
@@ -288,12 +310,12 @@ class FloatingCallService: Service() {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
+    /*@SuppressLint("ClickableViewAccessibility")
     private fun addOnTouchListener(params: WindowManager.LayoutParams) {
         //Add touch listerner to floating controls view to move/close/expand the controls
 
 
-       /*binding.button.setOnTouchListener ( object : View.OnTouchListener {
+       binding.button.setOnTouchListener ( object : View.OnTouchListener {
             private var touchPressed :Long = System.currentTimeMillis()
             private var moved=false
             override fun onTouch(view: View?, me: MotionEvent): Boolean {
@@ -369,10 +391,10 @@ class FloatingCallService: Service() {
                     }
                 }
             }
-        })*/
+        })
 
 
-    }
+    }*/
 
 
 
@@ -383,6 +405,9 @@ class FloatingCallService: Service() {
     var mNotificationManager: NotificationManager? = null
     private val mNotificationId = 123
 
+    /**
+     * generate the service notification if is needed
+     */
     private fun generateForegroundNotification() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val intentMainLanding = Intent(this, MainActivity::class.java)

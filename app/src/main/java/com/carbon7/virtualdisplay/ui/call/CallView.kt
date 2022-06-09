@@ -1,27 +1,20 @@
 package com.carbon7.virtualdisplay.ui.call
 
 import android.annotation.SuppressLint
-import android.app.Service
 import android.content.Context
-import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.util.DisplayMetrics
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.webkit.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.databinding.DataBindingUtil
-import androidx.viewbinding.ViewBinding
-import com.carbon7.virtualdisplay.FloatingCallService
+import com.carbon7.virtualdisplay.BuildConfig
 import com.carbon7.virtualdisplay.R
 import com.carbon7.virtualdisplay.databinding.OverlayCallBinding
-import com.carbon7.virtualdisplay.model.UpsDataFetcherService
 
 @SuppressLint("ClickableViewAccessibility")
 class CallView(val context: Context, val binding:OverlayCallBinding, val userId: String, val onCallStarted: ()->Unit, val onCallEnded: ()->Unit) {
@@ -32,7 +25,6 @@ class CallView(val context: Context, val binding:OverlayCallBinding, val userId:
 
 
     private var callAnswered=false
-    val ip = "192.168.11.156"
 
 
     private val overlayShowDetail: Animation by lazy { AnimationUtils.loadAnimation(context,R.anim.overlay_show_details)}
@@ -42,29 +34,23 @@ class CallView(val context: Context, val binding:OverlayCallBinding, val userId:
     private val phoneTalking : Drawable by lazy { AppCompatResources.getDrawable(context, R.drawable.ic_baseline_phone_in_talk_24)!!}
 
     init{
-        //_binding = OverlayCallBinding.bind(context)
-
-        //val li = context.getSystemService(Service.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        //_binding = OverlayCallBinding.inflate(li/*null, false*/)
-
         setupTouchListener()
         setupWebView(binding.wvCall, userId)
         binding.wvCall.loadUrl("file:///android_asset/res/call.html")
 
-
-
     }
 
 
-
     private fun setupTouchListener(){
+
+        //TODO handle changing the position of overlay view
+
         binding.btnCall.setOnTouchListener{view, motionEvent ->
             Log.d("TOUCH", "Button - CLICKED")
             if(motionEvent.action == MotionEvent.ACTION_DOWN) {
-                toggleDetails(binding.dettagli.visibility == View.GONE)
+                setDetailVisibility(binding.dettagli.visibility == View.GONE)
             }
             return@setOnTouchListener true
-
         }
 
         var muted=false
@@ -92,8 +78,11 @@ class CallView(val context: Context, val binding:OverlayCallBinding, val userId:
     }
 
 
-    private fun toggleDetails(show: Boolean){
-        if(show){
+    /**
+     * It show or hide the detail cardView with some cool animation
+     */
+    private fun setDetailVisibility(show: Boolean){
+        if(show && binding.dettagli.visibility==View.GONE){
             binding.btnCall.layoutParams =
                 (binding.btnCall.layoutParams as ConstraintLayout.LayoutParams).apply {
                     marginStart = dpToPx(64)
@@ -101,7 +90,7 @@ class CallView(val context: Context, val binding:OverlayCallBinding, val userId:
             binding.btnCall.startAnimation(overlayShowDetail)
             binding.btnCallBadge.startAnimation(overlayShowDetail)
             binding.dettagli.visibility = View.VISIBLE
-        } else {
+        } else if(binding.dettagli.visibility==View.VISIBLE){
             binding.btnCall.layoutParams =
                 (binding.btnCall.layoutParams as ConstraintLayout.LayoutParams).apply {
                     marginStart = dpToPx(0)
@@ -140,7 +129,7 @@ class CallView(val context: Context, val binding:OverlayCallBinding, val userId:
                 Log.d("MyApp", "callStarted")
                 callAnswered=true
                 binding.btnCallBadge.setImageDrawable(phoneTalking)
-                binding.dettagli.post { toggleDetails(true) }
+                binding.dettagli.post { setDetailVisibility(true) }
                 onCallStarted()
             }
 
@@ -157,9 +146,10 @@ class CallView(val context: Context, val binding:OverlayCallBinding, val userId:
                 super.onPageFinished(view, url)
                 Log.d("MyApp","Page loaded")
                 if(url != "about:blank")
-                    webView.post { webView.evaluateJavascript("javascript:call(\"$ip\", \"$userId\")", null) }
+                    webView.post { webView.evaluateJavascript("javascript:call(\"${BuildConfig.SERVER_ADDRESS}\", \"$userId\")", null) }
             }
         }
+        //Grant the permissions that the webview request (microphone)
         webView.webChromeClient = object : WebChromeClient(){
             override fun onPermissionRequest(request: PermissionRequest) {
                 request.grant(request.resources)
@@ -167,6 +157,10 @@ class CallView(val context: Context, val binding:OverlayCallBinding, val userId:
         }
     }
 
+    /**
+     * Send data to remote support
+     * @param   data String of data to be sent
+     */
     fun sendData(data: String){
         binding.wvCall.post { binding.wvCall.evaluateJavascript("javascript:sendData('$data')", null) }
     }

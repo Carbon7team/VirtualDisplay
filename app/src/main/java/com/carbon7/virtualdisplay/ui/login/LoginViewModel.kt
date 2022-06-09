@@ -5,10 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.carbon7.virtualdisplay.BuildConfig
 import com.carbon7.virtualdisplay.model.HttpException
-import io.socket.client.IO
-import io.socket.client.Socket
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.launch
 import okhttp3.*
 import org.json.JSONObject
@@ -20,7 +18,6 @@ import kotlin.coroutines.suspendCoroutine
 
 
 class LoginViewModel : ViewModel() {
-    private val ip = "192.168.11.156"
 
     //Pair msg, isError
     private val _loginMsg = MutableLiveData<Pair<String, Boolean>>()
@@ -32,17 +29,17 @@ class LoginViewModel : ViewModel() {
     private var userId : String? = null
     private var token : String? = null
 
-    fun loginAndReqCall(username: String, password: String, onSuccess: (uid: String,tok: String)->Unit) = viewModelScope.launch{
+    /**
+     * Try to login to the server
+     * @param username
+     * @param password
+     */
+    fun login(username: String, password: String, onSuccess: (uid: String,tok: String)->Unit) = viewModelScope.launch{
         try {
-            val (u, t) = login(username, password)
+            val (u, t) = loginRequest(username, password)
             userId = u
             token = t
 
-
-            //val initSoc = IO.socket("http://$ip:4000")
-            //initSoc.connect()
-            //register(initSoc, userId!!)
-            //requestCall(initSoc)
             _loginMsg.postValue(Pair("Logged in", false))
             onSuccess(userId!!, token!!)
 
@@ -58,9 +55,19 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    private suspend fun login(username: String, password: String) = suspendCoroutine<Pair<String,String>> { cont ->
+    /**
+     * Make a login request to the server
+     * @param username
+     * @param password
+     *
+     * @return a pair containing the userId and the token
+     *
+     * @throws HttpException threw if the request give result other than 2xx
+     * @throws IOException  threw if the request doesn't give response
+     */
+    private suspend fun loginRequest(username: String, password: String) = suspendCoroutine<Pair<String,String>> { cont ->
         val req = Request.Builder()
-            .url("http://$ip:4000/loginUser")
+            .url("http://${BuildConfig.SERVER_ADDRESS}:4000/loginUser")
             .post(FormBody.Builder()
                 .add("username",username)
                 .add("password",password).build())
