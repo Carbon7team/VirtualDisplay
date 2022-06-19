@@ -43,8 +43,8 @@ class CallView(val context: Context, val binding:OverlayCallBinding, val userId:
 
     private fun setupTouchListener(){
 
-        //TODO handle changing the position of overlay view
 
+        //TODO handle changing the position of overlay view
         binding.btnCall.setOnTouchListener{view, motionEvent ->
             Log.d("TOUCH", "Button - CLICKED")
             if(motionEvent.action == MotionEvent.ACTION_DOWN) {

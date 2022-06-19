@@ -119,7 +119,7 @@ class FloatingCallService: Service() {
                 override fun serialize(src: Status, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
                     val json = JsonObject()
                     json.addProperty("code", src.code)
-                    json.addProperty("name", getString(src.name))
+                    json.addProperty("name", getString(resources.getIdentifier(src.code,"string", packageName)))
                     json.addProperty("active", src.isActive)
                     return json
                 }
@@ -128,7 +128,7 @@ class FloatingCallService: Service() {
                 override fun serialize(src: Alarm, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
                     val json = JsonObject()
                     json.addProperty("code", src.code)
-                    json.addProperty("name", getString(src.name))
+                    json.addProperty("name", getString(resources.getIdentifier(src.code,"string", packageName)))
                     json.addProperty("severity",
                         when(src.level){
                             Alarm.Level.CRITICAL -> "Critical"
