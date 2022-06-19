@@ -73,6 +73,16 @@
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_bar_round.xml" value="0.26614583333333336" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.26614583333333336" />
         <entry key="..\:/GitHub/collaborations/Carbon7team/VirtualDisplay/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.26614583333333336" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/ic_baseline_call_end_24.xml" value="0.1085" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/ic_baseline_mic_24.xml" value="0.1085" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/ic_baseline_mic_off_24.xml" value="0.1085" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/ic_baseline_support_agent_24.xml" value="0.1" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/round_button.xml" value="0.1225" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/drawable/round_button_badge.xml" value="0.1465" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/layout/fragment_login.xml" value="0.264" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/layout/fragment_ups_selector.xml" value="0.1" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/layout/list_item_ups.xml" value="0.1" />
+        <entry key="..\:/Users/acer/AndroidStudioProjects/VirtualDisplay/app/src/main/res/layout/overlay_call.xml" value="0.6514084507042254" />
       </map>
     </option>
   </component>

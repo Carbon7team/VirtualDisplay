@@ -3,6 +3,14 @@
     package="com.carbon7.virtualdisplay">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.MICROPHONE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+
+    <uses-sdk android:minSdkVersion="23" />
 
     <application
         android:allowBackup="true"
@@ -10,7 +18,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.VirtualDisplay">
+        android:theme="@style/Theme.VirtualDisplay"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -28,6 +37,9 @@
         </activity>
 
         <service android:name=".model.UpsDataFetcherService"/>
+        <service android:name=".FloatingCallService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>
