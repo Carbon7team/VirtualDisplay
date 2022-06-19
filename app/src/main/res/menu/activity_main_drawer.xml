@@ -20,18 +20,23 @@
     <item android:title="@string/measurements">
         <menu>
             <item
+                android:id="@+id/load_menu_item"
                 android:checkable="true"
                 android:title="@string/load" />
             <item
+                android:id="@+id/battery_menu_item"
                 android:checkable="true"
                 android:title="@string/battery" />
             <item
+                android:id="@+id/rectifier_menu_item"
                 android:checkable="true"
                 android:title="@string/rectifier" />
             <item
+                android:id="@+id/inverter_menu_item"
                 android:checkable="true"
                 android:title="@string/inverter" />
             <item
+                android:id="@+id/bypass_menu_item"
                 android:checkable="true"
                 android:title="@string/bypass" />
         </menu>
