@@ -32,6 +32,7 @@ import com.carbon7.virtualdisplay.ui.inverter.InverterFragment
 import com.carbon7.virtualdisplay.ui.load.LoadFragment
 import com.carbon7.virtualdisplay.ui.rectifier.RectifierFragment
 import com.carbon7.virtualdisplay.ui.battery.BatteryFragment
+import com.carbon7.virtualdisplay.ui.login.LoginFragment
 import com.carbon7.virtualdisplay.ui.status.StatusFragment
 
 import kotlin.reflect.KClass
@@ -102,12 +103,6 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
         R.id.support -> {
             Toast.makeText(this,"ASSISTENZA",Toast.LENGTH_SHORT).show()
-            /*if(checkHasDrawOverlayPermissions()) {
-                startService(Intent(this, FloatingCallService::class.java))
-            }else{
-                navigateDrawPermissionSetting()
-            }
-            startFloatingCallService()*/
             changeFragment(LoginFragment::class)
             true
         }

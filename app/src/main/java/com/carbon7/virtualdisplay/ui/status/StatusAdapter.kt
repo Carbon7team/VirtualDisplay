@@ -36,8 +36,9 @@ class StatusAdapter(private var status:List<Status>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ctx=holder.lblStatus.context
         val s = status[position]
+        val name = ctx.getString(ctx.resources.getIdentifier(s.code,"string", ctx.packageName))
 
-        holder.lblStatus.text="%s: %s".format(s.code, ctx.getString(s.name))
+        holder.lblStatus.text="%s: %s".format(s.code, name)
         holder.lblStatus.setTextColor( if(s.isActive) Color.CYAN else Color.GRAY)
     }
 
