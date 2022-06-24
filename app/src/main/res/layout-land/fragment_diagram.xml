@@ -31,9 +31,8 @@
                 android:id="@+id/inArrSup"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_alignParentleft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/input"/>
+                android:src="@drawable/input" />
 
             %inToBypArrow
 
@@ -74,6 +73,7 @@
             </RelativeLayout>
 
             %byp_input
+
             <ImageView
                 android:id="@+id/byp_input"
                 android:layout_width="400dp"
@@ -94,6 +94,7 @@
                 android:src="@drawable/byp_normal" />
 
             %bypOutput
+
             <RelativeLayout
                 android:id="@+id/byp_output"
                 android:layout_width="100dp"
@@ -138,7 +139,6 @@
                 android:id="@+id/inArrInf"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_alignParentleft="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/input" />
 
