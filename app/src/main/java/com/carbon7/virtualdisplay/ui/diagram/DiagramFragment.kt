@@ -99,13 +99,15 @@ class DiagramFragment : UpsDataVisualizerFragment() {
         //invOutput
         viewModel.invOutputState.observe(viewLifecycleOwner) {
             binding.invOutput.allViews.forEach { view ->
-                (view as ImageView).setColorFilter(stateToColor(it))
+                if(view != binding.invOutput)
+                    (view as ImageView).setColorFilter(stateToColor(it))
             }
         }
         //Output
         viewModel.outputState.observe(viewLifecycleOwner) {
-            binding.output!!.allViews.forEach { view ->
-                (view as ImageView).setColorFilter(outputStateToColor(it))
+            binding.output.allViews.forEach { view ->
+                if(view != binding.output)
+                    (view as ImageView).setColorFilter(outputStateToColor(it))
             }
 
         }
@@ -127,7 +129,8 @@ class DiagramFragment : UpsDataVisualizerFragment() {
         //bypOutput
         viewModel.bypOutputState.observe(viewLifecycleOwner) {
             binding.bypOutput.allViews.forEach { view ->
-                (view as ImageView).setColorFilter(stateToColor(it))
+                if(view != binding.bypOutput)
+                    (view as ImageView).setColorFilter(stateToColor(it))
             }
         }
 
@@ -143,12 +146,12 @@ class DiagramFragment : UpsDataVisualizerFragment() {
 
         //loadLevel
         viewModel.loadValue.observe(viewLifecycleOwner) {
-            binding.loadDescription!!.text = it
+            binding.loadDescription.text = it
         }
 
         //loadValueStatus
         viewModel.loadValueStatus.observe(viewLifecycleOwner){
-            binding.load!!.setImageResource(
+            binding.load.setImageResource(
                 when (it) {
                     5 -> R.drawable.l5
                     10 -> R.drawable.l10
@@ -208,7 +211,7 @@ class DiagramFragment : UpsDataVisualizerFragment() {
 
         //batteryLevel
         viewModel.batteryLevelStatus.observe(viewLifecycleOwner){
-            binding.battLevel!!.setImageResource(
+            binding.battLevel.setImageResource(
                 when (it) {
                     5 -> R.drawable.b5
                     10 -> R.drawable.b10
