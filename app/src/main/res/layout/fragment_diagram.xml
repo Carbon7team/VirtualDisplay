@@ -8,12 +8,13 @@
     tools:context=".ui.diagram.DiagramFragment">
 
     %layout del diagramma%
+
     <RelativeLayout
         android:id="@+id/diagram"
         android:layout_width="300dp"
         android:layout_height="600dp"
-        android:layout_centerHorizontal="true"
         android:layout_above="@drawable/load_bkg"
+        android:layout_centerHorizontal="true"
         tools:context=".ui.diagram.DiagramFragment">
 
         %layout diag superiore
@@ -133,7 +134,7 @@
 
         <RelativeLayout
 
-            android:layout_width="150dp"
+            android:layout_width="180dp"
             android:layout_height="600dp"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="-10dp"
@@ -172,12 +173,14 @@
 
             %recToBatt
 
+            %battToInv
+
             <RelativeLayout
                 android:id="@+id/recToBatt"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_below="@id/rec"
-                android:layout_marginTop="-30dp"
+                android:layout_marginTop="-29dp"
                 android:rotation="90">
 
                 <ImageView
@@ -218,9 +221,30 @@
                     android:layout_toRightOf="@id/dc_input"
                     android:src="@drawable/b100" />
 
-            </RelativeLayout>
+                <ImageView
+                    android:id="@+id/batt_status"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_above="@id/batt"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_toRightOf="@id/dc_input"
+                    android:rotation="-90"
+                    android:src="@drawable/charge" />
 
-            %battToInv
+                <TextView
+                    android:id="@+id/battery_description"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:layout_below="@id/batt_status"
+                    android:layout_marginLeft="126dp"
+                    android:layout_marginTop="75dp"
+                    android:layout_marginBottom="-83dp"
+                    android:layout_toRightOf="@id/dc_input">
+
+                </TextView>
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/battToInv"
@@ -332,15 +356,15 @@
         android:layout_width="80dp"
         android:layout_height="140dp"
         android:layout_marginLeft="150dp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/diagram"
         android:src="@drawable/load_bkg" />
 
     <TextView
         android:id="@+id/load_description"
         android:layout_width="55dp"
         android:layout_height="25dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="70dp"
+        android:layout_below="@id/diagram"
+        android:layout_marginBottom="50dp"
         android:layout_toRightOf="@id/load" />
 
 </RelativeLayout>

@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/diagram"
         android:layout_width="600dp"
-        android:layout_height="360dp"
+        android:layout_height="300dp"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@drawable/input"
         tools:context=".ui.diagram.DiagramFragment">
@@ -341,9 +341,9 @@
         android:id="@+id/load"
         android:layout_width="100dp"
         android:layout_height="200dp"
-        android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
         android:layout_marginRight="1dp"
+        android:layout_toRightOf="@id/output"
         android:src="@drawable/load_bkg" />
 
     <TextView
