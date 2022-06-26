@@ -154,19 +154,25 @@ class FloatingCallService: Service() {
     //timer that send data to remote support at every interval
     private val timer= object: CountDownTimer(Long.MAX_VALUE,2000) {
         override fun onTick(p0: Long) {
-            val upsData = fetcherService.dataBus.events.value
             var status = JSONArray()
             var alarms = JSONArray()
             var measurements = JSONArray()
-            if(upsData!=null) {
-                status = JSONArray(gson.toJson(upsData.first))
-                alarms = JSONArray(gson.toJson(upsData.second.filter { it.isActive }))
-                measurements = JSONArray(gson.toJson(upsData.third))
+            var upsConnState = "Not connected"
+
+            if (::fetcherService.isInitialized){
+
+                val upsConnState =
+                    if (fetcherService.connectionStateBus.events.value == UpsDataFetcherService.ConnectionState.CONNECTED) "Connected"
+                    else "Waiting Connection"
+
+                val upsData = fetcherService.dataBus.events.value
+
+                if(upsData!=null) {
+                    status = JSONArray(gson.toJson(upsData.first))
+                    alarms = JSONArray(gson.toJson(upsData.second.filter { it.isActive }))
+                    measurements = JSONArray(gson.toJson(upsData.third))
+                }
             }
-            val upsConnState =
-                if (!::fetcherService.isInitialized) "Not connected"
-                else if (fetcherService.connectionStateBus.events.value == UpsDataFetcherService.ConnectionState.CONNECTED) "Connected"
-                else "Waiting Connection"
 
             val data = JSONObject(mapOf(
                 "status" to status,
@@ -175,6 +181,7 @@ class FloatingCallService: Service() {
                 "uspConnectionState" to upsConnState
             )).toString()
             cView.sendData(data)
+            Log.d("MyApp", "json sended")
         }
 
         override fun onFinish() {}
