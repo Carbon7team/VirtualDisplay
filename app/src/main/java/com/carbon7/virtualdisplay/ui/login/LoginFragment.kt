@@ -44,7 +44,6 @@ class LoginFragment : Fragment() {
 
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        initListeners()
 
         binding.btnLogin.setOnClickListener{
                 viewModel.login(binding.txtUsername.text.toString(), binding.txtPassword.text.toString()) {uid, tok ->
@@ -53,6 +52,8 @@ class LoginFragment : Fragment() {
                     binding.btnStartCall.isEnabled=true
                     binding.btnLogin.isEnabled=false
                     reqMic()
+                    if(!checkHasDrawOverlayPermissions())
+                        navigateDrawPermissionSetting()
             }
         }
         binding.btnStartCall.setOnClickListener{
@@ -109,19 +110,6 @@ class LoginFragment : Fragment() {
 
 
 
-
-
-
-
-    private fun initListeners(){
-        binding.btnStartCall.setOnClickListener {
-            if(checkHasDrawOverlayPermissions()) {
-                requireContext().startService(Intent(context, FloatingCallService::class.java))
-            }else{
-                navigateDrawPermissionSetting()
-            }
-        }
-    }
 
 
     private fun checkHasDrawOverlayPermissions(): Boolean {

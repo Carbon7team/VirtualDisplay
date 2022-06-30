@@ -62,10 +62,10 @@ class DiagramFragment : UpsDataVisualizerFragment() {
         viewModel.recState.observe(viewLifecycleOwner){
             binding.rec.setImageResource(
                 when(it){
-                    State.CRITIC->R.drawable.REC_CRITIC
-                    State.PREV->R.drawable.REC_PREV
-                    State.SYMBOL->R.drawable.REC_NORMAL
-                    else -> R.drawable.REC_NORMAL //TODO: Gestire errore
+                    State.CRITIC->R.drawable.rec_critic
+                    State.PREV->R.drawable.rec_prev
+                    State.SYMBOL->R.drawable.rec_normal
+                    else -> R.drawable.rec_normal //TODO: Gestire errore
                 }
             )
         }
@@ -89,23 +89,25 @@ class DiagramFragment : UpsDataVisualizerFragment() {
         viewModel.invState.observe(viewLifecycleOwner){
             binding.inv.setImageResource(
                 when(it){
-                    State.CRITIC->R.drawable.INV_CRITIC
-                    State.PREV->R.drawable.INV_PREV
-                    State.SYMBOL->R.drawable.INV_NORMAL
-                    else -> R.drawable.INV_NORMAL //TODO: Gestire errore
+                    State.CRITIC->R.drawable.inv_critic
+                    State.PREV->R.drawable.inv_prev
+                    State.SYMBOL->R.drawable.inv_normal
+                    else -> R.drawable.inv_normal //TODO: Gestire errore
                 }
             )
         }
         //invOutput
         viewModel.invOutputState.observe(viewLifecycleOwner) {
             binding.invOutput.allViews.forEach { view ->
-                (view as ImageView).setColorFilter(stateToColor(it))
+                if(view != binding.invOutput)
+                    (view as ImageView).setColorFilter(stateToColor(it))
             }
         }
         //Output
         viewModel.outputState.observe(viewLifecycleOwner) {
-            binding.output!!.allViews.forEach { view ->
-                (view as ImageView).setColorFilter(outputStateToColor(it))
+            binding.output.allViews.forEach { view ->
+                if(view != binding.output)
+                    (view as ImageView).setColorFilter(outputStateToColor(it))
             }
 
         }
@@ -117,17 +119,18 @@ class DiagramFragment : UpsDataVisualizerFragment() {
         viewModel.bypState.observe(viewLifecycleOwner){
             binding.byp.setImageResource(
                 when(it){
-                    State.CRITIC->R.drawable.BYP_CRITIC
-                    State.PREV->R.drawable.BYP_PREV
-                    State.SYMBOL->R.drawable.BYP_NORMAL
-                    else -> R.drawable.BYP_NORMAL //TODO: Gestire errore
+                    State.CRITIC->R.drawable.byp_critic
+                    State.PREV->R.drawable.byp_prev
+                    State.SYMBOL->R.drawable.byp_normal
+                    else -> R.drawable.byp_normal //TODO: Gestire errore
                 }
             )
         }
         //bypOutput
         viewModel.bypOutputState.observe(viewLifecycleOwner) {
             binding.bypOutput.allViews.forEach { view ->
-                (view as ImageView).setColorFilter(stateToColor(it))
+                if(view != binding.bypOutput)
+                    (view as ImageView).setColorFilter(stateToColor(it))
             }
         }
 
@@ -135,20 +138,20 @@ class DiagramFragment : UpsDataVisualizerFragment() {
         viewModel.loadStatus.observe(viewLifecycleOwner){
             binding.load.setImageResource(
                 when(it){
-                    State.SYMBOL->R.drawable.BYP_NORMAL
-                    else -> R.drawable.BYP_NORMAL //TODO: Gestire errore
+                    State.SYMBOL->R.drawable.byp_normal
+                    else -> R.drawable.byp_normal //TODO: Gestire errore
                 }
             )
         }
 
         //loadLevel
         viewModel.loadValue.observe(viewLifecycleOwner) {
-            binding.loadDescription!!.text = it
+            binding.loadDescription.text = it
         }
 
         //loadValueStatus
         viewModel.loadValueStatus.observe(viewLifecycleOwner){
-            binding.load!!.setImageResource(
+            binding.load.setImageResource(
                 when (it) {
                     5 -> R.drawable.l5
                     10 -> R.drawable.l10
@@ -183,10 +186,10 @@ class DiagramFragment : UpsDataVisualizerFragment() {
         viewModel.batteryState.observe(viewLifecycleOwner){
             binding.batt.setImageResource(
                 when(it){
-                    State.CRITIC->R.drawable.BAT_CRITIC
-                    State.PREV->R.drawable.BAT_PREV
-                    State.SYMBOL->R.drawable.BAT_NORMAL
-                    else -> R.drawable.BAT_NORMAL //TODO: Gestire errore
+                    State.CRITIC->R.drawable.bat_critic
+                    State.PREV->R.drawable.bat_prev
+                    State.SYMBOL->R.drawable.bat_normal
+                    else -> R.drawable.bat_normal //TODO: Gestire errore
                 }
             )
         }
@@ -195,7 +198,7 @@ class DiagramFragment : UpsDataVisualizerFragment() {
         viewModel.batteryStatus.observe(viewLifecycleOwner){
                 when (it){
                     DiagramViewModel.BatteryStatus.DISCHARGE->{
-                        binding.battStatus!!.setImageResource(R.drawable.DISCHARGE)
+                        binding.battStatus!!.setImageResource(R.drawable.discharge)
                         binding.battStatus!!.visibility = View.VISIBLE
                     }
                     DiagramViewModel.BatteryStatus.CHARGE->{
@@ -208,7 +211,7 @@ class DiagramFragment : UpsDataVisualizerFragment() {
 
         //batteryLevel
         viewModel.batteryLevelStatus.observe(viewLifecycleOwner){
-            binding.battLevel!!.setImageResource(
+            binding.battLevel.setImageResource(
                 when (it) {
                     5 -> R.drawable.b5
                     10 -> R.drawable.b10

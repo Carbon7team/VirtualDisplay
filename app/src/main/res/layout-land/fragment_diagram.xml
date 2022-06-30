@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/diagram"
         android:layout_width="600dp"
-        android:layout_height="360dp"
+        android:layout_height="300dp"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@drawable/input"
         tools:context=".ui.diagram.DiagramFragment">
@@ -31,9 +31,8 @@
                 android:id="@+id/inArrSup"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_alignParentleft="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/input"/>
+                android:src="@drawable/input" />
 
             %inToBypArrow
 
@@ -74,6 +73,7 @@
             </RelativeLayout>
 
             %byp_input
+
             <ImageView
                 android:id="@+id/byp_input"
                 android:layout_width="400dp"
@@ -94,6 +94,7 @@
                 android:src="@drawable/byp_normal" />
 
             %bypOutput
+
             <RelativeLayout
                 android:id="@+id/byp_output"
                 android:layout_width="100dp"
@@ -138,7 +139,6 @@
                 android:id="@+id/inArrInf"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_alignParentleft="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/input" />
 
@@ -341,9 +341,9 @@
         android:id="@+id/load"
         android:layout_width="100dp"
         android:layout_height="200dp"
-        android:layout_alignParentRight="true"
         android:layout_centerInParent="true"
         android:layout_marginRight="1dp"
+        android:layout_toRightOf="@id/output"
         android:src="@drawable/load_bkg" />
 
     <TextView
